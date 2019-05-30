@@ -1,7 +1,7 @@
 # SI2019 - Team02 - Timesheat
 Projekat iz predmeta “Razvoj softvera otvorenog koda”, naziv rada jeste “Timesheat” i tema rada je web aplikacija koja treba da omogući korisnicima da naruče hranu iz određenog restorana/ketering službe gde se hrana naručuje za dan unapred ili više dana unapred.
 
-. Na projektu rade: **Nemanja Cindrić – SI 23/16** i **Maksim Bogunović – SI 18/16**. Izrada aplikacije je podeljena na sledeće slojeve:
+Na projektu rade: **Nemanja Cindrić – SI 23/16** i **Maksim Bogunović – SI 18/16**. Izrada aplikacije je podeljena na sledeće slojeve:
 - Html -> statički html i css fajlovi gde se razvija statički website
 - Database -> baza podataka i skripte za kreiranje iste
 - DataAccessLayer -> sloj koji služi za povezivanje sa bazom i mapiranje SQL podataka u c# modele
