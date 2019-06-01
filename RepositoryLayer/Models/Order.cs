@@ -1,13 +1,12 @@
 ﻿using System;
 
-namespace TimeshEAT.DataAccessLayer.Models
+namespace TimeshEAT.RepositoryLayer.Models
 {
-	public class Order
+	public class Order : Entity
 	{
 		public Order() { }
-		public Order(int id, int quantity, DateTime lunchTime, DateTime orderDate, int userId, int mealId, int portionId, string comment = null)
+		public Order(int id, int quantity, DateTime lunchTime, DateTime orderDate, int userId, int mealId, int portionId, string comment = null) : base(id)
 		{
-			Id = id;
 			Quantity = quantity;
 			LunchTime = lunchTime;
 			OrderDate = orderDate;
@@ -17,7 +16,6 @@ namespace TimeshEAT.DataAccessLayer.Models
 			Comment = comment;
 		}
 
-		public int Id { get; set; }
 		public int Quantity { get; set; }
 		public DateTime LunchTime { get; set; }
 		public DateTime OrderDate { get; set; }

@@ -1,11 +1,10 @@
-﻿namespace TimeshEAT.DataAccessLayer.Models
+﻿namespace TimeshEAT.RepositoryLayer.Models
 {
-	public class User
+	public class User : Entity
 	{
 		public User() { }
-		public User(int id, string fullName, string email, string password, bool isActive, int companyId)
+		public User(int id, string fullName, string email, string password, bool isActive, int companyId) : base(id)
 		{
-			Id = id;
 			FullName = fullName;
 			Email = email;
 			Password = password;
@@ -13,7 +12,6 @@
 			CompanyId = companyId;
 		}
 
-		public int Id { get; set; }
 		public string FullName { get; set; }
 		public string Email { get; set; }
 		public string Password { get; set; }

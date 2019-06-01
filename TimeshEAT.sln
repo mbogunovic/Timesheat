@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeshEAT.DataAccessLayer", "DataAccessLayer\TimeshEAT.DataAccessLayer.csproj", "{16811C81-20B9-4EBA-99BB-6E78F75623AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeshEAT.Common", "Common\TimeshEAT.Common.csproj", "{9C7B17F1-3624-4619-A6A8-963E580CC097}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeshEAT.RepositoryLayer", "RepositoryLayer\TimeshEAT.RepositoryLayer.csproj", "{8EAF2847-7461-4EE5-ACE4-59836EDD965D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{16811C81-20B9-4EBA-99BB-6E78F75623AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16811C81-20B9-4EBA-99BB-6E78F75623AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16811C81-20B9-4EBA-99BB-6E78F75623AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C7B17F1-3624-4619-A6A8-963E580CC097}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C7B17F1-3624-4619-A6A8-963E580CC097}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C7B17F1-3624-4619-A6A8-963E580CC097}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C7B17F1-3624-4619-A6A8-963E580CC097}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EAF2847-7461-4EE5-ACE4-59836EDD965D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EAF2847-7461-4EE5-ACE4-59836EDD965D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EAF2847-7461-4EE5-ACE4-59836EDD965D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EAF2847-7461-4EE5-ACE4-59836EDD965D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
