@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9C7B17F1-3624-4619-A6A8-963E580CC097}</ProjectGuid>
+    <ProjectGuid>{16811C81-20B9-4EBA-99BB-6E78F75623AD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TimeshEAT.Common</RootNamespace>
-    <AssemblyName>TimeshEAT.Common</AssemblyName>
+    <RootNamespace>TimeshEAT.DataAccess</RootNamespace>
+    <AssemblyName>TimeshEAT.DataAccess</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -32,7 +32,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,10 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppSettings.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Extensions\DBAccessExtensions.cs" />
+    <Compile Include="SQLAccess\AdoTransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLAccess\BaseProvider.cs" />
+    <Compile Include="SQLAccess\UserProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\TimeshEAT.Common.csproj">
+      <Project>{9c7b17f1-3624-4619-a6a8-963e580cc097}</Project>
+      <Name>TimeshEAT.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\TimeshEAT.Domain.csproj">
+      <Project>{a3c93ca4-262a-4671-9c85-6788861f4f7c}</Project>
+      <Name>TimeshEAT.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

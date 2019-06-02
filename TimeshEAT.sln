@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeshEAT.DataAccessLayer", "DataAccessLayer\TimeshEAT.DataAccessLayer.csproj", "{16811C81-20B9-4EBA-99BB-6E78F75623AD}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeshEAT.Common", "Common\TimeshEAT.Common.csproj", "{9C7B17F1-3624-4619-A6A8-963E580CC097}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeshEAT.RepositoryLayer", "RepositoryLayer\TimeshEAT.RepositoryLayer.csproj", "{8EAF2847-7461-4EE5-ACE4-59836EDD965D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeshEAT.Domain", "Domain\TimeshEAT.Domain.csproj", "{A3C93CA4-262A-4671-9C85-6788861F4F7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeshEAT.DataAccess", "DataAccess\TimeshEAT.DataAccess.csproj", "{16811C81-20B9-4EBA-99BB-6E78F75623AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeshEAT.Repository", "Repository\TimeshEAT.Repository.csproj", "{8EAF2847-7461-4EE5-ACE4-59836EDD965D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeshEAT.Business", "Business\TimeshEAT.Business.csproj", "{A6D5658D-2A81-45EB-9850-13DED0BF0DF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +19,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{16811C81-20B9-4EBA-99BB-6E78F75623AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{16811C81-20B9-4EBA-99BB-6E78F75623AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{16811C81-20B9-4EBA-99BB-6E78F75623AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{16811C81-20B9-4EBA-99BB-6E78F75623AD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9C7B17F1-3624-4619-A6A8-963E580CC097}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9C7B17F1-3624-4619-A6A8-963E580CC097}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C7B17F1-3624-4619-A6A8-963E580CC097}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C7B17F1-3624-4619-A6A8-963E580CC097}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3C93CA4-262A-4671-9C85-6788861F4F7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3C93CA4-262A-4671-9C85-6788861F4F7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3C93CA4-262A-4671-9C85-6788861F4F7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3C93CA4-262A-4671-9C85-6788861F4F7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16811C81-20B9-4EBA-99BB-6E78F75623AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16811C81-20B9-4EBA-99BB-6E78F75623AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16811C81-20B9-4EBA-99BB-6E78F75623AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16811C81-20B9-4EBA-99BB-6E78F75623AD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8EAF2847-7461-4EE5-ACE4-59836EDD965D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8EAF2847-7461-4EE5-ACE4-59836EDD965D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EAF2847-7461-4EE5-ACE4-59836EDD965D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EAF2847-7461-4EE5-ACE4-59836EDD965D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6D5658D-2A81-45EB-9850-13DED0BF0DF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6D5658D-2A81-45EB-9850-13DED0BF0DF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6D5658D-2A81-45EB-9850-13DED0BF0DF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6D5658D-2A81-45EB-9850-13DED0BF0DF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9C7B17F1-3624-4619-A6A8-963E580CC097}</ProjectGuid>
+    <ProjectGuid>{A6D5658D-2A81-45EB-9850-13DED0BF0DF2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TimeshEAT.Common</RootNamespace>
-    <AssemblyName>TimeshEAT.Common</AssemblyName>
+    <RootNamespace>TimeshEAT.Business</RootNamespace>
+    <AssemblyName>TimeshEAT.Business</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -32,7 +32,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,10 +41,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppSettings.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="Interfaces\IService.cs" />
+    <Compile Include="Interfaces\IServiceContext.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Services\BaseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ServiceContext.cs" />
+    <Compile Include="Services\UserService.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\TimeshEAT.Common.csproj">
+      <Project>{9C7B17F1-3624-4619-A6A8-963E580CC097}</Project>
+      <Name>TimeshEAT.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\TimeshEAT.Domain.csproj">
+      <Project>{A3C93CA4-262A-4671-9C85-6788861F4F7C}</Project>
+      <Name>TimeshEAT.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Repository\TimeshEAT.Repository.csproj">
+      <Project>{8EAF2847-7461-4EE5-ACE4-59836EDD965D}</Project>
+      <Name>TimeshEAT.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
