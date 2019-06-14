@@ -41,8 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompanyRepository.cs" />
+    <Compile Include="OrderRepository.cs" />
+    <Compile Include="MealRepository.cs" />
+    <Compile Include="PortionRepository.cs" />
+    <Compile Include="RoleRepository.cs" />
     <Compile Include="DbRepositoryContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CategoryRepository.cs" />
     <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

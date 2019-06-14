@@ -11,20 +11,20 @@ namespace TimeshEAT.Repository.Repositories
 	{
 		private readonly IUserRepository _provider = new UserProvider();
 
-		public IEnumerable<User> GetAll(ITransaction transaction = null) => 
+		public IEnumerable<User> GetAll(ITransaction transaction = null) =>
 			_provider.GetAll(transaction).ToList();
 
 		public User GetById(int id, ITransaction transaction = null) =>
 			_provider.GetById(id, transaction);
 
-		public User Insert(User template, ITransaction transaction = null) =>
-			_provider.Insert(template, transaction);
+		public User Insert(User user, ITransaction transaction = null) =>
+			_provider.Insert(user, transaction);
 
-		public User Update(User template, ITransaction transaction = null) =>
-			_provider.Update(template, transaction);
+		public User Update(User user, ITransaction transaction = null) =>
+			_provider.Update(user, transaction);
 
-		public void Delete(User template, ITransaction transaction = null) =>
-			_provider.Delete(template, transaction);
+		public void Delete(User user, ITransaction transaction = null) =>
+			_provider.Delete(user, transaction);
 
 		public ITransaction CreateNewTransaction() =>
 			_provider.CreateNewTransaction();

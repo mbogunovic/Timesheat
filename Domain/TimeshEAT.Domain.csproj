@@ -41,9 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\Repositories\IRoleRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IPortionRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IOrderRepository.cs" />
+    <Compile Include="Interfaces\Repositories\IMealRepository.cs" />
+    <Compile Include="Interfaces\Repositories\ICompanyRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRepositoryContext.cs" />
     <Compile Include="Interfaces\Repositories\IRepository.cs" />
     <Compile Include="Interfaces\ITransaction.cs" />
+    <Compile Include="Interfaces\Repositories\ICategoryRepository.cs" />
     <Compile Include="Interfaces\Repositories\IUserRepository.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Company.cs" />

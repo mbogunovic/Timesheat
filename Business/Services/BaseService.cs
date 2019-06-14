@@ -5,7 +5,7 @@ namespace TimeshEAT.Business.Services
 {
 	public class BaseService
 	{
-		internal readonly IRepositoryContext _context;
+		protected readonly IRepositoryContext _context;
 
 		public BaseService(IRepositoryContext context)
 		{

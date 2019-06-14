@@ -11,13 +11,13 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 {
 	public abstract class BaseProvider<T> where T : Entity
 	{
-		internal abstract string _getAllProcedure { get; }
-		internal abstract string _getByIdProcedure { get; }
-		internal abstract string _insertProcedure { get; }
-		internal abstract string _updateProcedure { get; }
-		internal abstract string _deleteProcedure { get; }
+		protected abstract string _getAllProcedure { get; }
+		protected abstract string _getByIdProcedure { get; }
+		protected abstract string _insertProcedure { get; }
+		protected abstract string _updateProcedure { get; }
+		protected abstract string _deleteProcedure { get; }
 
-		internal readonly string _connectionString = AppSettings.ConnectionString;
+		protected readonly string _connectionString = AppSettings.ConnectionString;
 		public ITransaction CreateNewTransaction() =>
 			new AdoTransaction(_connectionString);
 
@@ -154,7 +154,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 			return model;
 		}
 
-		internal abstract void AddInsertParams(ref SqlCommand sqlCommand, T model);
+		protected abstract void AddInsertParams(ref SqlCommand sqlCommand, T model);
 
 		#endregion
 
@@ -205,7 +205,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 			return model;
 		}
 
-		internal abstract void AddUpdateParams(ref SqlCommand sqlCommand, T model);
+		protected abstract void AddUpdateParams(ref SqlCommand sqlCommand, T model);
 
 		#endregion
 

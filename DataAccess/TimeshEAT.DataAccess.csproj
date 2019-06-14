@@ -45,6 +45,12 @@
     <Compile Include="SQLAccess\AdoTransaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLAccess\BaseProvider.cs" />
+    <Compile Include="SQLAccess\CategoryProvider.cs" />
+    <Compile Include="SQLAccess\CompanyProvider.cs" />
+    <Compile Include="SQLAccess\MealProvider.cs" />
+    <Compile Include="SQLAccess\OrderProvider.cs" />
+    <Compile Include="SQLAccess\PortionRepository.cs" />
+    <Compile Include="SQLAccess\RoleProvider.cs" />
     <Compile Include="SQLAccess\UserProvider.cs" />
   </ItemGroup>
   <ItemGroup>
