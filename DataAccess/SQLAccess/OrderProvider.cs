@@ -6,13 +6,13 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 {
 	public class OrderProvider : BaseProvider<Order>, IOrderRepository
 	{
-		protected override string _getAllProcedure { get; } = "OrderGetAll";
-		protected override string _getByIdProcedure { get; } = "OrderGetById";
+		protected override string _getAllView { get; } = "OrdersGetAll";
+		protected override string _getByIdProcedure { get; } = "OrdersGetById";
 		protected override string _insertProcedure { get; } = "OrderInsert";
 		protected override string _updateProcedure { get; } = "OrderUpdate";
 		protected override string _deleteProcedure { get; } = "OrderDelete";
 
-		protected override void AddInsertParams(ref SqlCommand sqlCommand, Order order)
+		protected override void AddInsertParams(SqlCommand sqlCommand, Order order)
 		{
 			sqlCommand.Parameters.AddWithValue("@MealId", order.MealId);
 			sqlCommand.Parameters.AddWithValue("@LunchTime", order.LunchTime);
@@ -22,7 +22,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 			sqlCommand.Parameters.AddWithValue("@Comment", order.Comment);
 		}
 
-		protected override void AddUpdateParams(ref SqlCommand sqlCommand, Order order)
+		protected override void AddUpdateParams(SqlCommand sqlCommand, Order order)
 		{
 			sqlCommand.Parameters.AddWithValue("@Id", order.Id);
 			sqlCommand.Parameters.AddWithValue("@MealId", order.MealId);

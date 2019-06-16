@@ -6,13 +6,13 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 {
 	public class UserProvider : BaseProvider<User>, IUserRepository
 	{
-		protected override string _getAllProcedure { get; } = "UserGetAll";
-		protected override string _getByIdProcedure { get; } = "UserGetById";
+		protected override string _getAllView { get; } = "UsersGetAll";
+		protected override string _getByIdProcedure { get; } = "UsersGetById";
 		protected override string _insertProcedure { get; } = "UserInsert";
 		protected override string _updateProcedure { get; } = "UserUpdate";
 		protected override string _deleteProcedure { get; } = "UserDelete";
 
-		protected override void AddInsertParams(ref SqlCommand sqlCommand, User user)
+		protected override void AddInsertParams(SqlCommand sqlCommand, User user)
 		{
 			sqlCommand.Parameters.AddWithValue("@FullName", user.FullName);
 			sqlCommand.Parameters.AddWithValue("@Email", user.Email);
@@ -21,7 +21,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 			sqlCommand.Parameters.AddWithValue("@CompanyId", user.CompanyId);
 		}
 
-		protected override void AddUpdateParams(ref SqlCommand sqlCommand, User user)
+		protected override void AddUpdateParams(SqlCommand sqlCommand, User user)
 		{
 			sqlCommand.Parameters.AddWithValue("@Id", user.Id);
 			sqlCommand.Parameters.AddWithValue("@FullName", user.FullName);

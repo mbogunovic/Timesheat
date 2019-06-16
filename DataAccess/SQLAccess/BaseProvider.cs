@@ -11,7 +11,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 {
 	public abstract class BaseProvider<T> where T : Entity
 	{
-		protected abstract string _getAllProcedure { get; }
+		protected abstract string _getAllView { get; }
 		protected abstract string _getByIdProcedure { get; }
 		protected abstract string _insertProcedure { get; }
 		protected abstract string _updateProcedure { get; }
@@ -27,7 +27,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 		{
 			if (transaction != null)
 			{
-				using (SqlCommand sqlCommand = new SqlCommand(_getByIdProcedure, (SqlConnection)transaction.Connection, (SqlTransaction)transaction.Transaction))
+				using (SqlCommand sqlCommand = new SqlCommand(GetAllFromView(_getAllView), (SqlConnection)transaction.Connection, (SqlTransaction)transaction.Transaction))
 				{
 					return GetAllCommand(sqlCommand);
 				}
@@ -38,7 +38,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 				{
 					sqlConnection.Open();
 
-					using (SqlCommand sqlCommand = new SqlCommand(_getAllProcedure, sqlConnection))
+					using (SqlCommand sqlCommand = new SqlCommand(GetAllFromView(_getAllView), sqlConnection))
 					{
 						return GetAllCommand(sqlCommand);
 					}
@@ -48,8 +48,6 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 
 		private IEnumerable<T> GetAllCommand(SqlCommand sqlCommand)
 		{
-			sqlCommand.CommandType = CommandType.StoredProcedure;
-
 			using (SqlDataReader reader = sqlCommand.ExecuteReader())
 			{
 				if (reader.HasRows == true)
@@ -136,7 +134,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 		{
 			sqlCommand.CommandType = CommandType.StoredProcedure;
 
-			AddInsertParams(ref sqlCommand, model);
+			AddInsertParams(sqlCommand, model);
 
 			SqlParameter outputIdParam = new SqlParameter("@Id", SqlDbType.Int);
 			outputIdParam.Direction = ParameterDirection.Output;
@@ -154,7 +152,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 			return model;
 		}
 
-		protected abstract void AddInsertParams(ref SqlCommand sqlCommand, T model);
+		protected abstract void AddInsertParams(SqlCommand sqlCommand, T model);
 
 		#endregion
 
@@ -187,7 +185,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 		{
 			sqlCommand.CommandType = CommandType.StoredProcedure;
 
-			AddUpdateParams(ref sqlCommand, model);
+			AddUpdateParams(sqlCommand, model);
 
 			SqlParameter outputVersionParam = new SqlParameter("@Version", SqlDbType.Timestamp);
 			outputVersionParam.Direction = ParameterDirection.InputOutput;
@@ -205,7 +203,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 			return model;
 		}
 
-		protected abstract void AddUpdateParams(ref SqlCommand sqlCommand, T model);
+		protected abstract void AddUpdateParams(SqlCommand sqlCommand, T model);
 
 		#endregion
 
@@ -250,5 +248,8 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 		}
 
 		#endregion
+
+		protected string GetAllFromView(string viewName) =>
+			"SELECT * FROM " + viewName; 
 	}
 }
