@@ -44,6 +44,11 @@
     <Compile Include="Interfaces\IService.cs" />
     <Compile Include="Interfaces\IServiceContext.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Models\PortionModel.cs" />
+    <Compile Include="Models\RoleModel.cs" />
+    <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\CompanyModel.cs" />
+    <Compile Include="Models\MealModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
