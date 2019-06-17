@@ -41,9 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ICategoryService.cs" />
+    <Compile Include="Interfaces\ICompanyService.cs" />
+    <Compile Include="Interfaces\IMealService.cs" />
+    <Compile Include="Interfaces\IOrderService.cs" />
+    <Compile Include="Interfaces\IPortionService.cs" />
     <Compile Include="Interfaces\IService.cs" />
     <Compile Include="Interfaces\IServiceContext.cs" />
+    <Compile Include="Interfaces\IRoleService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\PortionModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
@@ -52,7 +59,13 @@
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CategoryService.cs" />
+    <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\MealService.cs" />
+    <Compile Include="Services\PortionService.cs" />
     <Compile Include="Services\ServiceContext.cs" />
+    <Compile Include="Services\RoleService.cs" />
+    <Compile Include="Services\CompanyService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>

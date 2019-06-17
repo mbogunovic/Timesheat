@@ -11,15 +11,6 @@ namespace TimeshEAT.Business.Services
 	{
 		public UserService(IRepositoryContext context) : base(context) { }
 
-		public UserModel Add(UserModel user)
-		{
-			var result = _context.UserRepository.Insert(user);
-
-			//TODO: add roles and companies models
-
-			return result;
-		}
-
 		public IEnumerable<UserModel> Get()
 		{
 			var result = _context.UserRepository.GetAll()
@@ -41,11 +32,15 @@ namespace TimeshEAT.Business.Services
 			return result;
 		}
 
-		public void Remove(UserModel user)
+		public UserModel Add(UserModel user)
 		{
 			if (user == null) throw new ArgumentNullException(nameof(user), "User cannot be null!");
 
-			_context.UserRepository.Delete(user);
+			var result = _context.UserRepository.Insert(user);
+
+			//TODO: add roles and companies models
+
+			return result;
 		}
 
 		public UserModel Save(UserModel user)
@@ -57,6 +52,13 @@ namespace TimeshEAT.Business.Services
 			//TODO: add roles and companies models
 
 			return result;
+		}
+
+		public void Remove(UserModel user)
+		{
+			if (user == null) throw new ArgumentNullException(nameof(user), "User cannot be null!");
+
+			_context.UserRepository.Delete(user);
 		}
 	}
 }
