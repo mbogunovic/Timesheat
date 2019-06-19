@@ -4,7 +4,7 @@ namespace TimeshEAT.Domain.Models
 {
 	public class Order : Entity
 	{
-		public Order(int id, int quantity, DateTime lunchTime, DateTime orderDate, int userId, int mealId, int portionId, byte[] version, string comment = null) : base(id, version)
+		public Order(int id, int quantity, DateTime lunchTime, DateTime orderDate, int userId, int mealId, int portionId, long version, string comment = null) : base(id, version)
 		{
 			Quantity = quantity;
 			LunchTime = lunchTime;

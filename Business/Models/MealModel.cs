@@ -8,14 +8,13 @@ namespace TimeshEAT.Business.Models
 	{
 		private string _name;
 		private int _categoryId;
-
-
+		
 		public MealModel()
 		{
 			
 		}
 
-		public MealModel(string name, int price, int categoryId, int id = 0, byte[] version = null) : base(id, version)
+		public MealModel(string name, int price, int categoryId, int id = 0, Int64 version = 0) : base(id, version)
 		{
 			Id = id;
 			Name = name;

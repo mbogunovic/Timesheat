@@ -2,7 +2,7 @@
 {
 	public class Category : Entity
 	{
-		public Category(int id, string name, byte[] version) : base(id, version)
+		public Category(int id, string name, long version) : base(id, version)
 		{
 			Name = name;
 		}

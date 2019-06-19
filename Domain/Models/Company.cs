@@ -2,7 +2,7 @@
 {
 	public class Company : Entity
 	{
-		public Company(int id, string name, string email, int dailyDiscount, byte[] version) : base(id, version)
+		public Company(int id, string name, string email, int dailyDiscount, long version) : base(id, version)
 		{
 			Name = name;
 			Email = email;

@@ -2,7 +2,7 @@
 {
 	public class Role : Entity
 	{
-		public Role(int id, string name, byte[] version) : base(id, version)
+		public Role(int id, string name, long version) : base(id, version)
 		{
 			Name = name;
 		}

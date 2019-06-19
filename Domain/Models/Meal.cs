@@ -7,7 +7,7 @@
 
 		}
 
-		public Meal(int id, string name, int price, int categoryId, byte[] version) : base(id, version)
+		public Meal(int id, string name, int price, int categoryId, long version) : base(id, version)
 		{
 			Name = name;
 			Price = price;

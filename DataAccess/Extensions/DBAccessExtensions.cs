@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Linq;
 using System.Reflection;
 
 namespace TimeshEAT.DataAccess.Extensions
@@ -19,8 +20,19 @@ namespace TimeshEAT.DataAccess.Extensions
             T result = (T)Activator.CreateInstance(typeof(T));
 
             foreach (PropertyInfo property in typeof(T).GetProperties())
-                property.SetValue(result, record[property.Name]
-					.DBNullTo(property.PropertyType.GetDefault()));
+            {
+	            var propertyValue = record[property.Name]
+		            .DBNullTo(property.PropertyType.GetDefault());
+
+				if (property.PropertyType == typeof(long) && record[property.Name].GetType() == typeof(byte[]))
+	            {
+					property.SetValue(result, BitConverter.ToInt64(((byte[])propertyValue).Reverse().ToArray(), 0));
+	            }
+	            else
+	            {
+		            property.SetValue(result, propertyValue);
+	            }
+            }
 
             return result;
         }
