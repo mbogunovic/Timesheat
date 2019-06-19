@@ -9,6 +9,12 @@ namespace TimeshEAT.Business.Models
 		private string _name;
 		private int _categoryId;
 
+
+		public MealModel()
+		{
+			
+		}
+
 		public MealModel(string name, int price, int categoryId, int id = 0, byte[] version = null) : base(id, version)
 		{
 			Id = id;
@@ -47,7 +53,7 @@ namespace TimeshEAT.Business.Models
 			}
 			set
 			{
-				if (value > 0)
+				if (value <= 0)
 				{
 					throw new ArgumentNullException(nameof(CategoryId), "Valid category id is mandatory!");
 				}

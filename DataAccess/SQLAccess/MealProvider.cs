@@ -7,7 +7,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 	public class MealProvider : BaseProvider<Meal>, IMealRepository
 	{
 		protected override string _getAllView { get; } = "MealsGetAll";
-		protected override string _getByIdProcedure { get; } = "MealGestById";
+		protected override string _getByIdProcedure { get; } = "MealsGetById";
 		protected override string _insertProcedure { get; } = "MealInsert";
 		protected override string _updateProcedure { get; } = "MealUpdate";
 		protected override string _deleteProcedure { get; } = "MealDelete";
