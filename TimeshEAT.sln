@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeshEAT.Business", "Busin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeshEAT.Web", "Web\TimeshEAT.Web.csproj", "{429B158E-A91A-47B3-9B04-5D10B2975EEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeshEAT.API", "TimeshEAT.API\TimeshEAT.API.csproj", "{4C098206-EAA5-41D1-A0EC-A64F98E0B799}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeshEAT.API", "API\TimeshEAT.API.csproj", "{91323DD8-274A-4B2D-9CB7-E56F596DDA02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,10 @@ Global
 		{429B158E-A91A-47B3-9B04-5D10B2975EEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{429B158E-A91A-47B3-9B04-5D10B2975EEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{429B158E-A91A-47B3-9B04-5D10B2975EEA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C098206-EAA5-41D1-A0EC-A64F98E0B799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C098206-EAA5-41D1-A0EC-A64F98E0B799}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C098206-EAA5-41D1-A0EC-A64F98E0B799}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C098206-EAA5-41D1-A0EC-A64F98E0B799}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91323DD8-274A-4B2D-9CB7-E56F596DDA02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91323DD8-274A-4B2D-9CB7-E56F596DDA02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91323DD8-274A-4B2D-9CB7-E56F596DDA02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91323DD8-274A-4B2D-9CB7-E56F596DDA02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -49,16 +49,19 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 
 		private IEnumerable<T> GetAllCommand(SqlCommand sqlCommand)
 		{
+			List<T> data = new List<T>();
 			using (SqlDataReader reader = sqlCommand.ExecuteReader())
 			{
 				if (reader.HasRows == true)
 				{
 					while (reader.Read())
 					{
-						yield return DBAccessExtensions.MapTableEntityTo<T>(reader);
+						data.Add(DBAccessExtensions.MapTableEntityTo<T>(reader));
 					}
 				}
 			}
+
+			return data;
 		}
 
 		public T GetById(int id, ITransaction transaction = null)
