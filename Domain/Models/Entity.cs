@@ -4,10 +4,11 @@ namespace TimeshEAT.Domain.Models
 {
 	public class Entity : IEntity
 	{
-		public Entity()
-		{
-			
-		}
+        public Entity()
+        {
+            
+        }
+
 		public Entity(int id, long version)
 		{
 			Id = id;

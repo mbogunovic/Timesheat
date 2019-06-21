@@ -1,9 +1,12 @@
-﻿using System;
-
-namespace TimeshEAT.Domain.Models
+﻿namespace TimeshEAT.Domain.Models
 {
 	public class User : Entity
 	{
+        public User()
+        {
+            
+        }
+
 		public User(int id, string fullName, string email, string password, bool isActive, int companyId, long version) : base(id, version)
 		{
 			FullName = fullName;

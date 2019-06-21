@@ -34,7 +34,7 @@ namespace TimeshEAT.API.Controllers
 		}
 
 		// DELETE api/<controller>/5
-		public void Delete(MealModel mealModel)
+		public void Delete([FromBody]MealModel mealModel)
 		{
 			_serviceContext.Meals.Remove(mealModel);
 		}

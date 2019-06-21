@@ -11,6 +11,11 @@ namespace TimeshEAT.Business.Models
 		private string _password;
 		private int _companyId;
 
+        public UserModel()
+        {
+            
+        }
+
 		public UserModel(string fullName, string email, string password, bool isActive, int companyId, int id = 0, long version = 0) : base(id, version)
 		{
 			Id = id;

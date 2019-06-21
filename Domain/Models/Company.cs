@@ -2,6 +2,11 @@
 {
 	public class Company : Entity
 	{
+        public Company()
+        {
+            
+        }
+
 		public Company(int id, string name, string email, int dailyDiscount, long version) : base(id, version)
 		{
 			Name = name;

@@ -10,6 +10,11 @@ namespace TimeshEAT.Business.Models
 		private string _email;
 		private int dailyDiscount;
 
+        public CompanyModel()
+        {
+            
+        }
+
 		public CompanyModel(string name, string email, int dailyDiscount, int id = 0, long version = 0) : base(id, version)
 		{
 			Id = id;

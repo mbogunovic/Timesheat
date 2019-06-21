@@ -8,6 +8,11 @@ namespace TimeshEAT.Business.Models
 	{
 		private string _name;
 
+        public RoleModel()
+        {
+            
+        }
+
 		public RoleModel(string name, int id = 0, long version = 0) : base(id, version)
 		{
 			Id = id;

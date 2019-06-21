@@ -2,7 +2,7 @@
 {
 	public class Meal : Entity
 	{
-		public Meal() : base()
+		public Meal()
 		{
 
 		}

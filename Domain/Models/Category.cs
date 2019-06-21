@@ -2,6 +2,11 @@
 {
 	public class Category : Entity
 	{
+        public Category()
+        {
+            
+        }
+
 		public Category(int id, string name, long version) : base(id, version)
 		{
 			Name = name;
