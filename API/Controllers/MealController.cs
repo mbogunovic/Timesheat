@@ -24,21 +24,14 @@ namespace TimeshEAT.API.Controllers
 		public MealModel Get(int id) => _serviceContext.Meals.GetBy(id);
 
 		// POST api/<controller>
-		public void Post([FromBody]MealModel mealModel)
-		{
-			_serviceContext.Meals.Add(mealModel);
-		}
+		public MealModel Post([FromBody]MealModel meal) => _serviceContext.Meals.Add(meal);
+		
 
 		// PUT api/<controller>/5
-		public void Put([FromBody]MealModel mealModel)
-		{
-			_serviceContext.Meals.Save(mealModel);
-		}
+		public MealModel Put([FromBody]MealModel meal) => _serviceContext.Meals.Save(meal);
+		
 
 		// DELETE api/<controller>/5
-		public void Delete([FromBody]MealModel mealModel)
-		{
-			_serviceContext.Meals.Remove(mealModel);
-		}
+		public void Delete([FromBody]MealModel meal) => _serviceContext.Meals.Remove(meal);
 	}
 }

@@ -20,9 +20,10 @@ namespace TimeshEAT.API.Controllers
             _serviceContext = context;
         }
 
-        public string Post([FromBody]AuthorizationModel model)
+        public AuthorizationResponseModel Post([FromBody]AuthorizationModel model)
         {
-            if (_serviceContext.Users.Login(model.Email, model.PasswordHash))
+            LoginResultModel loginResult = _serviceContext.Users.Login(model.Email, model.PasswordHash);
+            if (loginResult.IsAuthenticated)
             {
                 string token = StringHasher.GenerateHash(Guid.NewGuid().ToString());
                 foreach (var cacheKey in HttpContext.Current.Cache)
@@ -34,11 +35,23 @@ namespace TimeshEAT.API.Controllers
                     }
                 }
                 HttpContext.Current.Cache.Insert(token, model.Email, null, Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(Constants.SessionExpireInterval));
-                return token;
+                return new AuthorizationResponseModel
+                {
+                    User = loginResult.User,
+                    Token = token
+                };
             }
 
-            HttpContext.Current.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            return $"{(int)HttpStatusCode.Unauthorized} - Unauthorized";
+            if (!loginResult.IsActive)
+            {
+                HttpContext.Current.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+            }
+            else
+            {
+                HttpContext.Current.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
+            }
+
+            return null;
         }
     }
 }
