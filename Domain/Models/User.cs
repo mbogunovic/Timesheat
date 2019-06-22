@@ -2,7 +2,12 @@
 {
 	public class User : Entity
 	{
-		public User(int id, string fullName, string email, string password, bool isActive, int companyId, byte[] version) : base(id, version)
+        public User()
+        {
+            
+        }
+
+		public User(int id, string fullName, string email, string password, bool isActive, int companyId, long version) : base(id, version)
 		{
 			FullName = fullName;
 			Email = email;

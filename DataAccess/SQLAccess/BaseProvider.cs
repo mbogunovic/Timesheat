@@ -5,6 +5,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
+using System.Linq;
 using TimeshEAT.DataAccess.Extensions;
 
 namespace TimeshEAT.DataAccess.SQLAccess.Providers
@@ -48,16 +49,19 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 
 		private IEnumerable<T> GetAllCommand(SqlCommand sqlCommand)
 		{
+			List<T> data = new List<T>();
 			using (SqlDataReader reader = sqlCommand.ExecuteReader())
 			{
 				if (reader.HasRows == true)
 				{
 					while (reader.Read())
 					{
-						yield return DBAccessExtensions.MapTableEntityTo<T>(reader);
+						data.Add(DBAccessExtensions.MapTableEntityTo<T>(reader));
 					}
 				}
 			}
+
+			return data;
 		}
 
 		public T GetById(int id, ITransaction transaction = null)
@@ -147,7 +151,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 			sqlCommand.ExecuteNonQuery();
 
 			model.Id = Convert.ToInt32(outputIdParam.Value);
-			model.Version = (byte[])(outputVersionParam.Value);
+			model.Version = BitConverter.ToInt64(((byte[])(outputVersionParam.Value)).Reverse().ToArray(), 0);
 
 			return model;
 		}
@@ -189,11 +193,11 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 
 			SqlParameter outputVersionParam = new SqlParameter("@Version", SqlDbType.Timestamp);
 			outputVersionParam.Direction = ParameterDirection.InputOutput;
-			outputVersionParam.Value = model.Version;
+			outputVersionParam.Value = BitConverter.GetBytes(model.Version).Reverse().ToArray();
 			sqlCommand.Parameters.Add(outputVersionParam);
 
 			int result = sqlCommand.ExecuteNonQuery();
-			model.Version = (byte[])(outputVersionParam.Value);
+			model.Version = BitConverter.ToInt64(((byte[])(outputVersionParam.Value)).Reverse().ToArray(), 0);
 
 			if (result == 0)
 			{

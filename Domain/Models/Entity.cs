@@ -4,13 +4,18 @@ namespace TimeshEAT.Domain.Models
 {
 	public class Entity : IEntity
 	{
-		public Entity(int id, byte[] version)
+        public Entity()
+        {
+            
+        }
+
+		public Entity(int id, long version)
 		{
 			Id = id;
 			Version = version;
 		}
 
 		public int Id { get; set; }
-		public byte[] Version { get; set; }
+		public long Version { get; set; }
 	}
 }

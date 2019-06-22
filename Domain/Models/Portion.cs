@@ -2,7 +2,12 @@
 {
 	public class Portion : Entity
 	{
-		public Portion(int id, string name, byte[] version) : base(id, version)
+        public Portion()
+        {
+            
+        }
+
+		public Portion(int id, string name, long version) : base(id, version)
 		{
 			Name = name;
 		}

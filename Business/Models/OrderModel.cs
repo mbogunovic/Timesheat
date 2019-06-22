@@ -13,7 +13,12 @@ namespace TimeshEAT.Business.Models
 		private int _mealId;
 		private int _portionId;
 
-		public OrderModel(int quantity, DateTime lunchTime, DateTime orderDate, int userId, int mealId, int portionId, string comment = null, int id = 0, byte[] version = null) : base(id, version)
+        public OrderModel()
+        {
+            
+        }
+
+		public OrderModel(int quantity, DateTime lunchTime, DateTime orderDate, int userId, int mealId, int portionId, string comment = null, int id = 0, long version = 0) : base(id, version)
 		{
 			Id = id;
 			Quantity = quantity;
