@@ -1,0 +1,19 @@
+﻿@model ErrorViewModel
+
+<body class="error__page">
+	<canvas class="background__canvas" data-background-canvas></canvas>
+	<canvas class="background__canvas" data-background-canvas></canvas>
+	<div class="moving-zone">
+		<div class="popup">
+			<a href="@Url.Action("Index", "Login")">
+				<div class="popup-content">
+					<div class="popup-text">
+						<img src="~/assets/images/logo.png" alt="" class="header__logo" />
+						<h1><b>@Model.Code</b></h1>
+						<p>@Model.Message</p>
+					</div>
+				</div>
+			</a>
+		</div>
+	</div>
+</body>

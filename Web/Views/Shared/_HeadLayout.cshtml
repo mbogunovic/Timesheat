@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta charset="utf-8">
+
+	<!-- main css file -->
+	@Styles.Render("~/styles/default")
+	<!-- global js file -->
+	@Scripts.RenderFormat("<script src='{0}' defer></script>", "~/scripts/default")
+	@RenderSection("additionalHeader", false)
+	<title>TimeshEAT | @*TODO: BASE NAME CLASS*@</title>
+	<link href="favicon.ico" rel="icon" />
+</head>
+	@RenderBody()
+</html>

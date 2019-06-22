@@ -1,0 +1,34 @@
+﻿@model LoginViewModel
+
+@{
+	Layout = "~/Views/Shared/_BlankLayout.cshtml";
+}
+
+<div class="login">
+	<div class="login__box">
+		<a href="@Url.Action("Index", "Login")">
+			<img src="~/assets/images/logo.png" alt="" class="login__logo">
+		</a>
+		@using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "login__form" }))
+		{
+			@Html.AntiForgeryToken()
+
+			<ul class="login__list">
+				<li class="login__item">
+					@Html.TextBoxFor(x => x.Email, new { placeholder = Model.DisplayName(x => x.Email) })
+					@Html.ValidationMessageFor(x => x.Email)
+				</li>
+				<li class="login__item">
+					@Html.PasswordFor(x => x.Password, new { placeholder = Model.DisplayName(x => x.Password) })
+					@Html.ValidationMessageFor(x => x.Password)
+				</li>
+			</ul>
+
+			<button type="submit" class="login__btn btn">Prijavi se</button>
+		}
+		<a href="@Url.Action("ForgotPassword", "Login")" class="login__link">Zaboravili ste lozinku?</a>
+	</div>
+</div>
+
+
+

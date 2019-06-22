@@ -11,9 +11,7 @@ namespace TimeshEAT.Web.Controllers
 		{
 		}
 
-		public ActionResult Error401()
-        {
-            return View();
-        }
+		public ActionResult Index() =>
+			View(TempData["errorModel"]);
     }
 }
