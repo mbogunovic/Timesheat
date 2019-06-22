@@ -60,5 +60,14 @@ namespace TimeshEAT.Business.Services
 
 			_context.UserRepository.Delete(user);
 		}
+
+        public bool Login(string email, string passwordHash)
+        {
+            var user = _context.UserRepository.GetAll().FirstOrDefault(u => u.Email.Equals(email));
+            if (user == null || !user.Password.Equals(passwordHash, StringComparison.OrdinalIgnoreCase))
+                return false;
+
+            return true;
+        }
 	}
 }

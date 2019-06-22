@@ -50,6 +50,7 @@
     <Compile Include="Interfaces\IServiceContext.cs" />
     <Compile Include="Interfaces\IRoleService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Models\AuthorizationModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\PortionModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\CompanyService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Helpers\StringHasher.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\TimeshEAT.Common.csproj">

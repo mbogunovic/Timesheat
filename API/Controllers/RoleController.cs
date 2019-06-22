@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+using TimeshEAT.API.Attributes;
 using TimeshEAT.Business.Interfaces;
 using TimeshEAT.Business.Models;
 
 namespace TimeshEAT.API.Controllers
 {
+    [TokenAuthorize]
     public class RoleController : ApiController
     {
         private readonly IServiceContext _serviceContext;

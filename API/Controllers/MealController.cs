@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+using TimeshEAT.API.Attributes;
 using TimeshEAT.Business.Interfaces;
 using TimeshEAT.Business.Models;
 
 namespace TimeshEAT.API.Controllers
 {
+    [TokenAuthorize]
 	public class MealController : ApiController
 	{
 		private readonly IServiceContext _serviceContext;
@@ -14,8 +16,8 @@ namespace TimeshEAT.API.Controllers
 			_serviceContext = serviceContext;
 		}
 
-		// GET api/<controller>
-		public IEnumerable<MealModel> Get() => _serviceContext.Meals.Get();
+        // GET api/<controller>
+        public IEnumerable<MealModel> Get() => _serviceContext.Meals.Get();
 		
 
 		// GET api/<controller>/5

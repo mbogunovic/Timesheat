@@ -167,6 +167,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Attributes\TokenAuthorize.cs" />
     <Compile Include="Controllers\AuthorizationController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
@@ -267,6 +268,10 @@
     <ProjectReference Include="..\Business\TimeshEAT.Business.csproj">
       <Project>{A6D5658D-2A81-45EB-9850-13DED0BF0DF2}</Project>
       <Name>TimeshEAT.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\TimeshEAT.Common.csproj">
+      <Project>{9c7b17f1-3624-4619-a6a8-963e580cc097}</Project>
+      <Name>TimeshEAT.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
