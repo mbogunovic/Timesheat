@@ -7,8 +7,6 @@ namespace TimeshEAT.Business.Models
 	public class OrderModel : Entity
 	{
 		private int _quantity;
-		private DateTime _lunchTime;
-		private DateTime _orderDate;
 		private int _userId;
 		private int _mealId;
 		private int _portionId;

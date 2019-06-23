@@ -1,28 +1,26 @@
-﻿using System.ComponentModel.Composition;
+﻿using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using TimeshEAT.Business.Interfaces;
+using TimeshEAT.Web.ViewModels;
 
 namespace TimeshEAT.Web.Attributes
 {
 	public class RoleAuthorizeAttribute : AuthorizeAttribute
 	{
-		[Import]
-		internal IServiceContext _serivices { get; set; }
+		private string[] roles => this.Roles.Split(',');
 
 		protected override bool AuthorizeCore(HttpContextBase httpContext)
 		{
 			if (!base.AuthorizeCore(httpContext))
 				return false;
 
-
-			//TODO: ROLES IMPLEMENT THEN CHECK BY BLAH BLAH BLAH
-			return false;//_serivices.GetByEmail(httpContext.User.Identity.Name).IsAdmin;
+			return this.roles?.Any(r => httpContext.User.IsInRole(r)) ?? httpContext.User.Identity.IsAuthenticated;
 		}
 
 		protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
 		{
-			filterContext.Result = new RedirectResult(new UrlHelper(HttpContext.Current.Request.RequestContext).Action("Error401","Error"));
+			filterContext.Controller.TempData["errorModel"] = new ErrorViewModel("Error 401", "Unauthorized");
+			filterContext.Result = new RedirectResult(new UrlHelper(HttpContext.Current.Request.RequestContext).Action("Index", "Error"));
 		}
 	}
 }
