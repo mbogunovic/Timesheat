@@ -40,7 +40,17 @@ namespace TimeshEAT.Business.API
             };
         }
 
-        public ApiResponseModel<T> Execute<T>(RestRequest request) where T : new()
+		public void Lockout(string email)
+		{
+			RestRequest request = new RestRequest("/api/authorization/lockout");
+			request.AddParameter("email", email);
+			request.Method = Method.GET;
+
+			_client.Execute(request);
+		}
+
+
+		public ApiResponseModel<T> Execute<T>(RestRequest request) where T : new()
         {
             request.OnBeforeDeserialization = resp =>
             {
@@ -145,5 +155,5 @@ namespace TimeshEAT.Business.API
                 Status = response.StatusCode
             };
         }
-    }
+	}
 }

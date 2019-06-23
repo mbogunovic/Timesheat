@@ -55,5 +55,10 @@ namespace TimeshEAT.API.Controllers
             else
 				throw new HttpResponseException(HttpStatusCode.Unauthorized);
         }
+
+		[HttpGet]
+		[Route("api/authorization/lockout")]
+		public void Lockout(string email) =>
+			_serviceContext.Users.Lockout(email);
     }
 }

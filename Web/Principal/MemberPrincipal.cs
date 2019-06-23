@@ -38,6 +38,12 @@ namespace TimeshEAT.Web.Membership
 			}
 		}
 
+		public void Lockout(string email = null)
+		{
+			email = !string.IsNullOrWhiteSpace(email) ? email : _user.Email;
+			_api.Lockout(email);
+		}
+
 		public void Logout() =>
 			FormsAuthentication.SignOut();
 

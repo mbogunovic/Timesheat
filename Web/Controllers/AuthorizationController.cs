@@ -7,6 +7,9 @@ namespace TimeshEAT.Web.Controllers
 	[AllowAnonymous]
 	public class AuthorizationController : BaseController
 	{
+
+		#region [Login]
+
 		public ActionResult Index() =>
 			_member.Identity.IsAuthenticated 
 				? RedirectToAction("Index", "Home")
@@ -19,6 +22,8 @@ namespace TimeshEAT.Web.Controllers
 			if (!ModelState.IsValid)
 				return View(model);
 
+			_member.Lockout(model.Email);
+
 			var loginResult = _member.Login(model.Email, StringHasher.GenerateHash(model.Password));
 			if (loginResult.Item1)
 				return RedirectToAction("Index", "Home");
@@ -27,6 +32,10 @@ namespace TimeshEAT.Web.Controllers
 
 			return View(model);
 		}
+
+		#endregion
+
+		#region [ForgotPassword]
 
 		public ActionResult ForgotPassword()
 		 => View(new ForgotPasswordViewModel());
@@ -41,9 +50,12 @@ namespace TimeshEAT.Web.Controllers
 			}
 
 			_member.ResetPassword(model.Email);
+			TempData[Constants.RESPONSE_MESSAGE] = "Ako email adresa postoji, nova šifra je poslata na istu.";
 
 			return View();
 		}
+
+		#endregion
 
 		public ActionResult Logout()
 		{
