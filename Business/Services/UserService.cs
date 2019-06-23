@@ -84,5 +84,16 @@ namespace TimeshEAT.Business.Services
             model.User = user;
             return model;
         }
+
+		public void Lockout(string email)
+		{
+			var user = _context.UserRepository.GetAll().FirstOrDefault(u => u.Email.Equals(email));
+
+			if(user != null)
+			{
+				user.IsActive = false;
+				_context.UserRepository.Update(user);
+			}
+		}
 	}
 }

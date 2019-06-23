@@ -22,6 +22,8 @@ namespace TimeshEAT.Web.Controllers
 			if (!ModelState.IsValid)
 				return View(model);
 
+			_member.Lockout(model.Email);
+
 			var loginResult = _member.Login(model.Email, StringHasher.GenerateHash(model.Password));
 			if (loginResult.Item1)
 				return RedirectToAction("Index", "Home");

@@ -9,6 +9,7 @@ namespace TimeshEAT.Business.API
     public interface IApiClient
     {
         ApiResponseModel<AuthorizationResponseModel> Authorize(AuthorizationModel model);
+		void Lockout(string email);
         ApiResponseModel<T> Execute<T>(RestRequest request) where T : new();
         ApiResponseModel<T> ExecuteList<T>(RestRequest request) where T : IEnumerable, new();
         ApiResponseModel<List<T>> GetAllCompanies<T>() where T : new();
