@@ -6,6 +6,9 @@ using TimeshEAT.Business.Models;
 
 namespace TimeshEAT.API.Controllers
 {
+    /// <summary>
+    /// Endpoints for orders, requires token authorization
+    /// </summary>
     [TokenAuthorize]
     public class OrderController : ApiController
     {
@@ -16,29 +19,38 @@ namespace TimeshEAT.API.Controllers
             _serviceContext = serviceContext;
         }
 
-        // GET api/<controller>
+        /// <summary>
+        /// Endpoint for obtaining all orders
+        /// </summary>
+        /// <returns>Enumerable with all orders</returns>
         public IEnumerable<OrderModel> Get() => _serviceContext.Orders.Get();
 
 
-        // GET api/<controller>/5
+        /// <summary>
+        /// Endpoint for obtaining single order
+        /// </summary>
+        /// <param name="id">Id of the order to obtain</param>
+        /// <returns>Order with provided Id</returns>
         public OrderModel Get(int id) => _serviceContext.Orders.GetBy(id);
 
-        // POST api/<controller>
-        public void Post([FromBody]OrderModel order)
-        {
-            _serviceContext.Orders.Add(order);
-        }
+        /// <summary>
+        /// Endpoint for adding order
+        /// </summary>
+        /// <param name="order">New order</param>
+        /// <returns>Added order</returns>
+        public OrderModel Post([FromBody]OrderModel order) => _serviceContext.Orders.Add(order);
 
-        // PUT api/<controller>/5
-        public void Put([FromBody]OrderModel order)
-        {
-            _serviceContext.Orders.Save(order);
-        }
+        /// <summary>
+        /// Endpoint for updating order
+        /// </summary>
+        /// <param name="order">Updated order</param>
+        /// <returns>Updated order</returns>
+        public OrderModel Put([FromBody]OrderModel order) => _serviceContext.Orders.Save(order);
 
-        // DELETE api/<controller>/5
-        public void Delete([FromBody]OrderModel order)
-        {
-            _serviceContext.Orders.Remove(order);
-        }
+        /// <summary>
+        /// Endpoint for deleting order
+        /// </summary>
+        /// <param name="order">Order to delete</param>
+        public void Delete([FromBody]OrderModel order) => _serviceContext.Orders.Remove(order);
     }
 }

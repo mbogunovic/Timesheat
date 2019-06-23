@@ -11,6 +11,9 @@ using TimeshEAT.Common;
 
 namespace TimeshEAT.API.Controllers
 {
+    /// <summary>
+    /// Endpoints for authorization
+    /// </summary>
     public class AuthorizationController : ApiController
     {
         private readonly IServiceContext _serviceContext;
@@ -20,6 +23,11 @@ namespace TimeshEAT.API.Controllers
             _serviceContext = context;
         }
 
+        /// <summary>
+        /// Authorizes provided user for API endpoints usage
+        /// </summary>
+        /// <param name="model">The authorization model with user information</param>
+        /// <returns>Token used for API endpoint authorization</returns>
         public AuthorizationResponseModel Post([FromBody]AuthorizationModel model)
         {
             LoginResultModel loginResult = _serviceContext.Users.Login(model.Email, model.PasswordHash);
