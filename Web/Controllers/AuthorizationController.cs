@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Web.Helpers;
+using System.Web.Mvc;
 using TimeshEAT.Business.Helpers;
 using TimeshEAT.Web.ViewModels;
 
@@ -10,10 +11,19 @@ namespace TimeshEAT.Web.Controllers
 
 		#region [Login]
 
-		public ActionResult Index() =>
-			_member.Identity.IsAuthenticated 
+		public ActionResult Index()
+		{
+			if (WebCache.Get(HttpContext.Request.UserHostAddress) ?? false)
+			{
+				TempData[Constants.ERROR_MODEL] = new ErrorViewModel("Error 403", "Zabranjen pristup zbog previše pokušaja logovanja.");
+				return RedirectToAction("Index", "Error");
+			}
+
+			return _member.Identity.IsAuthenticated
 				? RedirectToAction("Index", "Home")
 				: (ActionResult)View(new LoginViewModel());
+		}
+
 
 		[ValidateAntiForgeryToken]
 		[HttpPost]
@@ -21,8 +31,6 @@ namespace TimeshEAT.Web.Controllers
 		{
 			if (!ModelState.IsValid)
 				return View(model);
-
-			_member.Lockout(model.Email);
 
 			var loginResult = _member.Login(model.Email, StringHasher.GenerateHash(model.Password));
 			if (loginResult.Item1)

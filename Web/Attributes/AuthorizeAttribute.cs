@@ -19,7 +19,7 @@ namespace TimeshEAT.Web.Attributes
 
 		protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
 		{
-			filterContext.Controller.TempData["errorModel"] = new ErrorViewModel("Error 401", "Unauthorized");
+			filterContext.Controller.TempData[Constants.ERROR_MODEL] = new ErrorViewModel("Error 401", "Unauthorized");
 			filterContext.Result = new RedirectResult(new UrlHelper(HttpContext.Current.Request.RequestContext).Action("Index", "Error"));
 		}
 	}

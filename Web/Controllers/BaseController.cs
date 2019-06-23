@@ -43,7 +43,7 @@ namespace TimeshEAT.Web.Controllers
 			//_log.WriteErrorLog($"Unhandled exception occured for user {User.Identity.Name}", filterContext.Exception);
 			//filterContext.ExceptionHandled = true;
 
-			//filterContext.Controller.TempData["errorModel"] = new ErrorViewModel("Error 500", "Something went wrong.");
+			//filterContext.Controller.TempData[Constants.ERROR_MODEL] = new ErrorViewModel("Error 500", "Something went wrong.");
 			//filterContext.Result = RedirectToAction("Index", "Error");
 		}
 	}

@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using TimeshEAT.Web.ViewModels;
 
 namespace TimeshEAT.Web.Controllers
 {
@@ -6,6 +7,12 @@ namespace TimeshEAT.Web.Controllers
 	public class ErrorController : BaseController
     {
 		public ActionResult Index() =>
-			View(TempData["errorModel"]);
+			View(TempData[Constants.ERROR_MODEL]);
+
+		public ActionResult NotFound()
+		{
+			TempData[Constants.ERROR_MODEL] = new ErrorViewModel("Error 404", "Not found.");
+			return RedirectToAction("Index");
+		}
     }
 }
