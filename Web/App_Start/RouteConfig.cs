@@ -11,8 +11,8 @@ namespace TimeshEAT.Web
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Authorization", action = "Login" }
+                url: "{controller}/{action}",
+                defaults: new { controller = "Authorization", action = "Index" }
             );
         }
     }
