@@ -1,6 +1,6 @@
 ﻿namespace TimeshEAT.Web.ViewModels
 {
-	public class ErrorViewModel
+	public class ErrorViewModel : BaseViewModel
 	{
 		public ErrorViewModel() { }
 
@@ -12,5 +12,6 @@
 
 		public string Code { get; set; }
 		public string Message { get; set; }
+		public override string PageTitle => "Greška";
 	}
 }

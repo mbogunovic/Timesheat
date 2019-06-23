@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model BaseViewModel
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -11,7 +12,7 @@
 	<!-- global js file -->
 	@Scripts.RenderFormat("<script src='{0}' defer></script>", "~/scripts/default")
 	@RenderSection("additionalHeader", false)
-	<title>TimeshEAT | @*TODO: BASE NAME CLASS*@</title>
+	<title>TimeshEAT | @Model.PageTitle</title>
 	<link href="favicon.ico" rel="icon" />
 </head>
 	@RenderBody()

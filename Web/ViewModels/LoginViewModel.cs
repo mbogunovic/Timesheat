@@ -3,7 +3,7 @@ using TimeshEAT.Web.Interfaces;
 
 namespace TimeshEAT.Web.ViewModels
 {
-	public class LoginViewModel : IForm
+	public class LoginViewModel : BaseViewModel, IForm
 	{
 		[Required(ErrorMessage = "Email adresa je obavezno polje.")]
 		[EmailAddress(ErrorMessage = "Email adresa mora biti važećeg formata.")]
@@ -12,5 +12,7 @@ namespace TimeshEAT.Web.ViewModels
 		[Required(ErrorMessage = "Lozinka je obavezno polje.")]
 		[Display(Name = "Lozinka")]
 		public string Password { get; set; }
+
+		public override string PageTitle => "Uloguj se";
 	}
 }
