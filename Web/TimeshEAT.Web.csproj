@@ -176,6 +176,7 @@
     <Content Include="Views\Authorization\Index.cshtml" />
     <Content Include="Views\Shared\_BlankLayout.cshtml" />
     <Content Include="Views\Authorization\ForgotPassword.cshtml" />
+    <Content Include="Views\Shared\_StandardLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
