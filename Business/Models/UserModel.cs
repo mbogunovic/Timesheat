@@ -89,7 +89,7 @@ namespace TimeshEAT.Business.Models
 			}
 			set
 			{
-				if (value > 0)
+				if (0 > value)
 				{
 					throw new ArgumentNullException(nameof(CompanyId), "Valid company id is mandatory!");
 				}

@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using System.Web.Security;
+using TimeshEAT.Business.Helpers;
 using TimeshEAT.Business.Interfaces;
 using TimeshEAT.Business.Logging.Interfaces;
 using TimeshEAT.Web.ViewModels;
@@ -15,7 +15,7 @@ namespace TimeshEAT.Web.Controllers
 
 		public ActionResult Index()
 		{
-			if (User.Identity.IsAuthenticated)
+			if (_member.Identity.IsAuthenticated)
 			{
 				return RedirectToAction("Index", "Home");
 			}
@@ -32,7 +32,7 @@ namespace TimeshEAT.Web.Controllers
 				return View(model);
 			}
 
-			switch (_member.Login(model.Email, model.Password))
+			switch (_member.Login(model.Email, StringHasher.GenerateHash(model.Password)))
 			{
 				case Membership.MemberPrincipal.LoginStatus.Successfull:
 					return RedirectToAction("Index", "Home");
