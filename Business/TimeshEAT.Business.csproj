@@ -62,6 +62,7 @@
     <Compile Include="API\ClientFactory.cs" />
     <Compile Include="API\Company.cs" />
     <Compile Include="API\Converters\DateTimeJsonConverter.cs" />
+    <Compile Include="API\IApiClient.cs" />
     <Compile Include="API\Meal.cs" />
     <Compile Include="API\Models\ApiResponseModel.cs" />
     <Compile Include="API\Order.cs" />

@@ -1,13 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using RestSharp;
 using RestSharp.Extensions;
 using TimeshEAT.Business.API.Models;
-using TimeshEAT.Business.Interfaces;
 using TimeshEAT.Business.Models;
-using TimeshEAT.Domain.Models;
 
 namespace TimeshEAT.Business.API
 {
@@ -23,7 +20,7 @@ namespace TimeshEAT.Business.API
             _token = token;
         }
 
-        public AuthorizationResponseModel Authorize(AuthorizationModel model)
+        public ApiResponseModel<AuthorizationResponseModel> Authorize(AuthorizationModel model)
         {
             RestRequest request = new RestRequest("/api/authorization/");
             request.AddParameter("Email", model.Email);
@@ -37,7 +34,11 @@ namespace TimeshEAT.Business.API
                 _token = response.Data.Token;
             }
 
-            return response.Data;
+            return new ApiResponseModel<AuthorizationResponseModel>
+            {
+                Data = response.Data,
+                Status = response.StatusCode
+            };
         }
 
         public ApiResponseModel<T> Execute<T>(RestRequest request) where T : new()
