@@ -11,6 +11,7 @@ using TimeshEAT.Business.Logging.Interfaces;
 using TimeshEAT.Business.Logging.Wrappers;
 using TimeshEAT.Business.Services;
 using TimeshEAT.Web.Injection;
+using TimeshEAT.Web.Navigation;
 using TimeshEAT.Web.Optimization;
 
 namespace TimeshEAT.Web
@@ -37,13 +38,18 @@ namespace TimeshEAT.Web
 
 			container.Register<ILogger>(() => new SerilogWrapper(path), Lifestyle.Singleton);
 
-			// ------------------ Api  ------------------ \\
+			// ------------------ Api ------------------ \\
 			container.Register<IApiClient, ApiClient>(Lifestyle.Scoped);
+
+			// ------------------ Navigation Context ------------------ \\
+			container.Register<INavigationContext, NavigationContext>(Lifestyle.Scoped);
 
 			// ------------------ Resolver Setter ------------------ \\
 			DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
 
 			container.RegisterMvcIntegratedFilterProvider();
 		}
+
+
 	}
 }

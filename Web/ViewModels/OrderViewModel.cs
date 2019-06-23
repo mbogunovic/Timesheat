@@ -1,7 +1,8 @@
 ﻿namespace TimeshEAT.Web.ViewModels
 {
-	public class HomeViewModel : BaseViewModel
+	public class OrderViewModel : NavigationViewModel
 	{
 		public override string PageTitle => "Naruči obrok";
+		public override string PageIcon => "home";
 	}
 }

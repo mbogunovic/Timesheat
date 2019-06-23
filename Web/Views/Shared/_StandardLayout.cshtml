@@ -1,68 +1,60 @@
-﻿@model BaseViewModel
+﻿@model NavigationViewModel
 
-	@{
-		Layout = "~/Views/Shared/_BlankLayout.cshtml";
-	}
+@{
+	Layout = "~/Views/Shared/_BlankLayout.cshtml";
+}
 
-	<body class="background-image has-cover">
-		<div class="layout__wrapper">
-			<header class="header">
-				<div class="wrap">
-					<div class="header__container">
-						<ul class="user-panel">
-							<li class="user-panel__item">
-								<a href="javascript:;" class="user-panel__link" data-has-dropdown>Maksim Bogunovic</a>
-								<div class="user-panel__submenu" data-dropdown>
-									<ul>
-										<li>
-											<a href="javascript:;">Reset Password</a>
-										</li>
-									</ul>
-								</div>
-							</li>
-							<li class="user-panel__item">
-								<a href="javascript:;" class="user-panel__link">Odjavi se</a>
-							</li>
-						</ul>
-						<a href="/" class="header__home">
-							<img src="./assets/images/logo.png" alt="" class="header__logo" />
-						</a>
+<body class="background-image has-cover">
+	<div class="layout__wrapper">
+		<header class="header">
+			<div class="wrap">
+				<div class="header__container">
+					<ul class="user-panel">
+						<li class="user-panel__item">
+							<a href="javascript:;" class="user-panel__link" data-has-dropdown>Maksim Bogunovic</a>
+							<div class="user-panel__submenu" data-dropdown>
+								<ul>
+									<li>
+										<a href="javascript:;">Reset Password</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="user-panel__item">
+							<a href="javascript:;" class="user-panel__link">Odjavi se</a>
+						</li>
+					</ul>
+					<a href="/" class="header__home">
+						<img src="~/assets/images/logo.png" alt="" class="header__logo" />
+					</a>
+
+					@if (Model?.Navigation.Items != null && Model.Navigation.Items.Any())
+					{
 						<nav class="nav">
 							<div class="nav__mobile font-ico-burger" data-mobile-nav></div>
 							<ul class="nav__list" role="menubar" data-nav>
-								<li class="nav__item active" role="menuitem">
-									<a href="./home.html" class="nav__link">Naruci obrok</a>
-								</li>
-								<li class="nav__item" role="menuitem">
-									<a href="./users.html" class="nav__link">Korisnici</a>
-								</li>
-								<li class="nav__item" role="menuitem">
-									<a href="./companies.html" class="nav__link">Kompanije</a>
-								</li>
-								<li class="nav__item" role="menuitem">
-									<a href="./meals.html" class="nav__link">Obroci</a>
-								</li>
-								<li class="nav__item" role="menuitem">
-									<a href="./categories.html" class="nav__link">Kategorije</a>
-								</li>
-								<li class="nav__item" role="menuitem">
-									<a href="./reports.html" class="nav__link">Izvestaji</a>
-								</li>
+								@foreach (var item in Model.Navigation.Items)
+								{
+									<li class="nav__item @(item.IsActive ? "active" : String.Empty)" role="menuitem">
+										<a href="@item.Url" class="nav__link">@item.Page.PageTitle</a>
+									</li>
+								}
 							</ul>
 						</nav>
-					</div>
+					}
 				</div>
-			</header>
-			<!-- .header -->
-			<div class="wrap">
-				<section class="content">
-					<div class="content__heading">
-						<h2><ico class="font-ico-home"></ico>@Model.PageTitle</h2>
-					</div>
-					@RenderBody()
-				</section>
 			</div>
+		</header>
+		<!-- .header -->
+		<div class="wrap">
+			<section class="content">
+				<div class="content__heading">
+					<h2><ico class="font-ico-@Model.PageIcon"></ico>@Model.PageTitle</h2>
+				</div>
+				@RenderBody()
+			</section>
 		</div>
-		@RenderSection("additionalFooter", false)
-	</body>
+	</div>
+	@RenderSection("additionalFooter", false)
+</body>
 
