@@ -1,42 +1,43 @@
 ﻿using System.Collections.Generic;
 using RestSharp;
+using TimeshEAT.Business.API.Models;
 using TimeshEAT.Business.Models;
 
 namespace TimeshEAT.Business.API
 {
     public partial class ApiClient
     {
-        public IEnumerable<MealModel> GetAllMeals()
+        public ApiResponseModel<List<T>> GetAllMeals<T>() where T : new()
         {
             RestRequest request = new RestRequest("/api/meal");
 
-            return ExecuteList<List<MealModel>>(request);
+            return ExecuteList<List<T>>(request);
         }
 
-        public MealModel GetMealById(int id)
+        public ApiResponseModel<T> GetMealById<T>(int id) where T : new()
         {
             RestRequest request = new RestRequest("/api/meal");
             request.AddParameter("id", id);
 
-            return Execute<MealModel>(request);
+            return Execute<T>(request);
         }
 
-        public MealModel AddMeal(MealModel model)
+        public ApiResponseModel<T> AddMeal<T>(MealModel model) where T : new()
         {
             RestRequest request = new RestRequest("/api/meal");
             request.Method = Method.POST;
             request.AddParameter("meal", model);
 
-            return Execute<MealModel>(request);
+            return Execute<T>(request);
         }
 
-        public MealModel UpdateMeal(MealModel model)
+        public ApiResponseModel<T> UpdateMeal<T>(MealModel model) where T : new()
         {
             RestRequest request = new RestRequest("/api/meal");
             request.Method = Method.PUT;
             request.AddParameter("meal", model);
 
-            return Execute<MealModel>(request);
+            return Execute<T>(request);
         }
 
         public void DeleteMeal(MealModel model)

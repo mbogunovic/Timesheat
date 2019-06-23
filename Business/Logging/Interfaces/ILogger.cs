@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TimeshEAT.Web.Logging.Interfaces
+namespace TimeshEAT.Business.Logging.Interfaces
 {
 	public interface ILogger : IDisposable
 	{

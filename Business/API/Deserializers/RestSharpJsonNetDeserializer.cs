@@ -1,8 +1,9 @@
 ﻿using System;
 using Newtonsoft.Json;
 using RestSharp.Deserializers;
+using TimeshEAT.Business.API.Converters;
 
-namespace TimeshEAT.Business.API
+namespace TimeshEAT.Business.API.Deserializers
 {
     public class RestSharpJsonNetDeserializer : IDeserializer
     {

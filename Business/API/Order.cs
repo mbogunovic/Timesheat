@@ -1,42 +1,43 @@
 ﻿using System.Collections.Generic;
 using RestSharp;
+using TimeshEAT.Business.API.Models;
 using TimeshEAT.Business.Models;
 
 namespace TimeshEAT.Business.API
 {
     public partial class ApiClient
     {
-        public IEnumerable<OrderModel> GetAllOrders()
+        public ApiResponseModel<List<T>> GetAllOrders<T>() where T : new()
         {
             RestRequest request = new RestRequest("/api/order");
 
-            return ExecuteList<List<OrderModel>>(request);
+            return ExecuteList<List<T>>(request);
         }
 
-        public OrderModel GetOrderById(int id)
+        public ApiResponseModel<T> GetOrderById<T>(int id) where T : new()
         {
             RestRequest request = new RestRequest("/api/order");
             request.AddParameter("id", id);
 
-            return Execute<OrderModel>(request);
+            return Execute<T>(request);
         }
 
-        public OrderModel AddOrder(OrderModel model)
+        public ApiResponseModel<T> AddOrder<T>(OrderModel model) where T : new()
         {
             RestRequest request = new RestRequest("/api/order");
             request.Method = Method.POST;
             request.AddParameter("order", model);
 
-            return Execute<OrderModel>(request);
+            return Execute<T>(request);
         }
 
-        public OrderModel UpdateOrder(OrderModel model)
+        public ApiResponseModel<T> UpdateOrder<T>(OrderModel model) where T : new()
         {
             RestRequest request = new RestRequest("/api/order");
             request.Method = Method.PUT;
             request.AddParameter("order", model);
 
-            return Execute<OrderModel>(request);
+            return Execute<T>(request);
         }
 
         public void DeleteOrder(OrderModel model)

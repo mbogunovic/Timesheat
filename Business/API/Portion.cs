@@ -1,42 +1,43 @@
 ﻿using System.Collections.Generic;
 using RestSharp;
+using TimeshEAT.Business.API.Models;
 using TimeshEAT.Business.Models;
 
 namespace TimeshEAT.Business.API
 {
     public partial class ApiClient
     {
-        public IEnumerable<PortionModel> GetAllPortions()
+        public ApiResponseModel<List<T>> GetAllPortions<T>() where T : new()
         {
             RestRequest request = new RestRequest("/api/portion");
 
-            return ExecuteList<List<PortionModel>>(request);
+            return ExecuteList<List<T>>(request);
         }
 
-        public PortionModel GetPortionById(int id)
+        public ApiResponseModel<T> GetPortionById<T>(int id) where T : new()
         {
             RestRequest request = new RestRequest("/api/portion");
             request.AddParameter("id", id);
 
-            return Execute<PortionModel>(request);
+            return Execute<T>(request);
         }
 
-        public PortionModel AddPortion(PortionModel model)
+        public ApiResponseModel<T> AddPortion<T>(PortionModel model) where T : new()
         {
             RestRequest request = new RestRequest("/api/portion");
             request.Method = Method.POST;
             request.AddParameter("portion", model);
 
-            return Execute<PortionModel>(request);
+            return Execute<T>(request);
         }
 
-        public PortionModel UpdatePortion(PortionModel model)
+        public ApiResponseModel<T> UpdatePortion<T>(PortionModel model) where T : new()
         {
             RestRequest request = new RestRequest("/api/portion");
             request.Method = Method.PUT;
             request.AddParameter("portion", model);
 
-            return Execute<PortionModel>(request);
+            return Execute<T>(request);
         }
 
         public void DeletePortion(PortionModel model)

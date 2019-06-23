@@ -24,7 +24,7 @@ namespace TimeshEAT.API.Areas.HelpPage.Controllers
         }
 
         public HttpConfiguration Configuration { get; private set; }
-		[System.Web.Mvc.Route("/")]
+
         public ActionResult Index()
         {
             ViewBag.DocumentationProvider = Configuration.Services.GetDocumentationProvider();

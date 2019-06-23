@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using RestSharp;
+using TimeshEAT.Business.API.Deserializers;
 using TimeshEAT.Common;
 
 namespace TimeshEAT.Business.API

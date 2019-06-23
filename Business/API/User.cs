@@ -1,42 +1,43 @@
 ﻿using System.Collections.Generic;
 using RestSharp;
+using TimeshEAT.Business.API.Models;
 using TimeshEAT.Business.Models;
 
 namespace TimeshEAT.Business.API
 {
     public partial class ApiClient
     {
-        public IEnumerable<UserModel> GetAllUsers()
+        public ApiResponseModel<List<T>> GetAllUsers<T>() where T : new()
         {
             RestRequest request = new RestRequest("/api/user");
 
-            return ExecuteList<List<UserModel>>(request);
+            return ExecuteList<List<T>>(request);
         }
 
-        public UserModel GetUserById(int id)
+        public ApiResponseModel<T> GetUserById<T>(int id) where T : new()
         {
             RestRequest request = new RestRequest("/api/user");
             request.AddParameter("id", id);
 
-            return Execute<UserModel>(request);
+            return Execute<T>(request);
         }
 
-        public UserModel AddUser(UserModel model)
+        public ApiResponseModel<T> AddUser<T>(UserModel model) where T : new()
         {
             RestRequest request = new RestRequest("/api/user");
             request.Method = Method.POST;
             request.AddParameter("user", model);
 
-            return Execute<UserModel>(request);
+            return Execute<T>(request);
         }
 
-        public UserModel UpdateUser(UserModel model)
+        public ApiResponseModel<T> UpdateUser<T>(UserModel model) where T : new()
         {
             RestRequest request = new RestRequest("/api/user");
             request.Method = Method.PUT;
             request.AddParameter("user", model);
 
-            return Execute<UserModel>(request);
+            return Execute<T>(request);
         }
 
         public void DeleteUser(UserModel model)

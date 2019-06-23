@@ -7,10 +7,10 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using TimeshEAT.Business.Interfaces;
+using TimeshEAT.Business.Logging.Interfaces;
+using TimeshEAT.Business.Logging.Wrappers;
 using TimeshEAT.Business.Services;
 using TimeshEAT.Web.Injection;
-using TimeshEAT.Web.Logging.Interfaces;
-using TimeshEAT.Web.Logging.Wrappers;
 
 namespace TimeshEAT.Web
 {

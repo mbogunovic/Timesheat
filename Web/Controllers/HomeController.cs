@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using TimeshEAT.Business.Interfaces;
+using TimeshEAT.Business.Logging.Interfaces;
 using TimeshEAT.Web.Attributes;
-using TimeshEAT.Web.Logging.Interfaces;
 
 namespace TimeshEAT.Web.Controllers
 {

@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using RestSharp;
 using RestSharp.Extensions;
+using TimeshEAT.Business.API.Models;
 using TimeshEAT.Business.Interfaces;
 using TimeshEAT.Business.Models;
 using TimeshEAT.Domain.Models;
@@ -30,21 +32,6 @@ namespace TimeshEAT.Business.API
 
             var response = _client.Execute<AuthorizationResponseModel>(request);
 
-            if (response.ResponseStatus == ResponseStatus.Error)
-            {
-                //log the error
-            }
-
-            if (response.StatusCode == HttpStatusCode.Unauthorized)
-            {
-                //log the error 
-            }
-
-            if (response.StatusCode == HttpStatusCode.Forbidden)
-            {
-                //log the error
-            }
-
             if (response.StatusCode == HttpStatusCode.OK && !string.IsNullOrWhiteSpace(response.Data?.Token))
             {
                 _token = response.Data.Token;
@@ -53,7 +40,7 @@ namespace TimeshEAT.Business.API
             return response.Data;
         }
 
-        public T Execute<T>(RestRequest request) where T : Entity, new()
+        public ApiResponseModel<T> Execute<T>(RestRequest request) where T : new()
         {
             request.OnBeforeDeserialization = resp =>
             {
@@ -99,10 +86,14 @@ namespace TimeshEAT.Business.API
                 //log the error 
             }
 
-            return response.Data;
+            return new ApiResponseModel<T>
+            {
+                Data = response.Data,
+                Status = response.StatusCode
+            };
         }
 
-        public T ExecuteList<T>(RestRequest request) where T : IEnumerable<Entity>, new()
+        public ApiResponseModel<T> ExecuteList<T>(RestRequest request) where T : IEnumerable, new()
         {
             request.OnBeforeDeserialization = resp =>
             {
@@ -148,7 +139,11 @@ namespace TimeshEAT.Business.API
                 //log the error 
             }
 
-            return response.Data;
+            return new ApiResponseModel<T>
+            {
+                Data = response.Data,
+                Status = response.StatusCode
+            };
         }
     }
 }

@@ -1,42 +1,43 @@
 ﻿using System.Collections.Generic;
 using RestSharp;
+using TimeshEAT.Business.API.Models;
 using TimeshEAT.Business.Models;
 
 namespace TimeshEAT.Business.API
 {
     public partial class ApiClient
     {
-        public IEnumerable<CompanyModel> GetAllCompanies()
+        public ApiResponseModel<List<T>> GetAllCompanies<T>() where T : new()
         {
             RestRequest request = new RestRequest("/api/company");
 
-            return ExecuteList<List<CompanyModel>>(request);
+            return ExecuteList<List<T>>(request);
         }
 
-        public CompanyModel GetCompanyById(int id)
+        public ApiResponseModel<T> GetCompanyById<T>(int id) where T : new()
         {
             RestRequest request = new RestRequest("/api/company");
             request.AddParameter("id", id);
 
-            return Execute<CompanyModel>(request);
+            return Execute<T>(request);
         }
 
-        public CompanyModel AddCompany(CompanyModel model)
+        public ApiResponseModel<T> AddCompany<T>(CompanyModel model) where T : new()
         {
             RestRequest request = new RestRequest("/api/company");
             request.Method = Method.POST;
             request.AddParameter("company", model);
 
-            return Execute<CompanyModel>(request);
+            return Execute<T>(request);
         }
 
-        public CompanyModel UpdateCompany(CompanyModel model)
+        public ApiResponseModel<T> UpdateCompany<T>(CompanyModel model) where T : new()
         {
             RestRequest request = new RestRequest("/api/company");
             request.Method = Method.PUT;
             request.AddParameter("company", model);
 
-            return Execute<CompanyModel>(request);
+            return Execute<T>(request);
         }
 
         public void DeleteCompany(CompanyModel model)
@@ -45,7 +46,7 @@ namespace TimeshEAT.Business.API
             request.Method = Method.DELETE;
             request.AddParameter("company", model);
 
-            Execute<CompanyModel>(request);
+            Execute<CategoryModel>(request);
         }
     }
 }

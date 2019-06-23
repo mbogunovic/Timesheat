@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace TimeshEAT.Business.API
+namespace TimeshEAT.Business.API.Converters
 {
     public class DateTimeJsonConverter : JsonConverter
     {

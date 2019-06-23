@@ -1,7 +1,7 @@
 ﻿using Serilog;
 using System;
 
-namespace TimeshEAT.Web.Logging.Wrappers
+namespace TimeshEAT.Business.Logging.Wrappers
 {
 	public class SerilogWrapper : Interfaces.ILogger
 	{
