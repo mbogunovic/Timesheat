@@ -7,24 +7,17 @@ namespace TimeshEAT.Web.Controllers
 	[AllowAnonymous]
 	public class AuthorizationController : BaseController
 	{
-		public ActionResult Index()
-		{
-			if (_member.Identity.IsAuthenticated)
-			{
-				return RedirectToAction("Index", "Home");
-			}
-
-			return View(new LoginViewModel());
-		}
+		public ActionResult Index() =>
+			_member.Identity.IsAuthenticated 
+				? RedirectToAction("Index", "Home")
+				: (ActionResult)View(new LoginViewModel());
 
 		[ValidateAntiForgeryToken]
 		[HttpPost]
 		public ActionResult Index(LoginViewModel model)
 		{
 			if (!ModelState.IsValid)
-			{
 				return View(model);
-			}
 
 			var loginResult = _member.Login(model.Email, StringHasher.GenerateHash(model.Password));
 			if (loginResult.Item1)

@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
-using TimeshEAT.Business.Interfaces;
-using TimeshEAT.Business.Logging.Interfaces;
 using TimeshEAT.Web.Attributes;
+using TimeshEAT.Web.ViewModels;
 
 namespace TimeshEAT.Web.Controllers
 {
@@ -10,7 +9,7 @@ namespace TimeshEAT.Web.Controllers
     {
 		public ActionResult Index()
         {
-            return View();
+            return View(new HomeViewModel());
         }
     }
 }
