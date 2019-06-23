@@ -6,10 +6,10 @@
 
 <div class="login">
 	<div class="login__box">
-		<a href="@Url.Action("Index", "Login")">
+		<a href="@Url.Action("Index", "Authorization")">
 			<img src="~/assets/images/logo.png" alt="" class="login__logo">
 		</a>
-		@using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "login__form" }))
+		@using (Html.BeginForm("Index", "Authorization", FormMethod.Post, new { @class = "login__form" }))
 		{
 			@Html.AntiForgeryToken()
 
@@ -22,11 +22,17 @@
 					@Html.PasswordFor(x => x.Password, new { placeholder = Model.DisplayName(x => x.Password) })
 					@Html.ValidationMessageFor(x => x.Password)
 				</li>
+				@if(TempData[Constants.RESPONSE_MESSAGE] != null)
+				{
+					<li class="login__item">
+						<p>@TempData[Constants.RESPONSE_MESSAGE]</p>
+					</li>
+				}
 			</ul>
 
 			<button type="submit" class="login__btn btn">Prijavi se</button>
 		}
-		<a href="@Url.Action("ForgotPassword", "Login")" class="login__link">Zaboravili ste lozinku?</a>
+		<a href="@Url.Action("ForgotPassword", "Authorization")" class="login__link">Zaboravili ste lozinku?</a>
 	</div>
 </div>
 

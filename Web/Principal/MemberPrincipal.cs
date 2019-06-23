@@ -8,57 +8,38 @@ namespace TimeshEAT.Web.Membership
 {
 	public class MemberPrincipal : IPrincipal
 	{
-		public MemberPrincipal(IIdentity identity)
+		public MemberPrincipal(IIdentity identity, IApiClient api)
 		{
-			_identity = identity;
-			_api = new ApiClient();
+			Identity = identity;
+			_api = api ?? throw new ArgumentNullException(nameof(api));
 		}
 
-		private readonly IIdentity _identity;
 		private UserModel _user;
-		private ApiClient _api;
+		private IApiClient _api;
 
-		public enum LoginStatus
+		public IIdentity Identity { get; }
+
+		public Tuple<bool, string> Login(string email, string password)
 		{
-			Successfull,
-			Unsuccessfull,
-			LockedOut
-		}
+			var response = _api.Authorize(new AuthorizationModel() { Email = email, PasswordHash = password });
 
-		public IIdentity Identity => _identity;
-
-		public LoginStatus Login(string email, string password)
-		{
-			//TODO: ADD OTHER LOGIN STATUSES ONCE YOU GET API
-			var loginStatus = LoginApi(email, password);
-			switch (loginStatus)
+			switch (response.Status)
 			{
-				case LoginStatus.Successfull:
+				case System.Net.HttpStatusCode.Unauthorized:
+					return new Tuple<bool, string>(false, "Uneli ste nepostojaće kredencijale.");
+				case System.Net.HttpStatusCode.Forbidden:
+					return new Tuple<bool, string>(false, "Vaš nalog je blokiran.");
+				case System.Net.HttpStatusCode.OK:
+					_user = response.Data.User;
 					FormsAuthentication.SetAuthCookie(_user.Email, true);
-					break;
-				case LoginStatus.Unsuccessfull:
-					break;
-				case LoginStatus.LockedOut:
-					break;
+					return new Tuple<bool, string>(true, "");
+				default:
+					return new Tuple<bool, string>(false, response.Status.ToString());
 			}
-
-			return loginStatus;
 		}
 
 		public void Logout() =>
 			FormsAuthentication.SignOut();
-
-		private LoginStatus LoginApi(string email, string password)
-		{
-			var model = _api.Authorize(new AuthorizationModel() { Email = email, PasswordHash = password });
-			if(model != null)
-			{ 
-				_user = model.User;
-				return LoginStatus.Successfull;
-			}
-
-			return LoginStatus.Unsuccessfull;
-		}
 
 		public bool IsInRole(string role)
 		{

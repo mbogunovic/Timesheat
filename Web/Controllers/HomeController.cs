@@ -8,10 +8,6 @@ namespace TimeshEAT.Web.Controllers
 	[RoleAuthorize]
 	public class HomeController : BaseController
     {
-		public HomeController(ILogger log, IServiceContext services) : base(log, services)
-		{
-		}
-
 		public ActionResult Index()
         {
             return View();

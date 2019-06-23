@@ -1,18 +1,14 @@
 ﻿using System.Web.Mvc;
+using TimeshEAT.Business.API;
 using TimeshEAT.Business.Helpers;
-using TimeshEAT.Business.Interfaces;
 using TimeshEAT.Business.Logging.Interfaces;
 using TimeshEAT.Web.ViewModels;
 
 namespace TimeshEAT.Web.Controllers
 {
 	[AllowAnonymous]
-	public class LoginController : BaseController
+	public class AuthorizationController : BaseController
 	{
-		public LoginController(ILogger log, IServiceContext services) : base(log, services)
-		{
-		}
-
 		public ActionResult Index()
 		{
 			if (_member.Identity.IsAuthenticated)
@@ -32,17 +28,13 @@ namespace TimeshEAT.Web.Controllers
 				return View(model);
 			}
 
-			switch (_member.Login(model.Email, StringHasher.GenerateHash(model.Password)))
-			{
-				case Membership.MemberPrincipal.LoginStatus.Successfull:
-					return RedirectToAction("Index", "Home");
-				case Membership.MemberPrincipal.LoginStatus.Unsuccessfull:
-					return View(model);
-				case Membership.MemberPrincipal.LoginStatus.LockedOut:
-					return View(model);
-				default:
-					return View(model);
-			};
+			var loginResult = _member.Login(model.Email, StringHasher.GenerateHash(model.Password));
+			if (loginResult.Item1)
+				return RedirectToAction("Index", "Home");
+
+			TempData[Constants.RESPONSE_MESSAGE] = loginResult.Item2;
+
+			return View();
 		}
 
 		public ActionResult ForgotPassword()
@@ -65,7 +57,7 @@ namespace TimeshEAT.Web.Controllers
 		public ActionResult Logout()
 		{
 			_member.Logout();
-			return RedirectToAction("Index", "Login");
+			return RedirectToAction("Index", "Authorization");
 		}
 	}
 }

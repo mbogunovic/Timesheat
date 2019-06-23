@@ -70,7 +70,6 @@
     <Compile Include="API\Deserializers\RestSharpJsonNetDeserializer.cs" />
     <Compile Include="API\Role.cs" />
     <Compile Include="API\User.cs" />
-    <Compile Include="Interfaces\IApiClient.cs" />
     <Compile Include="Interfaces\ICategoryService.cs" />
     <Compile Include="Interfaces\ICompanyService.cs" />
     <Compile Include="Interfaces\IMealService.cs" />

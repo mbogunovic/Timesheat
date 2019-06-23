@@ -14,10 +14,9 @@ namespace TimeshEAT.Business.API
         private string _token;
         public const string DateTimeFormat = "yyyy-MM-ddTHH:mm:sszzz";
         
-        public ApiClient(string token = "")
+        public ApiClient()
         {
             _client = ClientFactory.CreateClient();
-            _token = token;
         }
 
         public ApiResponseModel<AuthorizationResponseModel> Authorize(AuthorizationModel model)

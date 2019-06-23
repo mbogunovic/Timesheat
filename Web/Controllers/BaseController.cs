@@ -1,5 +1,7 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using System.Web.Mvc;
+using TimeshEAT.Business.API;
 using TimeshEAT.Business.Interfaces;
 using TimeshEAT.Business.Logging.Interfaces;
 using TimeshEAT.Web.Membership;
@@ -10,7 +12,8 @@ namespace TimeshEAT.Web.Controllers
 	public class BaseController : Controller
 	{
 		protected readonly ILogger _log;
-		protected readonly IServiceContext _services;
+		protected readonly IApiClient _api;
+
 		protected MemberPrincipal _member
 		{
 			get
@@ -23,25 +26,25 @@ namespace TimeshEAT.Web.Controllers
 			}
 		}
 
-		public BaseController(ILogger log, IServiceContext services)
+		public BaseController()
 		{
-			_member = _member is MemberPrincipal ? _member : new MemberPrincipal(System.Web.HttpContext.Current.User.Identity);
-			_log = log;
-			_services = services ?? throw new ArgumentNullException(nameof(services));
+			_log = DependencyResolver.Current.GetService<ILogger>();
+			_api = DependencyResolver.Current.GetService<IApiClient>();
+			_member = _member is MemberPrincipal ? _member : new MemberPrincipal(System.Web.HttpContext.Current.User.Identity, _api);
 		}
 
 		protected override void OnException(ExceptionContext filterContext)
 		{
-			if (filterContext.ExceptionHandled)
-			{
-				return;
-			}
+			//if (filterContext.ExceptionHandled)
+			//{
+			//	return;
+			//}
 
-			_log.WriteErrorLog($"Unhandled exception occured for user {User.Identity.Name}", filterContext.Exception);
-			filterContext.ExceptionHandled = true;
+			//_log.WriteErrorLog($"Unhandled exception occured for user {User.Identity.Name}", filterContext.Exception);
+			//filterContext.ExceptionHandled = true;
 
-			filterContext.Controller.TempData["errorModel"] = new ErrorViewModel("Error 500", "Something went wrong.");
-			filterContext.Result = RedirectToAction("Index", "Error");
+			//filterContext.Controller.TempData["errorModel"] = new ErrorViewModel("Error 500", "Something went wrong.");
+			//filterContext.Result = RedirectToAction("Index", "Error");
 		}
 	}
 }

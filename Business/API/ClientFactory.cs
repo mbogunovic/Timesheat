@@ -13,7 +13,7 @@ namespace TimeshEAT.Business.API
             var baseUrl = AppSettings.ApiBaseUrl;
             var client = new RestClient(baseUrl);
 
-            client.AddHandler("application/json", new RestSharpJsonNetDeserializer());
+            client.AddHandler("application/json", () => new RestSharpJsonNetDeserializer());
 
             var assembly = Assembly.GetExecutingAssembly();
             var assemblyName = new AssemblyName(assembly.FullName);
