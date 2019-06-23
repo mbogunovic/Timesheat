@@ -43,15 +43,9 @@ namespace TimeshEAT.API.Controllers
             }
 
             if (!loginResult.IsActive)
-            {
-                HttpContext.Current.Response.StatusCode = (int)HttpStatusCode.Forbidden;
-            }
+				throw new HttpResponseException(HttpStatusCode.Forbidden);
             else
-            {
-                HttpContext.Current.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
-            }
-
-            return null;
+				throw new HttpResponseException(HttpStatusCode.Unauthorized);
         }
     }
 }

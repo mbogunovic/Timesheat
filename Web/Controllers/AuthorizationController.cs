@@ -1,7 +1,5 @@
 ﻿using System.Web.Mvc;
-using TimeshEAT.Business.API;
 using TimeshEAT.Business.Helpers;
-using TimeshEAT.Business.Logging.Interfaces;
 using TimeshEAT.Web.ViewModels;
 
 namespace TimeshEAT.Web.Controllers
@@ -34,7 +32,7 @@ namespace TimeshEAT.Web.Controllers
 
 			TempData[Constants.RESPONSE_MESSAGE] = loginResult.Item2;
 
-			return View();
+			return View(model);
 		}
 
 		public ActionResult ForgotPassword()

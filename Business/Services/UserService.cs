@@ -68,6 +68,7 @@ namespace TimeshEAT.Business.Services
             if (user == null || !user.Password.Equals(passwordHash, StringComparison.OrdinalIgnoreCase))
             {
                 model.IsAuthenticated = false;
+				model.IsActive = true;
                 return model;
             }
 
