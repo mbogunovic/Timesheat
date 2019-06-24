@@ -132,6 +132,7 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\AuthorizationController.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extensions\IFormExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Navigation\NavigationContext.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\CompanyViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\OrderViewModel.cs" />
     <Compile Include="ViewModels\ErrorViewModel.cs" />
@@ -187,6 +189,7 @@
     <Content Include="Views\Authorization\ForgotPassword.cshtml" />
     <Content Include="Views\Shared\_StandardLayout.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Company\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
