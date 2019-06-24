@@ -11,7 +11,8 @@ namespace TimeshEAT.Web.Optimization
 			bundles.Add(style);
 
 			var script = new ScriptBundle("~/scripts/default")
-				.Include("~/js/global.min.js", new JsRewriteUrlTransform());
+				.Include("~/js/global.min.js", new JsRewriteUrlTransform())
+                .Include("~/js/reportaproblem.js", new JsRewriteUrlTransform());
 			bundles.Add(script);
 
 			//TODO: MAKE CONFIGURABLE

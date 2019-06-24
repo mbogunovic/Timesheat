@@ -125,6 +125,7 @@
     <Content Include="Global.asax" />
     <Content Include="js\global.js" />
     <Content Include="js\global.min.js" />
+    <Content Include="js\reportaproblem.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -132,6 +133,7 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\AuthorizationController.cs" />
+    <Compile Include="Controllers\ReportAProblemController.cs" />
     <Compile Include="Extensions\IFormExtensions.cs" />
     <Compile Include="Interfaces\IForm.cs" />
     <Compile Include="Principal\MemberPrincipal.cs" />
@@ -152,6 +154,8 @@
     <Compile Include="ViewModels\ErrorViewModel.cs" />
     <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\ReportAProblemModelSubmitViewModel.cs" />
+    <Compile Include="ViewModels\ReportAProblemModelViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -168,6 +172,8 @@
     <Content Include="assets\fonts\Ubuntu-Medium.ttf" />
     <Content Include="assets\fonts\Ubuntu-MediumItalic.ttf" />
     <Content Include="assets\fonts\Ubuntu-Regular.ttf" />
+    <Content Include="appSettings.config" />
+    <Content Include="connectionStrings.config" />
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_HeadLayout.cshtml" />
@@ -177,6 +183,7 @@
     <Content Include="Views\Shared\_BlankLayout.cshtml" />
     <Content Include="Views\Authorization\ForgotPassword.cshtml" />
     <Content Include="Views\Shared\_StandardLayout.cshtml" />
+    <Content Include="Views\ReportAProblem\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -191,6 +198,10 @@
     <ProjectReference Include="..\Business\TimeshEAT.Business.csproj">
       <Project>{a6d5658d-2a81-45eb-9850-13ded0bf0df2}</Project>
       <Name>TimeshEAT.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\TimeshEAT.Common.csproj">
+      <Project>{9c7b17f1-3624-4619-a6a8-963e580cc097}</Project>
+      <Name>TimeshEAT.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Domain\TimeshEAT.Domain.csproj">
       <Project>{A3C93CA4-262A-4671-9C85-6788861F4F7C}</Project>
