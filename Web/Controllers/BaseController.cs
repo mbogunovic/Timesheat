@@ -1,11 +1,9 @@
-﻿using System;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using System.Web.Mvc;
 using TimeshEAT.Business.API;
-using TimeshEAT.Business.Interfaces;
 using TimeshEAT.Business.Logging.Interfaces;
 using TimeshEAT.Web.Membership;
-using TimeshEAT.Web.ViewModels;
+using TimeshEAT.Web.Navigation;
 
 namespace TimeshEAT.Web.Controllers
 {
@@ -13,6 +11,8 @@ namespace TimeshEAT.Web.Controllers
 	{
 		protected readonly ILogger _log;
 		protected readonly IApiClient _api;
+		[Import]
+		protected INavigationContext Navigation { get; set; }
 
 		protected MemberPrincipal _member
 		{

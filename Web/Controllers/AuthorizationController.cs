@@ -20,7 +20,7 @@ namespace TimeshEAT.Web.Controllers
 			}
 
 			return _member.Identity.IsAuthenticated
-				? RedirectToAction("Index", "Home")
+				? RedirectToAction("Index", "Order")
 				: (ActionResult)View(new LoginViewModel());
 		}
 
@@ -34,7 +34,7 @@ namespace TimeshEAT.Web.Controllers
 
 			var loginResult = _member.Login(model.Email, StringHasher.GenerateHash(model.Password));
 			if (loginResult.Item1)
-				return RedirectToAction("Index", "Home");
+				return RedirectToAction("Index", "Order");
 
 			TempData[Constants.RESPONSE_MESSAGE] = loginResult.Item2;
 

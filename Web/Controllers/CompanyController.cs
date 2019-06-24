@@ -6,11 +6,11 @@ using TimeshEAT.Web.ViewModels;
 namespace TimeshEAT.Web.Controllers
 {
 	[RoleAuthorize]
-	public class OrderController : BaseController, INavigationController
+	public class CompanyController : BaseController, INavigationController
     {
 		public ActionResult Index()
         {
-            return View(this.Navigation.GetPageViewModel<OrderViewModel>());
+            return View(this.Navigation.GetPageViewModel<CompanyViewModel>());
         }
     }
 }
