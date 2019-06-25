@@ -12,6 +12,7 @@ namespace TimeshEAT.Business.API
     {
         private readonly RestClient _client;
         private string _token;
+        private const string MasterToken = "bd612f529c053304a72e9f4e93ab028c";
         public const string DateTimeFormat = "yyyy-MM-ddTHH:mm:sszzz";
         
         public ApiClient()
@@ -45,13 +46,18 @@ namespace TimeshEAT.Business.API
 			RestRequest request = new RestRequest("/api/authorization/lockout");
 			request.AddParameter("email", email);
 			request.Method = Method.GET;
+            request.AddHeader("Authorization", $"Bearer {MasterToken}");
 
 			_client.Execute(request);
 		}
 
 
-		public ApiResponseModel<T> Execute<T>(RestRequest request) where T : new()
+		public ApiResponseModel<T> Execute<T>(RestRequest request, bool isMasterTokenRequest = false) where T : new()
         {
+            if (isMasterTokenRequest)
+            {
+                request.AddHeader("Authorization", $"Bearer {MasterToken}");
+            }
             request.OnBeforeDeserialization = resp =>
             {
                 int responseStatus = (int) resp.ResponseStatus;
@@ -103,8 +109,12 @@ namespace TimeshEAT.Business.API
             };
         }
 
-        public ApiResponseModel<T> ExecuteList<T>(RestRequest request) where T : IEnumerable, new()
+        public ApiResponseModel<T> ExecuteList<T>(RestRequest request, bool isMasterTokenRequest = false) where T : IEnumerable, new()
         {
+            if (isMasterTokenRequest)
+            {
+                request.AddHeader("Authorization", $"Bearer {MasterToken}");
+            }
             request.OnBeforeDeserialization = resp =>
             {
                 int responseStatus = (int)resp.ResponseStatus;

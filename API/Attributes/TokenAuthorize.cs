@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
@@ -7,23 +8,13 @@ using System.Web.Http.Controllers;
 namespace TimeshEAT.API.Attributes
 {
     public class TokenAuthorize : AuthorizeAttribute
-    { 
-        //protected override bool AuthorizeCore(HttpContextBase httpContext)
-        //{
-        //    if (!base.AuthorizeCore(httpContext))
-        //        return false;
-
-        //    string token = httpContext.Request.Headers["Authorization"];
-        //    if(string.IsNullOrWhiteSpace(token) || httpContext.Cache[token] == null)
-        //        return false;
-
-        //    return true;
-        //}
+    {
+        private const string MasterToken = "bd612f529c053304a72e9f4e93ab028c";
 
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
             string token = actionContext.Request.Headers.Authorization?.Parameter;
-            if (string.IsNullOrWhiteSpace(token) || HttpContext.Current.Cache[token] == null)
+            if (string.IsNullOrWhiteSpace(token) || token.Equals(MasterToken, StringComparison.OrdinalIgnoreCase) || HttpContext.Current.Cache[token] == null)
                 return false;
 
             return true;
@@ -33,10 +24,5 @@ namespace TimeshEAT.API.Attributes
         {
             actionContext.Response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
         }
-
-        //protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
-        //{
-        //    filterContext.Result = new HttpStatusCodeResult(HttpStatusCode.Unauthorized, "Unauthorized - token not provided");
-        //}
     }
 }

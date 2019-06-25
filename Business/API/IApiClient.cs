@@ -10,8 +10,8 @@ namespace TimeshEAT.Business.API
     {
         ApiResponseModel<AuthorizationResponseModel> Authorize(AuthorizationModel model);
 		void Lockout(string email);
-        ApiResponseModel<T> Execute<T>(RestRequest request) where T : new();
-        ApiResponseModel<T> ExecuteList<T>(RestRequest request) where T : IEnumerable, new();
+        ApiResponseModel<T> Execute<T>(RestRequest request, bool isMasterTokenRequest) where T : new();
+        ApiResponseModel<T> ExecuteList<T>(RestRequest request, bool isMasterTokenRequest) where T : IEnumerable, new();
         ApiResponseModel<List<T>> GetAllCompanies<T>() where T : new();
         ApiResponseModel<T> GetCompanyById<T>(int id) where T : new();
         ApiResponseModel<T> AddCompany<T>(CompanyModel model) where T : new();
