@@ -76,7 +76,7 @@ namespace TimeshEAT.Web.Membership
 
 		public void ResetPassword(string newPassword, string token)
 		{
-			int userId = WebCache.Get(token) ?? throw new HttpException(401, "Unauthorized access");
+			int userId = WebCache.Get(token);
 			_api.UpdatePassword(userId, newPassword);
 			WebCache.Remove(token);
 		}

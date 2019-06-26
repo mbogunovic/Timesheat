@@ -140,6 +140,9 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Interfaces\IForm.cs" />
     <Compile Include="Interfaces\INavigationController.cs" />
+    <Compile Include="Models\Additional\PaginationModel.cs" />
+    <Compile Include="Models\Additional\ReadOnlyPagedCollection.cs" />
+    <Compile Include="Models\User\SimpleUserModel.cs" />
     <Compile Include="Navigation\INavigationViewModel.cs" />
     <Compile Include="Navigation\INavigationContext.cs" />
     <Compile Include="Navigation\NavigationItem.cs" />

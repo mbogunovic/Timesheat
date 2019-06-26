@@ -69,7 +69,7 @@ namespace TimeshEAT.Business.Models
 			}
 			set
 			{
-				if (value > 0)
+				if (value <= 0)
 				{
 					throw new ArgumentNullException(nameof(DailyDiscount), "Valid daily discount is mandatory!");
 				}

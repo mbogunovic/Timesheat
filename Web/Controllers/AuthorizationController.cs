@@ -71,8 +71,17 @@ namespace TimeshEAT.Web.Controllers
 
 		#region [ResetPassword]
 
-		public ActionResult ResetPassword(string token) =>
-			View(new ResetPasswordViewModel(token));
+		public ActionResult ResetPassword(string token)
+		{
+			if (WebCache.Get(token) == null)
+			{
+				TempData[Constants.ERROR_MODEL] = new ErrorViewModel("401", "Token nije više važeć");
+
+				return RedirectToAction("Index", "Error");
+			}
+
+			return View(new ResetPasswordViewModel(token));
+		}
 
 		[ValidateAntiForgeryToken]
 		[HttpPost]
@@ -83,11 +92,18 @@ namespace TimeshEAT.Web.Controllers
 				TempData[Constants.RESPONSE_MESSAGE] = "Šifre se ne poklapaju.";
 				return View(model);
 			}
+
+			if (!(model.NewPassword.Length > 8))
+			{
+				TempData[Constants.RESPONSE_MESSAGE] = "Šifra mora biti duža od 8 karaktera";
+				return View(model);
+			}
+
 			if (!ModelState.IsValid)
 				return View(model);
 
 			_member.ResetPassword(StringHasher.GenerateHash(model.NewPassword), model.Token);
-			 
+
 			return RedirectToAction("Index");
 		}
 
