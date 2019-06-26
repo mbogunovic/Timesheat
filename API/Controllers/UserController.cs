@@ -26,12 +26,19 @@ namespace TimeshEAT.API.Controllers
         public IEnumerable<UserModel> Get() => _serviceContext.Users.Get();
 
 
-        /// <summary>
-        /// Endpoint for obtaining single user
-        /// </summary>
-        /// <param name="id">Id of the user to obtain</param>
-        /// <returns>User with provided Id</returns>
-        public UserModel Get(int id) => _serviceContext.Users.GetBy(id);
+		/// <summary>
+		/// Endpoint for obtaining single user by email
+		/// </summary>
+		/// <param name="email">Email of the user to obtain</param>
+		/// <returns>User with provided email</returns>
+		public UserModel Get(string email) => _serviceContext.Users.GetBy(email);
+
+		/// <summary>
+		/// Endpoint for obtaining single user
+		/// </summary>
+		/// <param name="id">Id of the user to obtain</param>
+		/// <returns>User with provided Id</returns>
+		public UserModel Get(int id) => _serviceContext.Users.GetBy(id);
 
         /// <summary>
         /// Endpoint for adding user

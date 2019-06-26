@@ -10,6 +10,7 @@ using TimeshEAT.Business.Interfaces;
 using TimeshEAT.Business.Logging.Interfaces;
 using TimeshEAT.Business.Logging.Wrappers;
 using TimeshEAT.Business.Services;
+using TimeshEAT.Common;
 using TimeshEAT.Web.Injection;
 using TimeshEAT.Web.Navigation;
 using TimeshEAT.Web.Optimization;
@@ -25,9 +26,6 @@ namespace TimeshEAT.Web
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-			//TODO: MAKE WEB CONFIG GETTER SETTER
-			string path = ConfigurationManager.AppSettings["path"];
-
 			Container container = new Container();
 
 			// ------------------ Property injection ------------------ \\
@@ -36,7 +34,8 @@ namespace TimeshEAT.Web
 			// ------------------ WebRequestLifestyle setter ------------------ \\
 			container.Options.DefaultScopedLifestyle = new WebRequestLifestyle();
 
-			container.Register<ILogger>(() => new SerilogWrapper(path), Lifestyle.Singleton);
+			// ------------------ Logger ------------------ \\
+			container.Register<ILogger>(() => new SerilogWrapper(AppSettings.SerilogPath), Lifestyle.Singleton);
 
 			// ------------------ Api ------------------ \\
 			container.Register<IApiClient, ApiClient>(Lifestyle.Scoped);

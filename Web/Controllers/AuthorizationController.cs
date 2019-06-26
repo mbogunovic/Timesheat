@@ -8,7 +8,6 @@ namespace TimeshEAT.Web.Controllers
 	[AllowAnonymous]
 	public class AuthorizationController : BaseController
 	{
-
 		#region [Login]
 
 		public ActionResult Index()
@@ -30,11 +29,15 @@ namespace TimeshEAT.Web.Controllers
 		public ActionResult Index(LoginViewModel model)
 		{
 			if (!ModelState.IsValid)
+			{
 				return View(model);
+			}
 
-			var loginResult = _member.Login(model.Email, StringHasher.GenerateHash(model.Password));
+			System.Tuple<bool, string> loginResult = _member.Login(model.Email, StringHasher.GenerateHash(model.Password));
 			if (loginResult.Item1)
+			{
 				return RedirectToAction("Index", "Order");
+			}
 
 			TempData[Constants.RESPONSE_MESSAGE] = loginResult.Item2;
 
@@ -54,13 +57,38 @@ namespace TimeshEAT.Web.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-				return View();
+				return View(model);
 			}
 
-			_member.ResetPassword(model.Email);
-			TempData[Constants.RESPONSE_MESSAGE] = "Ako email adresa postoji, nova šifra je poslata na istu.";
+			_member.ForgotPassword(model.Email);
+			TempData[Constants.RESPONSE_MESSAGE] = "Ako email adresa postoji, link za kreaciju nove šifre je poslat na adresu.";
 
-			return View();
+			return View(model);
+		}
+
+
+		#endregion
+
+		#region [ResetPassword]
+
+		public ActionResult ResetPassword(string token) =>
+			View(new ResetPasswordViewModel(token));
+
+		[ValidateAntiForgeryToken]
+		[HttpPost]
+		public ActionResult ResetPassword(ResetPasswordViewModel model)
+		{
+			if (!model.NewPassword.Equals(model.RepeatPassword))
+			{
+				TempData[Constants.RESPONSE_MESSAGE] = "Šifre se ne poklapaju.";
+				return View(model);
+			}
+			if (!ModelState.IsValid)
+				return View(model);
+
+			_member.ResetPassword(StringHasher.GenerateHash(model.NewPassword), model.Token);
+			 
+			return RedirectToAction("Index");
 		}
 
 		#endregion

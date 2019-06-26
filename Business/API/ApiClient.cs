@@ -41,6 +41,18 @@ namespace TimeshEAT.Business.API
             };
         }
 
+		public void UpdatePassword(int userId, string password)
+		{
+			RestRequest request = new RestRequest("/api/authorization/update_password");
+			request.AddParameter("password", password);
+			request.AddParameter("userId", userId);
+			request.AddHeader("Authorization", $"Bearer {MasterToken}");
+
+			request.Method = Method.GET;
+
+			_client.Execute(request);
+		}
+
 		public void Lockout(string email)
 		{
 			RestRequest request = new RestRequest("/api/authorization/lockout");

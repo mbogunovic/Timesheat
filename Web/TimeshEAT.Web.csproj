@@ -157,6 +157,7 @@
     <Compile Include="Optimization\JsRewriteUrlTransform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Navigation\NavigationContext.cs" />
+    <Compile Include="ViewModels\ResetPasswordViewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CompanyViewModel.cs" />
@@ -197,6 +198,7 @@
     <Content Include="Views\ReportAProblem\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Company\Index.cshtml" />
+    <Content Include="Views\Authorization\ResetPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

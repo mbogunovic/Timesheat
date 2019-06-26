@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Net;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Helpers;
+using System.Web.Mvc;
 using System.Web.Security;
 using TimeshEAT.Business.API;
+using TimeshEAT.Business.Helpers;
+using TimeshEAT.Business.Logging.Interfaces;
 using TimeshEAT.Business.Models;
+using TimeshEAT.Common;
 
 namespace TimeshEAT.Web.Membership
 {
@@ -69,9 +74,25 @@ namespace TimeshEAT.Web.Membership
 			return true;
 		}
 
-		public void ResetPassword(string email)
+		public void ResetPassword(string newPassword, string token)
 		{
-			throw new NotImplementedException();
+			int userId = WebCache.Get(token) ?? throw new HttpException(401, "Unauthorized access");
+			_api.UpdatePassword(userId, newPassword);
+			WebCache.Remove(token);
+		}
+
+		public void ForgotPassword(string email) {
+			var userResponse = _api.GetUserByEmail<UserModel>(email);
+			if(userResponse.Status.Equals(HttpStatusCode.OK) && userResponse.Data != null)
+			{
+				var emailSender = new EmailSender(DependencyResolver.Current.GetService<ILogger>());
+				var token = TokenGenerator.GenerateToken();
+
+				WebCache.Set(token, userResponse.Data.Id);
+				string resetPasswordLink = $"{HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)}/Authorization/ResetPassword?token={token}";
+				emailSender.Send(email, AppSettings.DefaultEmail, "TimeshEAT - Link za resetovanje lozinke", resetPasswordLink);
+			}
+
 		}
 	}
 }

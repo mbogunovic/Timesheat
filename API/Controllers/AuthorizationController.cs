@@ -4,6 +4,7 @@ using System.Net;
 using System.Web;
 using System.Web.Caching;
 using System.Web.Http;
+using TimeshEAT.API.Attributes;
 using TimeshEAT.Business.Helpers;
 using TimeshEAT.Business.Interfaces;
 using TimeshEAT.Business.Models;
@@ -11,10 +12,10 @@ using TimeshEAT.Common;
 
 namespace TimeshEAT.API.Controllers
 {
-    /// <summary>
-    /// Endpoints for authorization
-    /// </summary>
-    public class AuthorizationController : ApiController
+	/// <summary>
+	/// Endpoints for authorization
+	/// </summary>
+	public class AuthorizationController : ApiController
     {
         private readonly IServiceContext _serviceContext;
 
@@ -62,7 +63,19 @@ namespace TimeshEAT.API.Controllers
         /// <param name="email">Email of the user to lockout</param>
 		[HttpGet]
 		[Route("api/authorization/lockout")]
-        public void Lockout(string email) =>
+		[TokenAuthorize]
+		public void Lockout(string email) =>
 			_serviceContext.Users.Lockout(email);
-    }
+
+		/// <summary>
+		/// Updates password for user
+		/// </summary>
+		/// <param name="password">New user password</param>
+		/// <param name="userId">User id</param>
+		[HttpGet]
+		[Route("api/authorization/update_password")]
+		[TokenAuthorize]
+		public void UpdatePassword(int userId, string password) =>
+			_serviceContext.Users.UpdatePassword(userId, password);
+	}
 }

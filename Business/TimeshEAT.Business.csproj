@@ -71,6 +71,7 @@
     <Compile Include="API\Role.cs" />
     <Compile Include="API\User.cs" />
     <Compile Include="Helpers\EmailSender.cs" />
+    <Compile Include="Helpers\TokenGenerator.cs" />
     <Compile Include="Interfaces\ICategoryService.cs" />
     <Compile Include="Interfaces\ICompanyService.cs" />
     <Compile Include="Interfaces\IMealService.cs" />

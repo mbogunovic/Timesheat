@@ -14,10 +14,10 @@ namespace TimeshEAT.API.Attributes
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
             string token = actionContext.Request.Headers.Authorization?.Parameter;
-            if (string.IsNullOrWhiteSpace(token) || token.Equals(MasterToken, StringComparison.OrdinalIgnoreCase) || HttpContext.Current.Cache[token] == null)
-                return false;
+            if (!string.IsNullOrWhiteSpace(token) && (token.Equals(MasterToken, StringComparison.OrdinalIgnoreCase) || HttpContext.Current.Cache[token] != null))
+                return true;
 
-            return true;
+            return false;
         }
 
         protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)

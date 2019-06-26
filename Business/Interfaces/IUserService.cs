@@ -6,5 +6,7 @@ namespace TimeshEAT.Business.Interfaces
     {
         LoginResultModel Login(string email, string passwordHash);
 		void Lockout(string email);
+		void UpdatePassword(int userId, string password);
+		UserModel GetBy(string email);
 	}
 }

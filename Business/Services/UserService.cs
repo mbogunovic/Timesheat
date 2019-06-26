@@ -11,6 +11,9 @@ namespace TimeshEAT.Business.Services
 	{
 		public UserService(IRepositoryContext context) : base(context) { }
 
+		public UserModel GetBy(string email) =>
+			_context.UserRepository.GetAll().FirstOrDefault(x => x.Email.Equals(email));
+
 		public IEnumerable<UserModel> Get()
 		{
 			var result = _context.UserRepository.GetAll()
@@ -94,6 +97,15 @@ namespace TimeshEAT.Business.Services
 				user.IsActive = false;
 				_context.UserRepository.Update(user);
 			}
+		}
+
+		public void UpdatePassword(int userId, string password)
+		{
+			var user = _context.UserRepository.GetById(userId);
+
+			user.Password = password;
+
+			_context.UserRepository.Update(user);
 		}
 	}
 }

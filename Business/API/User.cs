@@ -14,7 +14,15 @@ namespace TimeshEAT.Business.API
             return ExecuteList<List<T>>(request);
         }
 
-        public ApiResponseModel<T> GetUserById<T>(int id) where T : new()
+		public ApiResponseModel<T> GetUserByEmail<T>(string email) where T : new()
+		{
+			RestRequest request = new RestRequest("/api/user");
+			request.AddParameter("email", email);
+
+			return Execute<T>(request, true);
+		}
+
+		public ApiResponseModel<T> GetUserById<T>(int id) where T : new()
         {
             RestRequest request = new RestRequest("/api/user");
             request.AddParameter("id", id);
