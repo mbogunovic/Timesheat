@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using TimeshEAT.Domain.Models;
 
@@ -26,6 +27,8 @@ namespace TimeshEAT.Business.Models
 			CompanyId = companyId;
 			Version = version;
 		}
+
+		public IEnumerable<RoleModel> Roles { get; set; }
 
 		public string FullName
 		{

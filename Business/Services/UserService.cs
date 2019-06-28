@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TimeshEAT.Business.Interfaces;
 using TimeshEAT.Business.Models;
 using TimeshEAT.Domain.Interfaces.Repositories;
-using TimeshEAT.Business.Interfaces;
 
 namespace TimeshEAT.Business.Services
 {
@@ -12,34 +12,49 @@ namespace TimeshEAT.Business.Services
 		public UserService(IRepositoryContext context) : base(context) { }
 
 		public UserModel GetBy(string email) =>
-			_context.UserRepository.GetAll().FirstOrDefault(x => x.Email.Equals(email));
+			Get().FirstOrDefault(x => x.Email.Equals(email));
 
 		public IEnumerable<UserModel> Get()
 		{
-			var result = _context.UserRepository.GetAll()
-				.Select(x => (UserModel)x);
+			List<UserModel> result = _context.UserRepository.GetAll()
+				.Select(x => (UserModel)x)
+				.ToList();
 
-			//TODO: add roles and companies models
+			//TODO: companies models
+			for (int i=0; i < result.Count(); i++)
+			{
+				result[i].Roles = _context.RoleRepository.GetAllByUserId(result[i].Id)
+					.Select(x => (RoleModel)x)
+					.ToList();
+			}
 
-			return result;
+			return result.ToList();
 		}
 
 		public UserModel GetBy(int id)
 		{
-			if (id <= 0) throw new ArgumentNullException(nameof(id), "Id cannot be null!");
+			if (id <= 0)
+			{
+				throw new ArgumentNullException(nameof(id), "Id cannot be null!");
+			}
 
-			var result = _context.UserRepository.GetById(id);
+			UserModel result = _context.UserRepository.GetById(id);
 
-			//TODO: add roles and companies models
+			//TODO: add companies models
+			result.Roles = _context.RoleRepository.GetAllByUserId(result.Id)
+					.Select(x => (RoleModel)x);
 
 			return result;
 		}
 
 		public UserModel Add(UserModel user)
 		{
-			if (user == null) throw new ArgumentNullException(nameof(user), "User cannot be null!");
+			if (user == null)
+			{
+				throw new ArgumentNullException(nameof(user), "User cannot be null!");
+			}
 
-			var result = _context.UserRepository.Insert(user);
+			Domain.Models.User result = _context.UserRepository.Insert(user);
 
 			//TODO: add roles and companies models
 
@@ -48,9 +63,12 @@ namespace TimeshEAT.Business.Services
 
 		public UserModel Save(UserModel user)
 		{
-			if (user == null) throw new ArgumentNullException(nameof(user), "User cannot be null!");
+			if (user == null)
+			{
+				throw new ArgumentNullException(nameof(user), "User cannot be null!");
+			}
 
-			var result = _context.UserRepository.Update(user);
+			Domain.Models.User result = _context.UserRepository.Update(user);
 
 			//TODO: add roles and companies models
 
@@ -59,40 +77,43 @@ namespace TimeshEAT.Business.Services
 
 		public void Remove(UserModel user)
 		{
-			if (user == null) throw new ArgumentNullException(nameof(user), "User cannot be null!");
+			if (user == null)
+			{
+				throw new ArgumentNullException(nameof(user), "User cannot be null!");
+			}
 
 			_context.UserRepository.Delete(user);
 		}
 
-        public LoginResultModel Login(string email, string passwordHash)
-        {
-            LoginResultModel model = new LoginResultModel();
-            var user = _context.UserRepository.GetAll().FirstOrDefault(u => u.Email.Equals(email));
-            if (user == null || !user.Password.Equals(passwordHash, StringComparison.OrdinalIgnoreCase))
-            {
-                model.IsAuthenticated = false;
+		public LoginResultModel Login(string email, string passwordHash)
+		{
+			LoginResultModel model = new LoginResultModel();
+			UserModel user = Get().FirstOrDefault(u => u.Email.Equals(email));
+			if (user == null || !user.Password.Equals(passwordHash, StringComparison.OrdinalIgnoreCase))
+			{
+				model.IsAuthenticated = false;
 				model.IsActive = true;
-                return model;
-            }
+				return model;
+			}
 
-            if (!user.IsActive)
-            {
-                model.IsAuthenticated = false;
-                model.IsActive = false;
-                return model;
-            }
+			if (!user.IsActive)
+			{
+				model.IsAuthenticated = false;
+				model.IsActive = false;
+				return model;
+			}
 
-            model.IsAuthenticated = true;
-            model.IsActive = true;
-            model.User = user;
-            return model;
-        }
+			model.IsAuthenticated = true;
+			model.IsActive = true;
+			model.User = user;
+			return model;
+		}
 
 		public void Lockout(string email)
 		{
-			var user = _context.UserRepository.GetAll().FirstOrDefault(u => u.Email.Equals(email));
+			Domain.Models.User user = _context.UserRepository.GetAll().FirstOrDefault(u => u.Email.Equals(email));
 
-			if(user != null)
+			if (user != null)
 			{
 				user.IsActive = false;
 				_context.UserRepository.Update(user);
@@ -101,7 +122,7 @@ namespace TimeshEAT.Business.Services
 
 		public void UpdatePassword(int userId, string password)
 		{
-			var user = _context.UserRepository.GetById(userId);
+			Domain.Models.User user = _context.UserRepository.GetById(userId);
 
 			user.Password = password;
 

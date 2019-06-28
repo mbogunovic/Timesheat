@@ -5,7 +5,7 @@ using TimeshEAT.Web.ViewModels;
 
 namespace TimeshEAT.Web.Controllers
 {
-	[RoleAuthorize]
+	[RoleAuthorize(Roles = "User, Administrator")]
 	public class OrderController : BaseController, INavigationController
     {
 		public ActionResult Index()

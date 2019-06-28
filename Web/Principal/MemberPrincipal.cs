@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Security.Principal;
 using System.Web;
@@ -68,17 +69,18 @@ namespace TimeshEAT.Web.Membership
 		public void Logout() =>
 			FormsAuthentication.SignOut();
 
-		public bool IsInRole(string role)
-		{
-			//TODO: ADD ROLES CHECK
-			return true;
-		}
+		public bool IsInRole(string role) =>
+			_user.Roles.Any(x => x.Name.Equals(role));
 
-		public void ResetPassword(string newPassword, string token)
+		public bool ResetPassword(string newPassword, string token)
 		{
-			int userId = WebCache.Get(token);
-			_api.UpdatePassword(userId, newPassword);
+			int? userId = WebCache.Get(token);
+			if (!userId.HasValue) return false;
+
+			_api.UpdatePassword(userId.Value, newPassword);
 			WebCache.Remove(token);
+
+			return true;
 		}
 
 		public void ForgotPassword(string email) {

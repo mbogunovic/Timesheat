@@ -26,6 +26,9 @@ namespace TimeshEAT.Repository.Repositories
 		public void Delete(Role role, ITransaction transaction = null) =>
 			_provider.Delete(role, transaction);
 
+		public IEnumerable<Role> GetAllByUserId(int userId, ITransaction transaction = null) =>
+			_provider.GetAllByUserId(userId, transaction);
+
 		public ITransaction CreateNewTransaction() =>
 			_provider.CreateNewTransaction();
 	}

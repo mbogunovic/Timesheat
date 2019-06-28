@@ -48,7 +48,5 @@ namespace TimeshEAT.Web
 
 			container.RegisterMvcIntegratedFilterProvider();
 		}
-
-
 	}
 }
