@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 using TimeshEAT.Web.Models.View;
+using WebGrease.Css.Extensions;
 
 namespace TimeshEAT.Web.Attributes
 {
@@ -16,7 +17,7 @@ namespace TimeshEAT.Web.Attributes
 				return false;
 			}
 
-			return roles?.Any(r => httpContext.User.IsInRole(r)) ?? httpContext.User.Identity.IsAuthenticated;
+			return roles?.Any(r => httpContext.User.IsInRole(r.Trim())) ?? httpContext.User.Identity.IsAuthenticated;
 		}
 
 		protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
