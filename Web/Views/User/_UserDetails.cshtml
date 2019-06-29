@@ -4,6 +4,10 @@
 {
 	using (Html.BeginForm("Save", "User", FormMethod.Post))
 	{
+		@Html.AntiForgeryToken()
+		@Html.HiddenFor(x => x.Id)
+		@Html.HiddenFor(x => x.Version)
+		@Html.HiddenFor(x => x.Password)
 		<div class="tr">
 			<div class="td accordion" data-accordion>@Model.FullName</div>
 			<div class="td" style="flex-grow:3;justify-content: center;">

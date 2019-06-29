@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
+using System.Web.Routing;
 using TimeshEAT.API.Attributes;
 using TimeshEAT.Business.Interfaces;
 using TimeshEAT.Business.Models;
@@ -47,12 +48,14 @@ namespace TimeshEAT.API.Controllers
         /// <returns>Added user</returns>
         public UserModel Post([FromBody]UserModel user) => _serviceContext.Users.Add(user);
 
-        /// <summary>
-        /// Endpoint for updating user
-        /// </summary>
-        /// <param name="user">Updated user</param>
-        /// <returns>Updated user</returns>
-        public UserModel Put([FromBody]UserModel user) => _serviceContext.Users.Save(user);
+		/// <summary>
+		/// Endpoint for updating user
+		/// </summary>
+		/// <param name="user">Updated user</param>
+		/// <returns>Updated user</returns>
+		[HttpPost]
+		[Route("api/user/put")]
+		public UserModel Put([FromBody]UserModel user) => _serviceContext.Users.Save(user);
 
         /// <summary>
         /// Endpoint for deleting user

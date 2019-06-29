@@ -88,7 +88,7 @@ namespace TimeshEAT.Web.Controllers
 		{
 			_member.ForgotPassword(email);
 
-			//TODO: JSON
+			//TODO: JSON RESPONSE MESSAGE MODEL
 			return Redirect("/");
 		}
 

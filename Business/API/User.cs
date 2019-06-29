@@ -41,9 +41,9 @@ namespace TimeshEAT.Business.API
 
         public ApiResponseModel<T> UpdateUser<T>(UserModel model) where T : new()
         {
-            RestRequest request = new RestRequest("/api/user");
-            request.Method = Method.PUT;
-            request.AddParameter("user", model);
+            RestRequest request = new RestRequest("/api/user/put");
+            request.Method = Method.POST;
+			request.AddJsonBody(model);
 
             return Execute<T>(request);
         }
