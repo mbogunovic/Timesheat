@@ -22,16 +22,16 @@ namespace TimeshEAT.Web.Membership
 			_api = api ?? throw new ArgumentNullException(nameof(api));
 		}
 
-		private UserModel _user;
+		private UserModel _user => WebCache.Get(string.Format(Constants.MEMBER_CACHE_FORMAT, Identity.Name));
 		private IApiClient _api;
 
-		public IIdentity Identity { get; }
+		public IIdentity Identity { get; private set; }
 
 		public Tuple<bool, string> Login(string email, string password)
 		{
-			var loginCount = (int?)HttpContext.Current.Session["login_counter"] ?? 0;
-			
-			if(loginCount > Constants.MAX_LOGIN_ATTEMPTS)
+			int loginCount = (int?)HttpContext.Current.Session["login_counter"] ?? 0;
+
+			if (loginCount > Constants.MAX_LOGIN_ATTEMPTS)
 			{
 				WebCache.Set(HttpContext.Current.Request.UserHostAddress, true, 15);
 				Lockout(email);
@@ -39,7 +39,7 @@ namespace TimeshEAT.Web.Membership
 			}
 			else
 			{
-				var response = _api.Authorize(new AuthorizationModel() { Email = email, PasswordHash = password });
+				Business.API.Models.ApiResponseModel<AuthorizationResponseModel> response = _api.Authorize(new AuthorizationModel() { Email = email, PasswordHash = password });
 
 				HttpContext.Current.Session["login_counter"] = loginCount + 1;
 
@@ -51,13 +51,14 @@ namespace TimeshEAT.Web.Membership
 						return new Tuple<bool, string>(false, "Vaš nalog je blokiran.");
 					case System.Net.HttpStatusCode.OK:
 						HttpContext.Current.Session["login_counter"] = 0;
-						_user = response.Data.User;
-						FormsAuthentication.SetAuthCookie(_user.Email, true);
+						FormsAuthentication.SetAuthCookie(email, true);
+						Identity = new GenericIdentity(email);
+						WebCache.Set(string.Format(Constants.MEMBER_CACHE_FORMAT, email), response.Data.User, Constants.MEMBER_CACHE_TIME);
 						return new Tuple<bool, string>(true, "");
 					default:
 						return new Tuple<bool, string>(false, response.Status.ToString());
 				}
-			}			
+			}
 		}
 
 		public void Lockout(string email = null)
@@ -70,12 +71,19 @@ namespace TimeshEAT.Web.Membership
 			FormsAuthentication.SignOut();
 
 		public bool IsInRole(string role) =>
-			_user.Roles.Any(x => x.Name.Equals(role));
+			_user != null 
+				? _user.Roles.Any(x => x.Name.Equals(role))
+				: throw new UnauthorizedAccessException("Sesija vam je istekla, molim vas prijavite se opet.");
+			
+
 
 		public bool ResetPassword(string newPassword, string token)
 		{
 			int? userId = WebCache.Get(token);
-			if (!userId.HasValue) return false;
+			if (!userId.HasValue)
+			{
+				return false;
+			}
 
 			_api.UpdatePassword(userId.Value, newPassword);
 			WebCache.Remove(token);
@@ -83,12 +91,13 @@ namespace TimeshEAT.Web.Membership
 			return true;
 		}
 
-		public void ForgotPassword(string email) {
-			var userResponse = _api.GetUserByEmail<UserModel>(email);
-			if(userResponse.Status.Equals(HttpStatusCode.OK) && userResponse.Data != null)
+		public void ForgotPassword(string email)
+		{
+			Business.API.Models.ApiResponseModel<UserModel> userResponse = _api.GetUserByEmail<UserModel>(email);
+			if (userResponse.Status.Equals(HttpStatusCode.OK) && userResponse.Data != null)
 			{
-				var emailSender = new EmailSender(DependencyResolver.Current.GetService<ILogger>());
-				var token = TokenGenerator.GenerateToken();
+				EmailSender emailSender = new EmailSender(DependencyResolver.Current.GetService<ILogger>());
+				string token = TokenGenerator.GenerateToken();
 
 				WebCache.Set(token, userResponse.Data.Id);
 				string resetPasswordLink = $"{HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)}/Authorization/ResetPassword?token={token}";

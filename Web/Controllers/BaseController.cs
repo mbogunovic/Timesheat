@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using System.Web.Mvc;
 using TimeshEAT.Business.API;
 using TimeshEAT.Business.Logging.Interfaces;
 using TimeshEAT.Web.Membership;
 using TimeshEAT.Web.Navigation;
+using TimeshEAT.Web.ViewModels;
 
 namespace TimeshEAT.Web.Controllers
 {
@@ -35,16 +37,28 @@ namespace TimeshEAT.Web.Controllers
 
 		protected override void OnException(ExceptionContext filterContext)
 		{
-			//if (filterContext.ExceptionHandled)
-			//{
-			//	return;
-			//}
+			if (filterContext.ExceptionHandled)
+			{
+				return;
+			}
 
-			//_log.WriteErrorLog($"Unhandled exception occured for user {User.Identity.Name}", filterContext.Exception);
-			//filterContext.ExceptionHandled = true;
+			_log.WriteErrorLog($"Unhandled exception occured for user {User.Identity.Name}", filterContext.Exception);
+			filterContext.ExceptionHandled = true;
 
-			//filterContext.Controller.TempData[Constants.ERROR_MODEL] = new ErrorViewModel("Error 500", "Something went wrong.");
-			//filterContext.Result = RedirectToAction("Index", "Error");
+			if(filterContext.Exception is UnauthorizedAccessException)
+			{
+				_member.Logout();
+				filterContext.Controller.TempData[Constants.ERROR_MODEL] = new ErrorViewModel("Error401", filterContext.Exception.Message);
+			}
+			else
+			{
+				filterContext.Controller.TempData[Constants.ERROR_MODEL] = new ErrorViewModel("Error 500", "Nešto je se skrmljalo :/");
+			}
+				filterContext.Controller.TempData[Constants.ERROR_MODEL] = filterContext.Exception is UnauthorizedAccessException 
+				? new ErrorViewModel("Error 401", filterContext.Exception.Message)
+				: new ErrorViewModel("Error 500", "Something went wrong.");
+
+			filterContext.Result = RedirectToAction("Index", "Error");
 		}
 	}
 }

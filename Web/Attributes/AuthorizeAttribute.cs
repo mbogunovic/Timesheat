@@ -7,19 +7,21 @@ namespace TimeshEAT.Web.Attributes
 {
 	public class RoleAuthorizeAttribute : AuthorizeAttribute
 	{
-		private string[] roles => this.Roles.Split(',');
+		private string[] roles => Roles.Split(',');
 
 		protected override bool AuthorizeCore(HttpContextBase httpContext)
 		{
 			if (!base.AuthorizeCore(httpContext))
+			{
 				return false;
+			}
 
-			return this.roles?.Any(r => httpContext.User.IsInRole(r)) ?? httpContext.User.Identity.IsAuthenticated;
+			return roles?.Any(r => httpContext.User.IsInRole(r)) ?? httpContext.User.Identity.IsAuthenticated;
 		}
 
 		protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
 		{
-			filterContext.Controller.TempData[Constants.ERROR_MODEL] = new ErrorViewModel("Error 401", "Unauthorized");
+			filterContext.Controller.TempData[Constants.ERROR_MODEL] = new ErrorViewModel("Error 401", "Niste prijavljeni ili nemate dovoljne permisije da pristupite ovoj stranici.");
 			filterContext.Result = new RedirectResult(new UrlHelper(HttpContext.Current.Request.RequestContext).Action("Index", "Error"));
 		}
 	}
