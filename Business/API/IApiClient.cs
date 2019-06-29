@@ -19,7 +19,8 @@ namespace TimeshEAT.Business.API
         ApiResponseModel<T> UpdateCompany<T>(CompanyModel model) where T : new();
         void DeleteCompany(CompanyModel model);
         ApiResponseModel<List<T>> GetAllUsers<T>() where T : new();
-        ApiResponseModel<T> GetUserById<T>(int id) where T : new();
+		void SetToken(string token);
+		ApiResponseModel<T> GetUserById<T>(int id) where T : new();
 		ApiResponseModel<T> GetUserByEmail<T>(string email) where T : new();
 		ApiResponseModel<T> AddUser<T>(UserModel model) where T : new();
         ApiResponseModel<T> UpdateUser<T>(UserModel model) where T : new();

@@ -41,15 +41,13 @@
 		<div class="td">Aktivnost</div>
 		<div class="td">Operacije</div>
 	</div>
-	<div class="tr">
 		@if (Model.Users.Items.HasValue())
 		{
 			foreach (var user in Model.Users.Items)
 			{
-				Html.RenderPartial("UserDetails", user);
+				Html.RenderPartial("_UserDetails", user);
 			}
 		}
-	</div>
 </div>
 <ul class="pagination">
 	<li class="box__link page__item">

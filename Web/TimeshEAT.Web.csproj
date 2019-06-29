@@ -142,6 +142,7 @@
     <Compile Include="Interfaces\INavigationController.cs" />
     <Compile Include="Models\Pagination\PaginationRenderModel.cs" />
     <Compile Include="Models\Pagination\ReadOnlyPagedCollection.cs" />
+    <Compile Include="Models\Pagination\UserPagedCollection.cs" />
     <Compile Include="Models\Render\User\UserDetailsRenderModel.cs" />
     <Compile Include="Navigation\INavigationViewModel.cs" />
     <Compile Include="Navigation\INavigationContext.cs" />
