@@ -53,8 +53,6 @@ namespace TimeshEAT.API.Controllers
 		/// </summary>
 		/// <param name="user">Updated user</param>
 		/// <returns>Updated user</returns>
-		[HttpPost]
-		[Route("api/user/put")]
 		public UserModel Put([FromBody]UserModel user) => _serviceContext.Users.Save(user);
 
         /// <summary>
