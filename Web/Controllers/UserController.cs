@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using TimeshEAT.Business.Models;
 using TimeshEAT.Web.Attributes;
 using TimeshEAT.Web.Interfaces;
 using TimeshEAT.Web.Models.Render;
@@ -26,5 +27,20 @@ namespace TimeshEAT.Web.Controllers
 
 			return RedirectToAction("Index");
 		}
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult Delete(UserDetailsRenderModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new EmptyResult();
+            }
+
+            _api.DeleteUser(new UserModel(model.FullName, model.Email, model.Password, model.IsActive, model.CompanyId, model.Id, model.Version));
+
+
+            return RedirectToAction("Index");
+        }
     }
 }

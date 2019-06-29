@@ -126,6 +126,7 @@
     <Content Include="js\global.js" />
     <Content Include="js\global.min.js" />
     <Content Include="js\reportaproblem.js" />
+    <Content Include="js\user.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
