@@ -1,4 +1,6 @@
-﻿<ul class="letters">
+﻿@model UserViewModel
+
+<ul class="letters">
 	<li class="box__link"><a href="javascript:;">A</a></li>
 	<li class="box__link"><a href="javascript:;">B</a></li>
 	<li class="box__link"><a href="javascript:;">V</a></li>
@@ -40,42 +42,13 @@
 		<div class="td">Operacije</div>
 	</div>
 	<div class="tr">
-		<div class="td accordion" data-accordion>Puno ime</div>
-		<div class="td"
-			 style="flex-grow:3;justify-content: center;">
-			<input type="text" placeholder="Puno ime" />
-		</div>
-		<div class="td"
-			 style="flex-grow:2; justify-content: center;">
-			<select>
-				<option value="" selected disabled hidden>Izaberi kompaniju</option>
-				<option value="1">Prva</option>
-				<option value="2">Druga</option>
-				<option value="3">Treca</option>
-			</select>
-		</div>
-		<div class="td"
-			 style="flex-grow:3;justify-content: center;">
-			<input type="text" placeholder="Email" />
-		</div>
-		<div class="td"
-			 style="flex-grow:2;justify-content: center;">
-			<a class="table__btn" href="javascript:;">Resetuj</a>
-		</div>
-		<div class="td"
-			 style="justify-content: center;">
-			<label class="container">
-				<input type="checkbox" checked="checked">
-				<span class="checkmark"></span>
-			</label>
-		</div>
-		<div class="td"
-			 style="justify-content: center;">
-			<div class="order__table-operations">
-				<button type="submit" class="save font-ico-save"></button>
-				<button type="submit" class="delete font-ico-delete"></button>
-			</div>
-		</div>
+		@if (Model.Users.Items.HasValue())
+		{
+			foreach (var user in Model.Users.Items)
+			{
+				Html.RenderPartial("UserDetails", user);
+			}
+		}
 	</div>
 </div>
 <ul class="pagination">

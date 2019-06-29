@@ -11,5 +11,7 @@
 		public const int MEMBER_CACHE_TIME = 20; // in minutes
 
 		public const string MEMBER_CACHE_FORMAT = "member_data_{0}";
+
+		public const int ITEMS_PER_AGE = 15;
 	}
 }

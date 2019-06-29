@@ -5,7 +5,7 @@ using TimeshEAT.Business.API;
 using TimeshEAT.Business.Logging.Interfaces;
 using TimeshEAT.Web.Membership;
 using TimeshEAT.Web.Navigation;
-using TimeshEAT.Web.ViewModels;
+using TimeshEAT.Web.Models.View;
 
 namespace TimeshEAT.Web.Controllers
 {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using TimeshEAT.Web.Interfaces;
 
-namespace TimeshEAT.Web.ViewModels
+namespace TimeshEAT.Web.Models.View
 {
 	public class LoginViewModel : BaseViewModel, IForm
 	{

@@ -1,4 +1,4 @@
-﻿namespace TimeshEAT.Web.ViewModels
+﻿namespace TimeshEAT.Web.Models.View
 {
 	public class OrderViewModel : NavigationViewModel
 	{

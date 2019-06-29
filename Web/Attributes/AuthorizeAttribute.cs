@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using TimeshEAT.Web.ViewModels;
+using TimeshEAT.Web.Models.View;
 
 namespace TimeshEAT.Web.Attributes
 {

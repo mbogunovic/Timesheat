@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace TimeshEAT.Web.Models.Additional
+namespace TimeshEAT.Web.Models.Pagination
 {
-	public class PaginationModel
+	public class PaginationRenderModel
 	{
-		public PaginationModel(int currentPage, int totalPages, int numberOfVisiblePages = 0)
+		public PaginationRenderModel(int currentPage, int totalPages, int numberOfVisiblePages = 0)
 		{
 			CurrentPage = currentPage;
 			TotalPages = totalPages;

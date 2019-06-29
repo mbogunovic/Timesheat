@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Web;
 using TimeshEAT.Web.Extensions;
-using TimeshEAT.Web.ViewModels;
+using TimeshEAT.Web.Models.View;
 
 namespace TimeshEAT.Web.Navigation
 {

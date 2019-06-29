@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using TimeshEAT.Business.Helpers;
 using TimeshEAT.Business.Logging.Interfaces;
 using TimeshEAT.Common;
-using TimeshEAT.Web.ViewModels;
+using TimeshEAT.Web.Models.View;
 
 namespace TimeshEAT.Web.Controllers
 {
-    public class ReportAProblemController : Controller
+	public class ReportAProblemController : Controller
     {
         private readonly ILogger _logger;
 

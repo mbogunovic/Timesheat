@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TimeshEAT.Web.ViewModels
+namespace TimeshEAT.Web.Models.View
 {
-    public class ReportAProblemModelSubmitViewModel
+	public class ReportAProblemModelSubmitViewModel
     {
         [Required(ErrorMessage = "Tema ne moze biti prazna!")]
         public string Subject { get; set; }
