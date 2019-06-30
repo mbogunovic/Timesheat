@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using TimeshEAT.Business.Models;
 using TimeshEAT.Web.Models.Filtering;
-using TimeshEAT.Web.Models.Render;
 using TimeshEAT.Web.Models.Render.Company;
 
 namespace TimeshEAT.Web.Models.Pagination
 {
-    public class CompanyPagedCollection : ReadOnlyPagedCollection<CompanyDetailsRenderModel>
+	public class CompanyPagedCollection : ReadOnlyPagedCollection<CompanyDetailsRenderModel>
     {
         private readonly Lazy<IList<MealModel>> meals;
         public List<SelectListItem> MealList => new List<SelectListItem>(meals.Value

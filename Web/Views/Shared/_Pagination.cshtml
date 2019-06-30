@@ -6,7 +6,7 @@
 	@for (int i = 1; i <= Model.TotalPages; i++)
 	{
 		<li class="box__link page__item @(Model.CurrentPage == i ? "active" : String.Empty)">
-			<a href="javascript:;" data-page="@i">@i</a>
+			<a href="javascript:;" @(Model.CurrentPage == i ? $"data-page-active={i}" : $"data-page={i}")>@i</a>
 		</li>
 	}
 </ul>

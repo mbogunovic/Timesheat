@@ -15,7 +15,7 @@ namespace TimeshEAT.Web.Models.Pagination
 		{
 			_api = DependencyResolver.Current.GetService<IApiClient>();
 			TotalCount = items.Count;
-			Items = filter?.Apply(items) ?? items
+			Items = (filter?.Apply(items) ?? items)
 				.Skip((page - 1) * itemsPerPage)
 				.Take(itemsPerPage)
 				.ToList();

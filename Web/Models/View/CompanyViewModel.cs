@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TimeshEAT.Web.Models.Filtering;
 using TimeshEAT.Web.Models.Pagination;
-using TimeshEAT.Web.Models.Render;
 using TimeshEAT.Web.Models.Render.Company;
 
 namespace TimeshEAT.Web.Models.View
@@ -15,12 +14,25 @@ namespace TimeshEAT.Web.Models.View
             companies = new Lazy<IEnumerable<CompanyDetailsRenderModel>>(() => _api.GetAllCompanies<CompanyDetailsRenderModel>()?.Data.OrderBy(c => c.Name));
             searchResult = new Lazy<CompanyPagedCollection>(() => Search());
         }
+
 		public override string PageTitle => "Kompanije";
 		public override string PageIcon => "company";
         public int Page { get; set; } = 1;
-        public CompanyFilter Filter { get; set; }
+		private CompanyFilter _filter;
+		public CompanyFilter Filter
+		{
+			get
+			{
+				_filter.SetLetters(companies.Value);
+				return _filter;
+			}
+			set
+			{
+				_filter = value;
+			}
+		}
 
-        private readonly Lazy<IEnumerable<CompanyDetailsRenderModel>> companies;
+		private readonly Lazy<IEnumerable<CompanyDetailsRenderModel>> companies;
         private readonly Lazy<CompanyPagedCollection> searchResult;
 
         public CompanyPagedCollection Companies => searchResult.Value;

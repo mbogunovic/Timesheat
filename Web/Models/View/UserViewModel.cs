@@ -11,15 +11,28 @@ namespace TimeshEAT.Web.Models.View
 	{
 		public UserViewModel()
 		{
-			var sta = _api.GetAllUsers<UserDetailsRenderModel>();
 			users = new Lazy<IEnumerable<UserDetailsRenderModel>>(() => _api.GetAllUsers<UserDetailsRenderModel>()?.Data.OrderBy(x => x.FullName));
 			searchResult = new Lazy<UserPagedCollection>(() => Search());
 		}
 
 		public override string PageTitle => "Korisnici";
 		public override string PageIcon => "user";
+
 		public int Page { get; set; } = 1;
-		public UserFilter Filter { get; set; }
+		private UserFilter _filter;
+		public UserFilter Filter
+		{
+			get
+			{
+				_filter.SetLetters(users.Value);
+				return _filter;
+			}
+			set
+			{
+				_filter = value;
+			}
+		}
+
 
 		private readonly Lazy<IEnumerable<UserDetailsRenderModel>> users;
 		private readonly Lazy<UserPagedCollection> searchResult;

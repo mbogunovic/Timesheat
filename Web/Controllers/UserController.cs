@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using TimeshEAT.Web.Attributes;
 using TimeshEAT.Web.Interfaces;
+using TimeshEAT.Web.Models.Filtering;
 using TimeshEAT.Web.Models.Render;
 using TimeshEAT.Web.Models.View;
 
@@ -9,11 +10,12 @@ namespace TimeshEAT.Web.Controllers
 	[RoleAuthorize(Roles = "Administrator")]
 	public class UserController : BaseController, INavigationController
 	{
-		public ActionResult Index(int page = 1)
+		public ActionResult Index(int page = 1, string letter = null, string query = null)
 		{
 			var model = Navigation.GetPageViewModel<UserViewModel>();
 
 			model.Page = page;
+			model.Filter = new UserFilter(letter, query);
 
 			return View(model);
 		}

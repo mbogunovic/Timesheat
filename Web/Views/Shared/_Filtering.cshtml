@@ -1,33 +1,12 @@
-﻿
+﻿@model ITableFilter
+
 <ul class="letters">
-	<li class="box__link"><a href="javascript:;">A</a></li>
-	<li class="box__link"><a href="javascript:;">B</a></li>
-	<li class="box__link"><a href="javascript:;">V</a></li>
-	<li class="box__link"><a href="javascript:;">G</a></li>
-	<li class="box__link"><a href="javascript:;">D</a></li>
-	<li class="box__link"><a href="javascript:;">DJ</a></li>
-	<li class="box__link"><a href="javascript:;">E</a></li>
-	<li class="box__link"><a href="javascript:;">Z</a></li>
-	<li class="box__link"><a href="javascript:;">I</a></li>
-	<li class="box__link"><a href="javascript:;">J</a></li>
-	<li class="box__link"><a href="javascript:;">K</a></li>
-	<li class="box__link"><a href="javascript:;">L</a></li>
-	<li class="box__link"><a href="javascript:;">LJ</a></li>
-	<li class="box__link"><a href="javascript:;">M</a></li>
-	<li class="box__link"><a href="javascript:;">N</a></li>
-	<li class="box__link"><a href="javascript:;">NJ</a></li>
-	<li class="box__link"><a href="javascript:;">O</a></li>
-	<li class="box__link"><a href="javascript:;">P</a></li>
-	<li class="box__link"><a href="javascript:;">R</a></li>
-	<li class="box__link"><a href="javascript:;">S</a></li>
-	<li class="box__link"><a href="javascript:;">T</a></li>
-	<li class="box__link"><a href="javascript:;">C</a></li>
-	<li class="box__link"><a href="javascript:;">U</a></li>
-	<li class="box__link"><a href="javascript:;">F</a></li>
-	<li class="box__link"><a href="javascript:;">H</a></li>
-	<li class="box__link"><a href="javascript:;">C</a></li>
-	<li class="box__link"><a href="javascript:;">C</a></li>
-	<li class="box__link"><a href="javascript:;">DZ</a></li>
-	<li class="box__link"><a href="javascript:;">S</a></li>
-	<li class="box__link letters__search"><input type="text" /><button type="submit"><i class="font-ico-search"></i></button></li>
+	@if (Model.HasValue())
+	{
+		foreach (var letter in Model.Letters)
+		{
+			<li class="box__link @(letter.IsActive ? "active" : String.Empty) @(letter.IsAvailable ? String.Empty : "disabled")"><a href="javascript:;" data-letter="@letter.Value">@letter.Value</a></li>
+		}
+		<li class="box__link letters__search"><input type="text" data-search value="@Model.Query" /><button data-btn-search><i class="font-ico-search"></i></button></li>
+	}
 </ul>

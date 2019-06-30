@@ -142,7 +142,9 @@
     <Compile Include="Interfaces\IForm.cs" />
     <Compile Include="Interfaces\INavigationController.cs" />
     <Compile Include="Models\Filtering\CompanyFilter.cs" />
+    <Compile Include="Models\Filtering\ITableFilter.cs" />
     <Compile Include="Models\Filtering\IFilter.cs" />
+    <Compile Include="Models\Filtering\Letter.cs" />
     <Compile Include="Models\Filtering\TableFilter.cs" />
     <Compile Include="Models\Filtering\UserFilter.cs" />
     <Compile Include="Models\Pagination\CompanyPagedCollection.cs" />
