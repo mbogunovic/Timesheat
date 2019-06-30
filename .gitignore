@@ -46,3 +46,5 @@ _ReSharper*/
 node_modules/
 appSettings.config
 connectionStrings.config
+/Web/connectionStrings.config
+/API/connectionStrings.config
