@@ -3,8 +3,8 @@ using TimeshEAT.Web.Interfaces;
 
 namespace TimeshEAT.Web.Models.Filtering
 {
-	public interface IFilter
-	{
-		IReadOnlyList<T> Apply<T>(IReadOnlyList<T> items) where T : IForm;
-	}
+	public interface IFilter<T> where T : IForm
+    {
+        IReadOnlyList<T> Apply(IReadOnlyList<T> items);
+    }
 }
