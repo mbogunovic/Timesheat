@@ -144,6 +144,7 @@
     <Compile Include="Models\Filtering\CompanyFilter.cs" />
     <Compile Include="Models\Filtering\IFilter.cs" />
     <Compile Include="Models\Filtering\TableFilter.cs" />
+    <Compile Include="Models\Filtering\UserFilter.cs" />
     <Compile Include="Models\Pagination\CompanyPagedCollection.cs" />
     <Compile Include="Models\Pagination\PaginationRenderModel.cs" />
     <Compile Include="Models\Pagination\ReadOnlyPagedCollection.cs" />

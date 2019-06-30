@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using TimeshEAT.Business.API;
+using TimeshEAT.Web.Models.Filtering;
 
 namespace TimeshEAT.Web.Models.Pagination
 {
@@ -10,11 +11,11 @@ namespace TimeshEAT.Web.Models.Pagination
 		protected readonly IApiClient _api;
 
 
-		public ReadOnlyPagedCollection(IReadOnlyList<T> items, int page, int itemsPerPage)
+		public ReadOnlyPagedCollection(IReadOnlyList<T> items, int page, int itemsPerPage, IFilter<T> filter)
 		{
 			_api = DependencyResolver.Current.GetService<IApiClient>();
 			TotalCount = items.Count;
-			Items = items
+			Items = filter?.Apply(items) ?? items
 				.Skip((page - 1) * itemsPerPage)
 				.Take(itemsPerPage)
 				.ToList();

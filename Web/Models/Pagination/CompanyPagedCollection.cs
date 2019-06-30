@@ -20,7 +20,7 @@ namespace TimeshEAT.Web.Models.Pagination
                 Value = x.Id.ToString()
             }));
 
-        public CompanyPagedCollection(IReadOnlyList<CompanyDetailsRenderModel> items, int page, int itemsPerPage, CompanyFilter filter = null) : base(filter?.Apply(items) ?? items, page, itemsPerPage)
+        public CompanyPagedCollection(IReadOnlyList<CompanyDetailsRenderModel> items, int page, int itemsPerPage, CompanyFilter filter = null) : base(items, page, itemsPerPage, filter)
         {
             meals = new Lazy<IList<MealModel>>(() => _api.GetAllMeals<MealModel>().Data);
 

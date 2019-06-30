@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using TimeshEAT.Web.Models.Render;
 
 namespace TimeshEAT.Web.Models.Filtering
 {
-	public class UserFilter
+	public abstract class TableFilter<T> : IFilter<T>
 	{
 		public string Letter { get; set; }
 		public string Query { get; set; }
 
-		internal IReadOnlyList<UserDetailsRenderModel> Apply(IReadOnlyList<UserDetailsRenderModel> items) =>
+		public IReadOnlyList<T> Apply(IReadOnlyList<T> items) =>
 			items.Where(x => LetterFiltering(x) && QueryFiltering(x))
 				.ToList()
 				.AsReadOnly();
 
-		private bool LetterFiltering(UserDetailsRenderModel user) => true;
-		private bool QueryFiltering(UserDetailsRenderModel user) => true;
+		protected abstract bool LetterFiltering(T item);
+		protected abstract bool QueryFiltering(T item);
 	}
 }
