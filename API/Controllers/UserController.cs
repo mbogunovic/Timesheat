@@ -46,8 +46,6 @@ namespace TimeshEAT.API.Controllers
 		/// </summary>
 		/// <param name="user">New user</param>
 		/// <returns>Added user</returns>
-		[HttpPost]
-		[Route("api/user/post")]
 		public UserModel Post([FromBody]UserModel user) => _serviceContext.Users.Add(user);
 
 		/// <summary>
@@ -61,8 +59,6 @@ namespace TimeshEAT.API.Controllers
 		/// Endpoint for deleting user
 		/// </summary>
 		/// <param name="user">User to delete</param>
-		[HttpPost]
-		[Route("api/user/delete")]
 		public void Delete([FromBody]UserModel user) => _serviceContext.Users.Remove(user);
     }
 }

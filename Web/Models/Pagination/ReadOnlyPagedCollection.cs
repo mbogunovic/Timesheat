@@ -9,10 +9,10 @@ namespace TimeshEAT.Web.Models.Pagination
 	{
 		protected readonly IApiClient _api;
 
-		public ReadOnlyPagedCollection(IReadOnlyList<T> items, int page, int itemsPerPage, string query = null)
+
+		public ReadOnlyPagedCollection(IReadOnlyList<T> items, int page, int itemsPerPage)
 		{
 			_api = DependencyResolver.Current.GetService<IApiClient>();
-			Query = query;
 			TotalCount = items.Count;
 			Items = items
 				.Skip((page - 1) * itemsPerPage)
@@ -24,6 +24,5 @@ namespace TimeshEAT.Web.Models.Pagination
 		public IReadOnlyList<T> Items { get; }
 		public PaginationRenderModel Pagination { get; }
 		public int TotalCount { get; }
-		public string Query { get; }
 	}
 }
