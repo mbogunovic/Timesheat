@@ -10,6 +10,12 @@ namespace TimeshEAT.Web.Models.Pagination
 	public class UserPagedCollection : ReadOnlyPagedCollection<UserDetailsRenderModel>
 	{
 		private readonly Lazy<IList<CompanyModel>> companies;
+		public List<SelectListItem> CompanyList => new List<SelectListItem>(companies.Value
+			.Select(x => new SelectListItem()
+				{
+					Text = x.Name,
+					Value = x.Id.ToString()
+				}));
 
 		public UserPagedCollection(IReadOnlyList<UserDetailsRenderModel> items, int page, int itemsPerPage, string query = null) : base(items, page, itemsPerPage, query)
 		{
@@ -17,11 +23,7 @@ namespace TimeshEAT.Web.Models.Pagination
 
 			foreach (UserDetailsRenderModel user in Items)
 			{
-				user.CompanyList = new List<SelectListItem>(companies.Value.Select(x => new SelectListItem()
-				{
-					Text = x.Name,
-					Value = x.Id.ToString()
-				}));
+				user.CompanyList = CompanyList;
 			}
 		}
 	}

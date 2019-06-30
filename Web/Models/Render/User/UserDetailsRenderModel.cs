@@ -9,6 +9,8 @@ namespace TimeshEAT.Web.Models.Render
 	public class UserDetailsRenderModel : IForm
 	{
 		public int Id { get; set; }
+		public long Version { get; set; }
+		public string Password { get; set; }
 
 		[Required(ErrorMessage = "Puno ime je obavezno polje.")]
 		[Display(Name = "Puno ime")]
@@ -20,10 +22,7 @@ namespace TimeshEAT.Web.Models.Render
 		public bool IsActive { get; set; }
 		[Required(ErrorMessage = "Kompanija je obavezno polje.")]
 		public int CompanyId { get; set; }
-		[Required]
-		public long Version { get; set; }
-		[Required]
-		public string Password { get; set; }
+
 
 		public IList<SelectListItem> CompanyList { get; set; }
 

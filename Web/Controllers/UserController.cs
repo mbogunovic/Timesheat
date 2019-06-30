@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using TimeshEAT.Business.Models;
 using TimeshEAT.Web.Attributes;
 using TimeshEAT.Web.Interfaces;
 using TimeshEAT.Web.Models.Render;
@@ -9,11 +8,15 @@ namespace TimeshEAT.Web.Controllers
 {
 	[RoleAuthorize(Roles = "Administrator")]
 	public class UserController : BaseController, INavigationController
-    {
-		public ActionResult Index()
-        {
-            return View(this.Navigation.GetPageViewModel<UserViewModel>());
-        }
+	{
+		public ActionResult Index(int page = 1)
+		{
+			var model = Navigation.GetPageViewModel<UserViewModel>();
+
+			model.Page = page;
+
+			return View(model);
+		}
 
 
 		[ValidateAntiForgeryToken]
@@ -21,26 +24,39 @@ namespace TimeshEAT.Web.Controllers
 		public ActionResult Save(UserDetailsRenderModel model)
 		{
 			if (!ModelState.IsValid)
-				return PartialView("_UserDetails", model);
+			{
+				return RedirectToAction("Index");
+			}
 
-			_api.UpdateUser<UserDetailsRenderModel>(model);
+			if (model.Id == 0)
+			{
+				model.Password = "unset";
+				Business.API.Models.ApiResponseModel<UserDetailsRenderModel> result = _api.AddUser<UserDetailsRenderModel>(model);
+				if (result != null)
+				{
+					_member.ForgotPassword(model.Email);
+				}
+			}
+			else
+			{
+				_api.UpdateUser<UserDetailsRenderModel>(model);
+			}
 
 			return RedirectToAction("Index");
 		}
 
-        [ValidateAntiForgeryToken]
-        [HttpPost]
-        public ActionResult Delete(UserDetailsRenderModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return new EmptyResult();
-            }
+		[ValidateAntiForgeryToken]
+		[HttpPost]
+		public ActionResult Delete(UserDetailsRenderModel model)
+		{
+			if (model == null)
+			{
+				return RedirectToAction("Index");
+			}
 
-            _api.DeleteUser(new UserModel(model.FullName, model.Email, model.Password, model.IsActive, model.CompanyId, model.Id, model.Version));
+			_api.DeleteUser(model);
 
-
-            return RedirectToAction("Index");
-        }
-    }
+			return RedirectToAction("Index");
+		}
+	}
 }

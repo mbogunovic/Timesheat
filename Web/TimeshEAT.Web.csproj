@@ -125,6 +125,7 @@
     <Content Include="Global.asax" />
     <Content Include="js\global.js" />
     <Content Include="js\global.min.js" />
+    <Content Include="js\table-search.js" />
     <Content Include="js\reportaproblem.js" />
     <Content Include="js\user.js" />
     <Content Include="Web.config">
@@ -205,6 +206,7 @@
     <Content Include="Views\Company\Index.cshtml" />
     <Content Include="Views\Authorization\ResetPassword.cshtml" />
     <Content Include="Views\User\_UserDetails.cshtml" />
+    <Content Include="Views\Shared\_Pagination.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

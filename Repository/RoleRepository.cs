@@ -20,6 +20,9 @@ namespace TimeshEAT.Repository.Repositories
 		public Role Insert(Role role, ITransaction transaction = null) =>
 			_provider.Insert(role, transaction);
 
+		public void InsertUserRole(int userId, int roleId, ITransaction transaction = null) =>
+			_provider.InsertUserRole(userId, roleId, transaction);
+
 		public Role Update(Role role, ITransaction transaction = null) =>
 			_provider.Update(role, transaction);
 

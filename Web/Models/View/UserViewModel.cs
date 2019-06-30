@@ -17,7 +17,7 @@ namespace TimeshEAT.Web.Models.View
 
 		public override string PageTitle => "Korisnici";
 		public override string PageIcon => "user";
-		public int PageId { get; set; } = 1;
+		public int Page { get; set; } = 1;
 
 		private readonly Lazy<IEnumerable<UserDetailsRenderModel>> users;
 		private readonly Lazy<UserPagedCollection> searchResult;
@@ -25,7 +25,7 @@ namespace TimeshEAT.Web.Models.View
 		public UserPagedCollection Users => searchResult.Value;
 
 		private UserPagedCollection Search() =>
-			new UserPagedCollection(users.Value.ToList(), PageId, Constants.ITEMS_PER_AGE);
+			new UserPagedCollection(users.Value.ToList(), Page, Constants.ITEMS_PER_AGE);
 
 	}
 }

@@ -48,26 +48,13 @@
 	</div>
 		@if (Model.Users.Items.HasValue())
 		{
+			Html.RenderPartial("_UserDetails", new UserDetailsRenderModel() { CompanyList = Model.Users.CompanyList });
 			foreach (var user in Model.Users.Items)
 			{
 				Html.RenderPartial("_UserDetails", user);
 			}
 		}
 </div>
-<ul class="pagination">
-	<li class="box__link page__item">
-		<a href="javascript">1</a>
-	</li>
-	<li class="box__link page__item">
-		<a href="javascript">2</a>
-	</li>
-	<li class="box__link page__item">
-		<a href="javascript">3</a>
-	</li>
-	<li class="box__link page__item">
-		<a href="javascript">4</a>
-	</li>
-	<li class="box__link page__item">
-		<a href="javascript">5</a>
-	</li>
-</ul>
+@{
+	Html.RenderPartial("_Pagination", Model.Users.Pagination);
+}

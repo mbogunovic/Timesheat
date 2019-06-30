@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using TimeshEAT.Business.Interfaces;
 using TimeshEAT.Business.Models;
+using TimeshEAT.Domain.Interfaces;
 using TimeshEAT.Domain.Interfaces.Repositories;
+using TimeshEAT.Domain.Models;
 
 namespace TimeshEAT.Business.Services
 {
@@ -54,10 +56,25 @@ namespace TimeshEAT.Business.Services
 				throw new ArgumentNullException(nameof(user), "User cannot be null!");
 			}
 
-			Domain.Models.User result = _context.UserRepository.Insert(user);
+			ITransaction transaction = _context.UserRepository.CreateNewTransaction();
+			User result = null;
 
-			//TODO: add roles and companies models
+			try
+			{
+				transaction.Begin();
 
+				result = _context.UserRepository.Insert(user, transaction);
+				var userRole = _context.RoleRepository.GetAll(transaction).ToList().FirstOrDefault(x => x.Name.Equals("User"));
+				_context.RoleRepository.InsertUserRole(result.Id, userRole.Id, transaction);
+
+				transaction.Commit();
+			}
+			catch (Exception ex)
+			{
+				//TODO: some error handling maybe
+				transaction.Rollback();
+			}
+			
 			return result;
 		}
 

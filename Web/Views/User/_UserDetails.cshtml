@@ -19,7 +19,7 @@
 			<div class="td" style="flex-grow:3;justify-content: center;">
 				@Html.TextBoxFor(m => m.Email, new { placeholder = Model.DisplayName(x => x.Email) })
 			</div>
-			<div class="td"
+			<div class="td @(Model.Id == 0 ? "disabled" : String.Empty)"
 				 style="flex-grow:2;justify-content: center;">
 				<a class="table__btn" href="@Url.Action("ResetPasswordForUser","Authorization", Model.Email)">Resetuj</a>
 			</div>
@@ -33,8 +33,8 @@
 			<div class="td"
 				 style="justify-content: center;">
 				<div class="order__table-operations">
-					<button type="submit" class="save font-ico-save"></button>
-					<button type="button" class="delete font-ico-delete"></button>
+					<button type="submit" name="Save" class="save font-ico-save"></button>
+					<button type="submit" name="Delete" class="delete font-ico-delete" formethod="post" formaction="@Url.Action("Delete", "User")"></button>
 				</div>
 			</div>
 		</div>

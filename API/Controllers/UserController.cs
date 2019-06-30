@@ -41,12 +41,14 @@ namespace TimeshEAT.API.Controllers
 		/// <returns>User with provided Id</returns>
 		public UserModel Get(int id) => _serviceContext.Users.GetBy(id);
 
-        /// <summary>
-        /// Endpoint for adding user
-        /// </summary>
-        /// <param name="user">New user</param>
-        /// <returns>Added user</returns>
-        public UserModel Post([FromBody]UserModel user) => _serviceContext.Users.Add(user);
+		/// <summary>
+		/// Endpoint for adding user
+		/// </summary>
+		/// <param name="user">New user</param>
+		/// <returns>Added user</returns>
+		[HttpPost]
+		[Route("api/user/post")]
+		public UserModel Post([FromBody]UserModel user) => _serviceContext.Users.Add(user);
 
 		/// <summary>
 		/// Endpoint for updating user
@@ -55,10 +57,12 @@ namespace TimeshEAT.API.Controllers
 		/// <returns>Updated user</returns>
 		public UserModel Put([FromBody]UserModel user) => _serviceContext.Users.Save(user);
 
-        /// <summary>
-        /// Endpoint for deleting user
-        /// </summary>
-        /// <param name="user">User to delete</param>
-        public void Delete([FromBody]UserModel user) => _serviceContext.Users.Remove(user);
+		/// <summary>
+		/// Endpoint for deleting user
+		/// </summary>
+		/// <param name="user">User to delete</param>
+		[HttpPost]
+		[Route("api/user/delete")]
+		public void Delete([FromBody]UserModel user) => _serviceContext.Users.Remove(user);
     }
 }
