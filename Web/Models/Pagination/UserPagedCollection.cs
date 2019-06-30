@@ -19,7 +19,7 @@ namespace TimeshEAT.Web.Models.Pagination
 					Value = x.Id.ToString()
 				}));
 
-		public UserPagedCollection(IReadOnlyList<UserDetailsRenderModel> items, int page, int itemsPerPage, UserFilter filter = null) : base(filter.Apply(items) ?? items, page, itemsPerPage)
+		public UserPagedCollection(IReadOnlyList<UserDetailsRenderModel> items, int page, int itemsPerPage, UserFilter filter = null) : base(filter?.Apply(items) ?? items, page, itemsPerPage)
 		{
 			companies = new Lazy<IList<CompanyModel>>(() => _api.GetAllCompanies<CompanyModel>().Data);
 
