@@ -7,6 +7,6 @@
 		{
 			<li class="box__link @(letter.IsActive ? "active" : String.Empty) @(letter.IsAvailable ? String.Empty : "disabled")"><a href="javascript:;" data-letter="@letter.Value">@letter.Value</a></li>
 		}
-		<li class="box__link letters__search"><input type="text" data-search value="@Model.Query" /><button data-btn-search><i class="font-ico-search"></i></button></li>
+		<li class="box__link letters__search"><input type="text" data-query value="@Model.Query" /><button data-btn-search><i class="font-ico-search"></i></button></li>
 	}
 </ul>

@@ -14,8 +14,9 @@ namespace TimeshEAT.Web.Models.Pagination
 		public ReadOnlyPagedCollection(IReadOnlyList<T> items, int page, int itemsPerPage, IFilter<T> filter)
 		{
 			_api = DependencyResolver.Current.GetService<IApiClient>();
+			items = filter?.Apply(items) ?? items;
 			TotalCount = items.Count;
-			Items = (filter?.Apply(items) ?? items)
+			Items = items
 				.Skip((page - 1) * itemsPerPage)
 				.Take(itemsPerPage)
 				.ToList();
