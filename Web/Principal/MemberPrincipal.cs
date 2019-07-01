@@ -20,6 +20,7 @@ namespace TimeshEAT.Web.Membership
 		{
 			Identity = identity;
 			_api = api ?? throw new ArgumentNullException(nameof(api));
+			_api.SetToken(WebCache.Get(string.Format(Constants.MEMBER_CACHE_TOKEN, Identity.Name)));
 		}
 
 		private UserModel _user => WebCache.Get(string.Format(Constants.MEMBER_CACHE_FORMAT, Identity.Name));
@@ -45,15 +46,16 @@ namespace TimeshEAT.Web.Membership
 
 				switch (response.Status)
 				{
-					case System.Net.HttpStatusCode.Unauthorized:
+					case HttpStatusCode.Unauthorized:
 						return new Tuple<bool, string>(false, "Uneli ste nepostojaće kredencijale.");
-					case System.Net.HttpStatusCode.Forbidden:
+					case HttpStatusCode.Forbidden:
 						return new Tuple<bool, string>(false, "Vaš nalog je blokiran.");
-					case System.Net.HttpStatusCode.OK:
+					case HttpStatusCode.OK:
 						HttpContext.Current.Session["login_counter"] = 0;
 						FormsAuthentication.SetAuthCookie(email, true);
 						Identity = new GenericIdentity(email);
 						WebCache.Set(string.Format(Constants.MEMBER_CACHE_FORMAT, email), response.Data.User, Constants.MEMBER_CACHE_TIME);
+						WebCache.Set(string.Format(Constants.MEMBER_CACHE_TOKEN, email), response.Data.Token, Constants.MEMBER_CACHE_TIME);
 						return new Tuple<bool, string>(true, "");
 					default:
 						return new Tuple<bool, string>(false, response.Status.ToString());

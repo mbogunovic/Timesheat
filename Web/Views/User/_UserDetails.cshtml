@@ -2,40 +2,41 @@
 
 @if (Model.HasValue())
 {
-	<div class="td accordion" data-accordion>@Model.FullName</div>
-	<div class="td"
-		 style="flex-grow:3;justify-content: center;">
-		<input type="text" placeholder="Puno ime" />
-	</div>
-	<div class="td"
-		 style="flex-grow:2; justify-content: center;">
-		<select>
-			<option value="" selected disabled hidden>Izaberi kompaniju</option>
-			<option value="1">Prva</option>
-			<option value="2">Druga</option>
-			<option value="3">Treca</option>
-		</select>
-	</div>
-	<div class="td"
-		 style="flex-grow:3;justify-content: center;">
-		<input type="text" placeholder="Email" />
-	</div>
-	<div class="td"
-		 style="flex-grow:2;justify-content: center;">
-		<a class="table__btn" href="javascript:;">Resetuj</a>
-	</div>
-	<div class="td"
-		 style="justify-content: center;">
-		<label class="container">
-			<input type="checkbox" checked="checked">
-			<span class="checkmark"></span>
-		</label>
-	</div>
-	<div class="td"
-		 style="justify-content: center;">
-		<div class="order__table-operations">
-			<button type="submit" class="save font-ico-save"></button>
-			<button type="submit" class="delete font-ico-delete"></button>
+	using (Html.BeginForm("Save", "User", FormMethod.Post))
+	{
+		@Html.AntiForgeryToken()
+		@Html.HiddenFor(x => x.Id)
+		@Html.HiddenFor(x => x.Version)
+		@Html.HiddenFor(x => x.Password)
+		<div class="tr">
+			<div class="td accordion" data-accordion>@Model.FullName</div>
+			<div class="td" style="flex-grow:3;justify-content: center;">
+				@Html.TextBoxFor(m => m.FullName, new { placeholder = Model.DisplayName(x => x.FullName) })
+			</div>
+			<div class="td" style="flex-grow:2; justify-content: center;">
+				@Html.DropDownListFor(m => m.CompanyId, Model.CompanyList, "Izaberi kompaniju")
+			</div>
+			<div class="td" style="flex-grow:3;justify-content: center;">
+				@Html.TextBoxFor(m => m.Email, new { placeholder = Model.DisplayName(x => x.Email) })
+			</div>
+			<div class="td @(Model.Id == 0 ? "disabled" : String.Empty)"
+				 style="flex-grow:2;justify-content: center;">
+				<a class="table__btn" href="@Url.Action("ResetPasswordForUser","Authorization", Model.Email)">Resetuj</a>
+			</div>
+			<div class="td"
+				 style="justify-content: center;">
+				<label class="container">
+					@Html.CheckBoxFor(m => m.IsActive)
+					<span class="checkmark"></span>
+				</label>
+			</div>
+			<div class="td"
+				 style="justify-content: center;">
+				<div class="order__table-operations">
+					<button type="submit" name="Save" class="save font-ico-save"></button>
+					<button type="submit" name="Delete" class="delete font-ico-delete" formethod="post" formaction="@Url.Action("Delete", "User")"></button>
+				</div>
+			</div>
 		</div>
-	</div>
+	}
 }

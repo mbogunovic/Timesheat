@@ -117,9 +117,7 @@ namespace TimeshEAT.Business.Models
 		public static implicit operator UserModel(User dbUser)
 		{
 			if (dbUser == null)
-			{
-				throw new NullReferenceException("User cannot be null!");
-			}
+				return null;
 
 			return new UserModel(dbUser.FullName, dbUser.Email, dbUser.Password, dbUser.IsActive, dbUser.CompanyId, dbUser.Id, dbUser.Version);
 		}

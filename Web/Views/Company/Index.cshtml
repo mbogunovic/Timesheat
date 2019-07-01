@@ -1,1 +1,13 @@
-﻿Company
+﻿@model CompanyViewModel
+Company<br />
+
+@foreach (var company in Model.Companies.Items)
+{
+    
+    @Html.LabelFor(m => company.Email)<br />
+    @Html.TextBoxFor(m => company.Email)<br />
+    @Html.LabelFor(m => company.Name)<br />
+    @Html.TextBoxFor(m => company.Name)<br />
+    @Html.LabelFor(m => company.MealList)<br />
+    @Html.DropDownListFor(m => company.MealList, company.MealList)<br />
+}

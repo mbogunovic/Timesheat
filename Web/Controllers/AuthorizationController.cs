@@ -66,7 +66,6 @@ namespace TimeshEAT.Web.Controllers
 			return View(model);
 		}
 
-
 		#endregion
 
 		#region [ResetPassword]
@@ -81,6 +80,16 @@ namespace TimeshEAT.Web.Controllers
 			}
 
 			return View(new ResetPasswordViewModel(token));
+		}
+
+		[HttpGet]
+		[Authorize(Roles = "Administrator")]
+		public ActionResult ResetPasswordForUser(string email)
+		{
+			_member.ForgotPassword(email);
+
+			//TODO: JSON RESPONSE MESSAGE MODEL
+			return Redirect("/");
 		}
 
 		[ValidateAntiForgeryToken]

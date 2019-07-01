@@ -70,6 +70,37 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 			}
 		}
 
+		public void InsertUserRole(int userId, int roleId, ITransaction transaction = null)
+		{
+			if (transaction != null)
+			{
+				using (SqlCommand sqlCommand = new SqlCommand("UserRoleInsert", (SqlConnection)transaction.Connection, (SqlTransaction)transaction.Transaction))
+				{
+					sqlCommand.CommandType = CommandType.StoredProcedure;
+					sqlCommand.Parameters.AddWithValue("@UserId", userId);
+					sqlCommand.Parameters.AddWithValue("@RoleId", roleId);
+
+					sqlCommand.ExecuteNonQuery();
+				}
+			}
+			else
+			{
+				using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
+				{
+					sqlConnection.Open();
+
+					using (SqlCommand sqlCommand = new SqlCommand("UserRoleInsert", sqlConnection))
+					{
+						sqlCommand.CommandType = CommandType.StoredProcedure;
+						sqlCommand.Parameters.AddWithValue("@UserId", userId);
+						sqlCommand.Parameters.AddWithValue("@RoleId", roleId);
+
+						sqlCommand.ExecuteNonQuery();
+					}
+				}
+			}
+		}
+
 		protected override void AddInsertParams(SqlCommand sqlCommand, Role role)
 		{
 			sqlCommand.Parameters.AddWithValue("@Name", role.Name);

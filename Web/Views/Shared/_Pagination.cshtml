@@ -1,0 +1,14 @@
+﻿@model  PaginationRenderModel
+
+@if (Model != null && Model.TotalPages != 1)
+{
+<ul class="pagination">
+	@for (int i = 1; i <= Model.TotalPages; i++)
+	{
+		<li class="box__link page__item @(Model.CurrentPage == i ? "active" : String.Empty)">
+			<a href="javascript:;" data-page="@i">@i</a>
+		</li>
+	}
+</ul>
+}
+

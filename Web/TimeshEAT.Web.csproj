@@ -125,6 +125,7 @@
     <Content Include="Global.asax" />
     <Content Include="js\global.js" />
     <Content Include="js\global.min.js" />
+    <Content Include="js\table-search.js" />
     <Content Include="js\reportaproblem.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -140,8 +141,17 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Interfaces\IForm.cs" />
     <Compile Include="Interfaces\INavigationController.cs" />
+    <Compile Include="Models\Filtering\CompanyFilter.cs" />
+    <Compile Include="Models\Filtering\ITableFilter.cs" />
+    <Compile Include="Models\Filtering\IFilter.cs" />
+    <Compile Include="Models\Filtering\Letter.cs" />
+    <Compile Include="Models\Filtering\TableFilter.cs" />
+    <Compile Include="Models\Filtering\UserFilter.cs" />
+    <Compile Include="Models\Pagination\CompanyPagedCollection.cs" />
     <Compile Include="Models\Pagination\PaginationRenderModel.cs" />
     <Compile Include="Models\Pagination\ReadOnlyPagedCollection.cs" />
+    <Compile Include="Models\Pagination\UserPagedCollection.cs" />
+    <Compile Include="Models\Render\Company\CompanyDetailsRenderModel.cs" />
     <Compile Include="Models\Render\User\UserDetailsRenderModel.cs" />
     <Compile Include="Navigation\INavigationViewModel.cs" />
     <Compile Include="Navigation\INavigationContext.cs" />
@@ -203,6 +213,8 @@
     <Content Include="Views\Company\Index.cshtml" />
     <Content Include="Views\Authorization\ResetPassword.cshtml" />
     <Content Include="Views\User\_UserDetails.cshtml" />
+    <Content Include="Views\Shared\_Pagination.cshtml" />
+    <Content Include="Views\Shared\_Filtering.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
