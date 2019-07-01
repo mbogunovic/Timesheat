@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using TimeshEAT.Domain.Models;
 
@@ -77,6 +78,8 @@ namespace TimeshEAT.Business.Models
 				dailyDiscount = value;
 			}
 		}
+
+        public IEnumerable<MealModel> Meals { get; set; }
 
 		#region [Implicit Operators]
 

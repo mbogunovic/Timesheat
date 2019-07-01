@@ -10,8 +10,8 @@ namespace TimeshEAT.Web.Models.Pagination
 {
 	public class CompanyPagedCollection : ReadOnlyPagedCollection<CompanyDetailsRenderModel>
     {
-        private readonly Lazy<IList<MealModel>> meals;
-        public List<SelectListItem> MealList => new List<SelectListItem>(meals.Value
+        private readonly Lazy<IList<MealModel>> allMeals;
+        public List<SelectListItem> MealList => new List<SelectListItem>(allMeals.Value
             .Select(x => new SelectListItem()
             {
                 Text = x.Name,
@@ -20,11 +20,10 @@ namespace TimeshEAT.Web.Models.Pagination
 
         public CompanyPagedCollection(IReadOnlyList<CompanyDetailsRenderModel> items, int page, int itemsPerPage, CompanyFilter filter = null) : base(items, page, itemsPerPage, filter)
         {
-            meals = new Lazy<IList<MealModel>>(() => _api.GetAllMeals<MealModel>().Data);
-
+            allMeals = new Lazy<IList<MealModel>>(() => _api.GetAllMeals<MealModel>().Data);
             foreach (CompanyDetailsRenderModel company in Items)
             {
-                company.MealList = MealList;
+                company.MealList = company.MealList.Concat(MealList.Where(mli => mli.Value == company.Id.ToString())).ToList();
             }
         }
     }

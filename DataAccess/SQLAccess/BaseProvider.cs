@@ -47,7 +47,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 			}
 		}
 
-		private List<T> GetAllCommand(SqlCommand sqlCommand)
+		protected List<T> GetAllCommand(SqlCommand sqlCommand)
 		{
 			List<T> data = new List<T>();
 			using (SqlDataReader reader = sqlCommand.ExecuteReader())
@@ -87,7 +87,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 			}
 		}
 
-		private T GetByIdCommand(SqlCommand sqlCommand, int id)
+		protected T GetByIdCommand(SqlCommand sqlCommand, int id)
 		{
 			sqlCommand.CommandType = CommandType.StoredProcedure;
 
@@ -134,7 +134,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 			}
 		}
 
-		private T InsertSqlCommand(SqlCommand sqlCommand, T model)
+        protected T InsertSqlCommand(SqlCommand sqlCommand, T model)
 		{
 			sqlCommand.CommandType = CommandType.StoredProcedure;
 
@@ -185,7 +185,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 			}
 		}
 
-		public T UpdateSqlCommand(SqlCommand sqlCommand, T model)
+        protected T UpdateSqlCommand(SqlCommand sqlCommand, T model)
 		{
 			sqlCommand.CommandType = CommandType.StoredProcedure;
 
@@ -236,7 +236,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 			}
 		}
 
-		public void DeleteSqlCommand(SqlCommand sqlCommand, T model)
+        protected void DeleteSqlCommand(SqlCommand sqlCommand, T model)
 		{
 			sqlCommand.CommandType = CommandType.StoredProcedure;
 
