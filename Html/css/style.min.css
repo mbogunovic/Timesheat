@@ -3050,6 +3050,15 @@ img {
   background-size: 20px;
 }
 
+.font-ico-company:before {
+  content: "";
+  background-image: url("../assets/images/icons/ico-company.svg");
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-size: 20px;
+}
+
 html, body {
   height: 100%;
 }
@@ -3177,6 +3186,11 @@ a {
 
 .float-right {
   float: right;
+}
+
+button {
+  min-height: 40px;
+  color: white;
 }
 
 /*--------------------------------------------------------------
@@ -4238,7 +4252,6 @@ textarea {
 }
 
 .order__table-operations .save, .order__table-operations .delete {
-  color: white;
   width: 50%;
   height: 100%;
 }
@@ -4400,6 +4413,13 @@ textarea {
 
 .login__item input::placeholder {
   color: #444;
+}
+
+.accordion__content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 /*# sourceMappingURL=style.min.css.map */
