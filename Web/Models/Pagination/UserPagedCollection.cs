@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using TimeshEAT.Business.Models;
 using TimeshEAT.Web.Models.Filtering;
 using TimeshEAT.Web.Models.Render;
-using TimeshEAT.Web.Models.View;
 
 namespace TimeshEAT.Web.Models.Pagination
 {
@@ -19,7 +18,7 @@ namespace TimeshEAT.Web.Models.Pagination
 					Value = x.Id.ToString()
 				}));
 
-		public UserPagedCollection(IReadOnlyList<UserDetailsRenderModel> items, int page, int itemsPerPage, UserFilter filter = null) : base(filter.Apply(items) ?? items, page, itemsPerPage)
+		public UserPagedCollection(IReadOnlyList<UserDetailsRenderModel> items, int page, int itemsPerPage, UserFilter filter = null) : base(items, page, itemsPerPage, filter)
 		{
 			companies = new Lazy<IList<CompanyModel>>(() => _api.GetAllCompanies<CompanyModel>().Data);
 

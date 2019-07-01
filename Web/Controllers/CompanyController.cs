@@ -8,9 +8,11 @@ namespace TimeshEAT.Web.Controllers
 	[RoleAuthorize(Roles = "Administrator")]
 	public class CompanyController : BaseController, INavigationController
     {
-		public ActionResult Index()
+		public ActionResult Index(int page = 1)
         {
-            return View(this.Navigation.GetPageViewModel<CompanyViewModel>());
+            var model = Navigation.GetPageViewModel<CompanyViewModel>();
+            model.Page = page;
+            return View(model);
         }
     }
 }

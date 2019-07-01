@@ -1,15 +1,43 @@
 ﻿$(document).ready(function () {
-	$("[data-page]").on("click", 
-		function(e) {
+	$(document).on("click", "[data-page], [data-letter], [data-btn-search]",
+		function (e) {
 			e.preventDefault();
 
-			insertParam("page", $(this).data('page'));
+			let kvp = document.location.search.substr(1).split('&');
+
+			const page = $(this).data('page');
+			if (page) {
+				insertParam(kvp, 'page', page);
+			}
+
+			const letter = $(this).data('letter');
+			if (letter) {
+				kvp = [];
+				if (!$(this).closest(".active").length) {
+					insertParam(kvp, 'letter', letter);
+				}
+			}
+
+			const query = $('[data-query]').val();
+			insertParam(kvp, 'query', query);
+			if (!query) {
+				kvp.pop();
+			}
+
+			document.location.search = kvp.join('&');
 		});
 
-	function insertParam(key, value) {
-		key = encodeURI(key); value = encodeURI(value);
+	$(document).on('keydown', "[data-query]",
+		function (e) {
+			if (e.keyCode == 13) {
+				$('[data-btn-search').trigger('click');
+			}
+		});
+	
+	function insertParam(kvp, key, value) {
+		key = encodeURI(key);
+		value = encodeURI(value);
 
-		var kvp = document.location.search.substr(1).split('&');
 
 		var i = kvp.length; var x; while (i--) {
 			x = kvp[i].split('=');
@@ -23,7 +51,6 @@
 
 		if (i < 0) { kvp[kvp.length] = [key, value].join('='); }
 
-		//this will reload the page, it's likely better to store this until finished
-		document.location.search = kvp.join('&');
+		return kvp;
 	}
 });
