@@ -3219,13 +3219,12 @@
 	});
 	var accordion = {
 		init: function init() {
-			var $accordion = $('[data-accordion]');
-
-			if ($accordion.length) {
-				$accordion.on('click', function () {
-					$accordion.toggleClass('open');
-					$('[data-accordion').not($accordion).removeClass('open');
-					$accordion.siblings().slideToggle(600);
+			if ($('[data-accordion]').length) {
+				$(document).on('click', '[data-accordion]', function (e) {
+					$(e.currentTarget).toggleClass('open');
+					$('[data-accordion].open').not(e.currentTarget).siblings().slideToggle(600);
+					$('[data-accordion].open').not(e.currentTarget).removeClass('open');
+					$(e.currentTarget).siblings().slideToggle(600);
 				});
 			}
 		}
