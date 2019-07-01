@@ -8,9 +8,9 @@
 	@if (Model.Meals.Items.HasValue())
 	{
 		Html.RenderPartial("_MealDetails", new MealDetailsRenderModel() { CategoryList = Model.Meals.CategoryList });
-		foreach (var user in Model.Meals.Items)
+		foreach (var meal in Model.Meals.Items)
 		{
-			Html.RenderPartial("_MealDetails", user);
+			Html.RenderPartial("_MealDetails", meal);
 		}
 	}
 </div>
