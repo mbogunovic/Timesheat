@@ -3059,6 +3059,24 @@ img {
   background-size: 20px;
 }
 
+.font-ico-meal:before {
+  content: "";
+  background-image: url("../assets/images/icons/ico-meal.svg");
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-size: 20px;
+}
+
+.font-ico-category:before {
+  content: "";
+  background-image: url("../assets/images/icons/ico-category.svg");
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-size: 20px;
+}
+
 html, body {
   height: 100%;
 }
