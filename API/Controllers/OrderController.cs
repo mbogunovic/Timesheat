@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Http;
 using TimeshEAT.API.Attributes;
 using TimeshEAT.Business.Interfaces;
@@ -25,6 +26,13 @@ namespace TimeshEAT.API.Controllers
         /// <returns>Enumerable with all orders</returns>
         public IEnumerable<OrderModel> Get() => _serviceContext.Orders.Get();
 
+        /// <summary>
+        /// Endpoint for obtaining orders by userId and date
+        /// </summary>
+        /// <param name="userId">Id of the user for which the orders will be obtained</param>
+        /// <param name="date">Date for which the orders will be obtained</param>
+        /// <returns>List of filtered orders</returns>
+        public IEnumerable<OrderModel> Get(int userId, DateTime date) => _serviceContext.Orders.GetBy(userId, date);
 
         /// <summary>
         /// Endpoint for obtaining single order

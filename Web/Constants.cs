@@ -1,4 +1,6 @@
-﻿namespace TimeshEAT.Web
+﻿using System;
+
+namespace TimeshEAT.Web
 {
 	public static class Constants
 	{
@@ -16,5 +18,20 @@
 
 		public static readonly string[] LETTERS = { "A", "B", "V", "G", "D", "Đ", "E", "Ž", "Z", "I", "J", "K", "L", "LJ", "M", "N", "NJ", "O", "P", "R", "S", "T", "U", "F", "H", "C", "Č", "Ć", "DŽ", "Š" };
 
+		public enum Months
+		{
+			January = 1,
+			February,
+			March,
+			April,
+			May,
+			June,
+			July,
+			August,
+			September,
+			October,
+			November,
+			December
+		}
 	}
 }

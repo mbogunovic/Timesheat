@@ -11,12 +11,12 @@ namespace TimeshEAT.Business.Models
 		private int _mealId;
 		private int _portionId;
 
-        public OrderModel()
-        {
-            
-        }
+		public OrderModel()
+		{
 
-		public OrderModel(int quantity, DateTime lunchTime, DateTime orderDate, int userId, int mealId, int portionId, string comment = null, int id = 0, long version = 0) : base(id, version)
+		}
+
+		public OrderModel(int quantity, TimeSpan lunchTime, DateTime orderDate, int userId, int mealId, int portionId, string comment = null, int id = 0, long version = 0) : base(id, version)
 		{
 			Id = id;
 			Quantity = quantity;
@@ -29,6 +29,10 @@ namespace TimeshEAT.Business.Models
 			Version = version;
 		}
 
+		public PortionModel Portion { get; set; }
+		public Meal Meal { get; set; }
+		public User User { get; set; }
+
 		public int Quantity
 		{
 			get
@@ -39,7 +43,7 @@ namespace TimeshEAT.Business.Models
 			}
 			set
 			{
-				if (value > 0)
+				if (value < 0)
 				{
 					throw new ArgumentNullException(nameof(Quantity), "Valid quantity is mandatory!");
 				}
@@ -47,7 +51,7 @@ namespace TimeshEAT.Business.Models
 				_quantity = value;
 			}
 		}
-		public DateTime LunchTime { get; set; }
+		public TimeSpan LunchTime { get; set; }
 		public DateTime OrderDate { get; set; }
 		public int UserId
 		{
@@ -59,7 +63,7 @@ namespace TimeshEAT.Business.Models
 			}
 			set
 			{
-				if (value > 0)
+				if (value < 0)
 				{
 					throw new ArgumentNullException(nameof(UserId), "Valid user id is mandatory!");
 				}
@@ -77,7 +81,7 @@ namespace TimeshEAT.Business.Models
 			}
 			set
 			{
-				if (value > 0)
+				if (value < 0)
 				{
 					throw new ArgumentNullException(nameof(MealId), "Valid meal id is mandatory!");
 				}
@@ -95,7 +99,7 @@ namespace TimeshEAT.Business.Models
 			}
 			set
 			{
-				if (value > 0)
+				if (value < 0)
 				{
 					throw new ArgumentNullException(nameof(PortionId), "Valid portion id is mandatory!");
 				}

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using RestSharp;
 using TimeshEAT.Business.API.Models;
 using TimeshEAT.Business.Models;
@@ -13,7 +14,14 @@ namespace TimeshEAT.Business.API
 
             return ExecuteList<List<T>>(request);
         }
+        public ApiResponseModel<List<T>> GetAllOrdersBy<T>(int userId, DateTime date) where T : new()
+        {
+	        RestRequest request = new RestRequest("/api/order");
+	        request.AddParameter("userId", userId);
+	        request.AddParameter("date", date);
 
+	        return Execute<List<T>>(request);
+        }
         public ApiResponseModel<T> GetOrderById<T>(int id) where T : new()
         {
             RestRequest request = new RestRequest("/api/order");

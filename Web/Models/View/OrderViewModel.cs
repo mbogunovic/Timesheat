@@ -1,6 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using TimeshEAT.Business.API;
+using TimeshEAT.Business.Models;
 using TimeshEAT.Web.Helpers;
+using TimeshEAT.Web.Membership;
 
 namespace TimeshEAT.Web.Models.View
 {
@@ -8,13 +14,19 @@ namespace TimeshEAT.Web.Models.View
 	{
 		public OrderViewModel()
 		{
-			Days = new Lazy<IEnumerable<DayModel>>(() => GetDays());
+			_days = new Lazy<IEnumerable<DayModel>>(() => GetDays());
 		}
 
 		public override string PageTitle => "Naruči obrok";
 		public override string PageIcon => "home";
 
-		public Lazy<IEnumerable<DayModel>> Days { get; }
+		private Lazy<IEnumerable<DayModel>> _days { get; }
+		public List<List<DayModel>> Weeks => _days.Value
+			.Select((x, i) => new { Index = i, Value = x })
+			.GroupBy(x => x.Index / 7)
+			.Select(x => x.Select(v => v.Value).ToList())
+			.ToList();
+
 		public DateTime Date { get; set; } = DateTime.Now;
 		public int Total { get; private set; }
 
@@ -25,20 +37,8 @@ namespace TimeshEAT.Web.Models.View
 
 			while (startDate <= endDate)
 			{
-				//_api.GetAllMeals()
-
-				//foreach (var activity in _activityService.GetEmployeeActivityForDate(new DailyActivityGetByDate
-				//{
-				//	Date = startDate,
-				//	EmployeeId = model.CurrentUser.Id
-				//}))
-				//{
-				//	total += activity.HoursSpent + activity.Overtime;
-				//}
-
 				var dateModel = new DayModel(startDate, Date);
-				
-				Total += Total;
+				Total += dateModel.Total;
 				startDate = startDate.AddDays(1);
 
 				yield return dateModel;
@@ -51,13 +51,19 @@ namespace TimeshEAT.Web.Models.View
 	{
 		public DayModel(DateTime date, DateTime queryDate)
 		{
+			var orders = DependencyResolver.Current.GetService<IApiClient>()
+				.GetAllOrdersBy<OrderModel>((HttpContext.Current.User as MemberPrincipal).Id, date)?.Data;
+			Orders = orders?.Select(x => $"{x.Meal.Name} - ({x.Portion.Name}) x{x.Quantity}").ToArray();
 			Date = date;
-			IsActive = Date.ToString("dd.MM.yyyy").Equals(queryDate.ToString("dd.MM.yyyy"));
+			IsActive = Date.ToString("dd.MM.yyyy").Equals(DateTime.Now.ToString("dd.MM.yyyy"));
 			IsDisabled = !Date.ToString("MM.yyyy").Equals(queryDate.ToString("MM.yyyy"));
+			Total = orders?.Sum(x => x.Quantity * x.Meal.Price) ?? 0;
 		}
 
+		public string[] Orders { get; }
 		public DateTime Date { get; }
 		public bool IsActive { get; }
 		public bool IsDisabled { get; }
+		public int Total { get; }
 	}
 }

@@ -2,18 +2,18 @@
 <div class="board">
 	<ul class="board__month-navigation" data-board-navigation>
 		<li data-board-navigation-down><a href="javascript:;"><</a></li>
-		<li><a href="javascript:;"><span class="month">Decembar</span><span class="mobile-month">12</span></a></li>
-		<li><a href="javascript:;"><span class="month">Novembar</span><span class="mobile-month">11</span></a></li>
-		<li><a href="javascript:;"><span class="month">Oktobar</span><span class="mobile-month">10</span></a></li>
-		<li><a href="javascript:;"><span class="month">Septembar</span><span class="mobile-month">9</span></a></li>
-		<li><a href="javascript:;"><span class="month">Avgust</span><span class="mobile-month">8</span></a></li>
-		<li><a href="javascript:;"><span class="month">Jul</span><span class="mobile-month">7</span></a></li>
-		<li><a href="javascript:;"><span class="month">Jun</span><span class="mobile-month">6</span></a></li>
-		<li><a href="javascript:;"><span class="month">Maj</span><span class="mobile-month">5</span></a></li>
-		<li><a href="javascript:;"><span class="month">April</span><span class="mobile-month">4</span></a></li>
-		<li><a href="javascript:;"><span class="month">Mart</span><span class="mobile-month">3</span></a></li>
-		<li><a href="javascript:;"><span class="month">Februar</span><span class="mobile-month">2</span></a></li>
-		<li><a href="javascript:;"><span class="month">Januar</span><span class="mobile-month">1</span></a></li>
+		<li cl><a href="@Url.Action("Index", "Order", new { month = Constants.Months.December })"><span class="month">Decembar</span><span class="mobile-month">12</span></a></li>
+		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.November })"><span class="month">Novembar</span><span class="mobile-month">11</span></a></li>
+		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.October })"><span class="month">Oktobar</span><span class="mobile-month">10</span></a></li>
+		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.September })"><span class="month">Septembar</span><span class="mobile-month">9</span></a></li>
+		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.August })"><span class="month">Avgust</span><span class="mobile-month">8</span></a></li>
+		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.July })"><span class="month">Jul</span><span class="mobile-month">7</span></a></li>
+		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.June })"><span class="month">Jun</span><span class="mobile-month">6</span></a></li>
+		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.May })"><span class="month">Maj</span><span class="mobile-month">5</span></a></li>
+		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.April })"><span class="month">April</span><span class="mobile-month">4</span></a></li>
+		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.March })"><span class="month">Mart</span><span class="mobile-month">3</span></a></li>
+		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.February})"><span class="month">Februar</span><span class="mobile-month">2</span></a></li>
+		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.January })"><span class="month">Januar</span><span class="mobile-month">1</span></a></li>
 		<li data-board-navigation-up><a href="javascript:;">></a></li>
 	</ul>
 	<table class="board__month-table" data-board>
@@ -38,25 +38,27 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var week in Model.Days.Value.Select((x, i) => new { Index = i, Value = x })
-		.GroupBy(x => x.Index / 7)
-		.Select(x => x.Select(v => v.Value).ToList())
-		.ToList())
+			@foreach (var week in Model.Weeks)
 			{
 				<tr>
 					@foreach (var day in week)
 					{
 						<td @(day.IsActive ? "class=active" : String.Empty) @(day.IsDisabled ? "class=disabled" : String.Empty)>
-							<div class='date'>
-								<span>@(day.Date.Day).</span>
-							</div>
-							<div class='orders'>
-								<ul>
-									<li>Supa</li>
-									<li>Pohovane palacinke x1</li>
-								</ul>
-							</div>
-							<a href='javascript:;' class='total'><span>Ukupno:</span><span>240 Din.</span></a>
+                            <div class="month">
+                                <span>@(day.Date.Day).</span>
+                            </div>
+                            @if (day.Orders.HasValue())
+                            {
+                                <div class="orders">
+                                    <ul>
+                                        @foreach (var order in day.Orders)
+                                        {
+                                            <li>@order</li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+							<a href="javascript:;" class="total"><span>Ukupno: </span><span>@day.Total Din.</span></a>
 						</td>
 					}
 				</tr>
@@ -65,4 +67,4 @@
 		</tbody>
 	</table>
 </div>
-<div class="content__footer">Ukupno: 240 | <b>120</b> Din.</div>
+<div class="content__footer">Ukupno: @Model.Total @*| <b>120</b>*@Din.</div>
