@@ -21,15 +21,10 @@ namespace TimeshEAT.Web.Models.Render.Company
         [Display(Name = "Dnevni popust:")]
         public int DailyDiscount { get; set; }
         [Display(Name = "Jela:")]
-        public IList<SelectListItem> MealList { get; set; } = new List<SelectListItem>()
-        {
-            new SelectListItem()
-            {
-                Disabled = true,
-                Text = "Dodaj jelo",
-                Value = "0"
-            }
-        };
+        public IList<SelectListItem> MealList { get; set; }
+        [Display(Name = "Jela kompanije:")]
+        public IList<SelectListItem> CompanyMeals { get; set; }
+        public string CompanyMealsIds { get; set; }
 
         public static implicit operator CompanyModel(CompanyDetailsRenderModel company)
         {

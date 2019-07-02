@@ -11,9 +11,6 @@ namespace TimeshEAT.Web.Models.View
 	{
         public CompanyViewModel()
         {
-            var test = _api.GetAllCompanies<CompanyDetailsRenderModel>();
-            var test2 = test?.Data;
-            var test3 = test2?.OrderBy(c => c.Name);
             companies = new Lazy<IEnumerable<CompanyDetailsRenderModel>>(() => _api.GetAllCompanies<CompanyDetailsRenderModel>()?.Data.OrderBy(c => c.Name));
             searchResult = new Lazy<CompanyPagedCollection>(() => Search());
         }

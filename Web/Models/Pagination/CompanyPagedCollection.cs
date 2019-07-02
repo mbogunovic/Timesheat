@@ -23,7 +23,9 @@ namespace TimeshEAT.Web.Models.Pagination
             allMeals = new Lazy<IList<MealModel>>(() => _api.GetAllMeals<MealModel>().Data);
             foreach (CompanyDetailsRenderModel company in Items)
             {
-                company.MealList = company.MealList.Concat(MealList.Where(mli => mli.Value == company.Id.ToString())).ToList();
+                company.CompanyMeals = MealList.Where(mli => mli.Value == company.Id.ToString()).ToList();
+                company.CompanyMealsIds = string.Join(",",company.CompanyMeals.Select(cm => cm.Value));
+                company.MealList = MealList.Where(mli => !company.CompanyMealsIds.Split(',').Contains(mli.Value)).ToList();
             }
         }
     }

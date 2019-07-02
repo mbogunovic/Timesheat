@@ -1,0 +1,20 @@
+﻿@model MealViewModel
+
+@{
+	Html.RenderPartial("_Filtering", Model.Filter);
+}
+
+<div class="accordion__table">
+	@if (Model.Meals.Items.HasValue())
+	{
+		Html.RenderPartial("_MealDetails", new MealDetailsRenderModel() { CategoryList = Model.Meals.CategoryList });
+		foreach (var meal in Model.Meals.Items)
+		{
+			Html.RenderPartial("_MealDetails", meal);
+		}
+	}
+</div>
+
+@{
+	Html.RenderPartial("_Pagination", Model.Meals.Pagination);
+}

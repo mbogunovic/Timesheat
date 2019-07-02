@@ -30,7 +30,20 @@
             <div class="col-4">
                 <div class="field">
                     @Html.LabelFor(m => m.MealList)
-                    @Html.DropDownListFor(m => m.MealList, Model.MealList)
+                    @Html.DropDownListFor(m => m.MealList, Model.MealList, "Dodaj jelo")
+                </div>
+                <div class="field">
+                    @Html.LabelFor(m => m.CompanyMeals)
+                    @Html.HiddenFor(m => m.CompanyMealsIds)
+                    <ul class="js-company-meals">
+                        @if (Model.CompanyMeals.HasValue())
+                        {
+                            foreach (var meal in Model.CompanyMeals)
+                            {
+                                <li data-mealid="@meal.Value">@meal.Text</li>
+                            }
+                        }
+                    </ul>
                 </div>
             </div>
         </div>

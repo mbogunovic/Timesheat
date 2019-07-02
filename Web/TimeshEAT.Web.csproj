@@ -123,6 +123,7 @@
     <Content Include="css\style.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="js\companies.js" />
     <Content Include="js\global.js" />
     <Content Include="js\global.min.js" />
     <Content Include="js\table-search.js" />
@@ -134,8 +135,10 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\AuthorizationController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\ReportAProblemController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\MealController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extensions\IFormExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
@@ -145,14 +148,22 @@
     <Compile Include="Models\Filtering\ITableFilter.cs" />
     <Compile Include="Models\Filtering\IFilter.cs" />
     <Compile Include="Models\Filtering\Letter.cs" />
+    <Compile Include="Models\Filtering\CategoryFilter.cs" />
     <Compile Include="Models\Filtering\TableFilter.cs" />
+    <Compile Include="Models\Filtering\MealFilter.cs" />
     <Compile Include="Models\Filtering\UserFilter.cs" />
     <Compile Include="Models\Pagination\CompanyPagedCollection.cs" />
+    <Compile Include="Models\Pagination\CategoryPagedCollection.cs" />
     <Compile Include="Models\Pagination\PaginationRenderModel.cs" />
     <Compile Include="Models\Pagination\ReadOnlyPagedCollection.cs" />
+    <Compile Include="Models\Pagination\MealPagedCollection.cs" />
     <Compile Include="Models\Pagination\UserPagedCollection.cs" />
     <Compile Include="Models\Render\Company\CompanyDetailsRenderModel.cs" />
+    <Compile Include="Models\Render\Category\CategoryDetailsRenderModel.cs" />
+    <Compile Include="Models\Render\Meal\MealDetailsRenderModel.cs" />
     <Compile Include="Models\Render\User\UserDetailsRenderModel.cs" />
+    <Compile Include="Models\View\CategoryViewModel.cs" />
+    <Compile Include="Models\View\MealViewModel.cs" />
     <Compile Include="Navigation\INavigationViewModel.cs" />
     <Compile Include="Navigation\INavigationContext.cs" />
     <Compile Include="Navigation\NavigationItem.cs" />
@@ -216,6 +227,10 @@
     <Content Include="Views\Shared\_Pagination.cshtml" />
     <Content Include="Views\Shared\_Filtering.cshtml" />
     <Content Include="Views\Company\_CompanyDetails.cshtml" />
+    <Content Include="Views\Meal\_MealDetails.cshtml" />
+    <Content Include="Views\Meal\Index.cshtml" />
+    <Content Include="Views\Category\_CategoryDetails.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

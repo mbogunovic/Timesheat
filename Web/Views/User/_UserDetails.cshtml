@@ -9,7 +9,7 @@
 		@Html.HiddenFor(x => x.Version)
 		@Html.HiddenFor(x => x.Password)
 		<div class="tr">
-			<div class="td accordion" data-accordion>@Model.FullName</div>
+			<div class="td accordion" data-accordion>@(Model.FullName.HasValue() ? Model.FullName : Model.DisplayName(x => x.FullName))</div>
 			<div class="td" style="flex-grow:3;justify-content: center;">
 				@Html.TextBoxFor(m => m.FullName, new { placeholder = Model.DisplayName(x => x.FullName) })
 			</div>
