@@ -1,0 +1,52 @@
+﻿@model TimeshEAT.Web.Models.Render.Company.CompanyDetailsRenderModel
+
+@if (Model.HasValue())
+{
+    using (Html.BeginForm("Save", "Company", FormMethod.Post, new { @class = "accordion__item" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(x => x.Id)
+        @Html.HiddenFor(x => x.Version)
+        <div class="accordion" data-accordion><span>@(string.IsNullOrWhiteSpace(Model.Name) ? Model.DisplayName(m => m.Name) : Model.Name)</span></div>
+        <div class="accordion__content" style="display:none;">
+            <div class="col-4">
+                <div class="field">
+                    @Html.LabelFor(m => m.Name)
+                    @Html.TextBoxFor(m => m.Name, new { placeholder = Model.DisplayName(m => m.Name) })
+                </div>
+                <div class="field">
+                    @Html.LabelFor(m => m.DailyDiscount)
+                    @Html.TextBoxFor(m => m.DailyDiscount, new { placeholder = Model.DisplayName(m => m.DailyDiscount), type = "number", min = 0 })
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="field">
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email, new { placeholder = Model.DisplayName(m => m.Email), type = "email" })
+                </div>
+                <button type="submit" class="save font-ico-save"></button>
+                <button type="submit" class="delete font-ico-delete" formmethod="POST" formaction="@Url.Action("Delete", "Company")"></button>
+            </div>
+            <div class="col-4">
+                <div class="field">
+                    @Html.LabelFor(m => m.MealList)
+                    @Html.DropDownListFor(m => m.MealList, Model.MealList, "Dodaj jelo")
+                </div>
+                <div class="field">
+                    @Html.LabelFor(m => m.CompanyMeals)
+                    @Html.HiddenFor(m => m.CompanyMealsIds)
+                    <ul class="js-company-meals">
+                        @if (Model.CompanyMeals.HasValue())
+                        {
+                            foreach (var meal in Model.CompanyMeals)
+                            {
+                                <li data-mealid="@meal.Value">@meal.Text</li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    }
+}
