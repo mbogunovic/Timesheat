@@ -1,4 +1,5 @@
-﻿using System.Web.Helpers;
+﻿using System;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using TimeshEAT.Business.Helpers;
 using TimeshEAT.Web.Models.View;
@@ -19,7 +20,7 @@ namespace TimeshEAT.Web.Controllers
 			}
 
 			return _member.Identity.IsAuthenticated
-				? RedirectToAction("Index", "Order")
+				? RedirectToAction("Index", "Order", new { month = (Constants.Months)DateTime.Now.Month})
 				: (ActionResult)View(new LoginViewModel());
 		}
 
@@ -36,7 +37,7 @@ namespace TimeshEAT.Web.Controllers
 			System.Tuple<bool, string> loginResult = _member.Login(model.Email, StringHasher.GenerateHash(model.Password));
 			if (loginResult.Item1)
 			{
-				return RedirectToAction("Index", "Order");
+				return RedirectToAction("Index", "Order", new { month = (Constants.Months)DateTime.Now.Month});
 			}
 
 			TempData[Constants.RESPONSE_MESSAGE] = loginResult.Item2;

@@ -1,20 +1,12 @@
 ﻿@model OrderViewModel
 <div class="board">
 	<ul class="board__month-navigation" data-board-navigation>
-		<li data-board-navigation-down><a href="javascript:;"><</a></li>
-		<li cl><a href="@Url.Action("Index", "Order", new { month = Constants.Months.December })"><span class="month">Decembar</span><span class="mobile-month">12</span></a></li>
-		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.November })"><span class="month">Novembar</span><span class="mobile-month">11</span></a></li>
-		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.October })"><span class="month">Oktobar</span><span class="mobile-month">10</span></a></li>
-		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.September })"><span class="month">Septembar</span><span class="mobile-month">9</span></a></li>
-		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.August })"><span class="month">Avgust</span><span class="mobile-month">8</span></a></li>
-		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.July })"><span class="month">Jul</span><span class="mobile-month">7</span></a></li>
-		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.June })"><span class="month">Jun</span><span class="mobile-month">6</span></a></li>
-		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.May })"><span class="month">Maj</span><span class="mobile-month">5</span></a></li>
-		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.April })"><span class="month">April</span><span class="mobile-month">4</span></a></li>
-		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.March })"><span class="month">Mart</span><span class="mobile-month">3</span></a></li>
-		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.February})"><span class="month">Februar</span><span class="mobile-month">2</span></a></li>
-		<li><a href="@Url.Action("Index", "Order", new { month = Constants.Months.January })"><span class="month">Januar</span><span class="mobile-month">1</span></a></li>
-		<li data-board-navigation-up><a href="javascript:;">></a></li>
+        <li data-board-navigation-down><a href="javascript:;"><</a></li>
+        @foreach (var month in Constants.MonthList)
+        {
+            <li @(month.IsActive ? "class=active" : String.Empty)><a href="@Url.Action("Index", "Order", new { month = month.Month })"><span class="month">@month.Name</span><span class="mobile-month">@((int)month.Month)</span></a></li>
+        }
+        <li data-board-navigation-up><a href="javascript:;">></a></li>
 	</ul>
 	<table class="board__month-table" data-board>
 		<thead>

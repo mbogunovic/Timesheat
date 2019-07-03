@@ -9,10 +9,10 @@ namespace TimeshEAT.Web.Controllers
 	[RoleAuthorize(Roles = "User, Administrator")]
 	public class OrderController : BaseController, INavigationController
     {
-		public ActionResult Index(Constants.Months? month = null)
+		public ActionResult Index(Constants.Months month)
 		{
 			var model = this.Navigation.GetPageViewModel<OrderViewModel>();
-			model.Date = month != null ? new DateTime(DateTime.Now.Year, (int)month, 1) : model.Date;
+			model.Date = new DateTime(DateTime.Now.Year, (int) month, 1);
 
 			return View(model);
         }

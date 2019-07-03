@@ -22,7 +22,7 @@ namespace TimeshEAT.Web.Navigation
 		public string PageName { get; }
 		public string Url { get; set; }
 		public bool IsActive =>
-			HttpContext.Current.Request.Url.AbsolutePath.Contains(Url);
+			HttpContext.Current.Request.Url.AbsoluteUri.Contains(Url);
 
 	}
 }
