@@ -1,4 +1,10 @@
-﻿namespace TimeshEAT.Web
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Web;
+using Microsoft.Ajax.Utilities;
+
+namespace TimeshEAT.Web
 {
 	public static class Constants
 	{
@@ -16,5 +22,77 @@
 
 		public static readonly string[] LETTERS = { "A", "B", "V", "G", "D", "Đ", "E", "Ž", "Z", "I", "J", "K", "L", "LJ", "M", "N", "NJ", "O", "P", "R", "S", "T", "U", "F", "H", "C", "Č", "Ć", "DŽ", "Š" };
 
+		#region [Months]
+
+		public static List<MonthModel> MonthList = new List<MonthModel>()
+		{
+			new MonthModel(Months.January),
+			new MonthModel(Months.February),
+			new MonthModel(Months.March),
+			new MonthModel(Months.April),
+			new MonthModel(Months.May),
+			new MonthModel(Months.June),
+			new MonthModel(Months.July),
+			new MonthModel(Months.August),
+			new MonthModel(Months.September),
+			new MonthModel(Months.October),
+			new MonthModel(Months.November),
+			new MonthModel(Months.December),
+		};
+
+		public enum Months
+		{
+			January = 1,
+			February,
+			March,
+			April,
+			May,
+			June,
+			July,
+			August,
+			September,
+			October,
+			November,
+			December
+		}
+
+		public class MonthModel
+		{
+			public MonthModel(Months month)
+			{
+				Month = month;
+			}
+
+			public Months Month { get; set; }
+			public bool IsActive => HttpContext.Current.Request.Url.AbsoluteUri.Contains(Month.ToString());
+			public string Name => _monthNames[(int) Month];
+
+			private static readonly string[] _monthNames = new string[]
+			{
+				"Empty",
+				"Januar",
+				"Februar",
+				"Mart",
+				"April",
+				"Maj",
+				"Jun",
+				"Jul",
+				"Avgust",
+				"Septembar",
+				"Oktobar",
+				"Novembar",
+				"Decembar"
+			};
+		}
+
+		#endregion
+
+		public static object DefaultRouteValues(string pageName) =>
+			_defaultRouteValues.ContainsKey(pageName) ? _defaultRouteValues[pageName] : null;
+
+		private static Dictionary<string, object> _defaultRouteValues = new Dictionary<string, object>()
+		{
+			{"Order", new {month = (Months) DateTime.Now.Month}}
+		};
 	}
 }

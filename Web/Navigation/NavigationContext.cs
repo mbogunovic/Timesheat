@@ -27,7 +27,7 @@ namespace TimeshEAT.Web.Navigation
 			foreach (Type itemType in itemTypes)
 			{
 				string pageName = itemType.Name.RemoveControllerSuffix();
-				yield return new NavigationItem(urlHelper.Action("Index", pageName), pageName);
+				yield return new NavigationItem(urlHelper.Action("Index", pageName, Constants.DefaultRouteValues(pageName)), pageName);
 			}
 		}
 	}

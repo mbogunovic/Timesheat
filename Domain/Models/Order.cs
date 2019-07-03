@@ -9,7 +9,7 @@ namespace TimeshEAT.Domain.Models
             
         }
 
-		public Order(int id, int quantity, DateTime lunchTime, DateTime orderDate, int userId, int mealId, int portionId, long version, string comment = null) : base(id, version)
+		public Order(int id, int quantity, TimeSpan lunchTime, DateTime orderDate, int userId, int mealId, int portionId, long version, string comment = null) : base(id, version)
 		{
 			Quantity = quantity;
 			LunchTime = lunchTime;
@@ -21,7 +21,7 @@ namespace TimeshEAT.Domain.Models
 		}
 
 		public int Quantity { get; set; }
-		public DateTime LunchTime { get; set; }
+		public TimeSpan LunchTime { get; set; }
 		public DateTime OrderDate { get; set; }
 		public int UserId { get; set; }
 		public int MealId { get; set; }
