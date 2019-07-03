@@ -14,7 +14,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 		protected override string _insertProcedure { get; } = "PortionInsert";
 		protected override string _updateProcedure { get; } = "PortionUpdate";
 		protected override string _deleteProcedure { get; } = "PortionDelete";
-        protected string _getAllMealPortionsView { get; } = "MealsPortionsGetAll";
+        protected string _getAllMealPortionsProcedure { get; } = "MealsPortionsGetByMealId";
         protected string _insertMealPortionProcedure { get; } = "MealPortionInsert";
         protected string _deleteMealPortionProcedure { get; } = "MealPortionDelete";
 
@@ -34,8 +34,12 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
         {
             if (transaction != null)
             {
-                using (SqlCommand sqlCommand = new SqlCommand(GetAllFromView(_getAllMealPortionsView), (SqlConnection)transaction.Connection, (SqlTransaction)transaction.Transaction))
+                using (SqlCommand sqlCommand = new SqlCommand(_getAllMealPortionsProcedure, (SqlConnection)transaction.Connection, (SqlTransaction)transaction.Transaction))
                 {
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    SqlParameter mealIdParameter = new SqlParameter("@MealId", SqlDbType.Int);
+                    mealIdParameter.Value = meal.Id;
+                    sqlCommand.Parameters.Add(mealIdParameter);
                     return GetAllCommand(sqlCommand);
                 }
             }
@@ -45,8 +49,12 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
                 {
                     sqlConnection.Open();
 
-                    using (SqlCommand sqlCommand = new SqlCommand(GetAllFromView(_getAllMealPortionsView), sqlConnection))
+                    using (SqlCommand sqlCommand = new SqlCommand(_getAllMealPortionsProcedure, sqlConnection))
                     {
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        SqlParameter mealIdParameter = new SqlParameter("@MealId", SqlDbType.Int);
+                        mealIdParameter.Value = meal.Id;
+                        sqlCommand.Parameters.Add(mealIdParameter);
                         return GetAllCommand(sqlCommand);
                     }
                 }

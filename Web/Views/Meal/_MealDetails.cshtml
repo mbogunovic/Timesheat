@@ -32,15 +32,23 @@
 					</div>
 				</div>
 				<div class="col-4">
-					<div class="field">
-						<label>Porcije:</label>
-						<select>
-							<option value="" selected disabled hidden>Dodaj jelo</option>
-							<option value="1">Prva</option>
-							<option value="2">Druga</option>
-							<option value="3">Treca</option>
-						</select>
-					</div>
+                    <div class="field">
+                        @Html.LabelFor(m => m.PortionsList)
+                        @Html.DropDownListFor(m => m.PortionsList, Model.PortionsList, "Dodaj porciju")
+                    </div>
+                    <div class="field">
+                        @Html.LabelFor(m => m.MealPortions)
+                        @Html.HiddenFor(m => m.MealPortionsIds)
+                        <ul class="js-meal-portions">
+                            @if (Model.MealPortions.HasValue())
+                            {
+                                foreach (var portion in Model.MealPortions)
+                                {
+                                    <li data-portionid="@portion.Value">@portion.Text</li>
+                                }
+                            }
+                        </ul>
+                    </div>
 				</div>
 			}
 		</div>
