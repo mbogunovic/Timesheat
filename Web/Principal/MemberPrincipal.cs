@@ -27,6 +27,7 @@ namespace TimeshEAT.Web.Membership
 		private IApiClient _api;
 
 		public IIdentity Identity { get; private set; }
+		public int Id => _user.Id;
 
 		public Tuple<bool, string> Login(string email, string password)
 		{

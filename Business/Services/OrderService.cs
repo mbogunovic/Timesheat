@@ -14,7 +14,34 @@ namespace TimeshEAT.Business.Services
 		public IEnumerable<OrderModel> Get()
 		{
 			var result = _context.OrderRepository.GetAll()
-				.Select(x => (OrderModel)x);
+				.Select(x => (OrderModel)x)
+				.ToList();
+
+			for (int i=0; i < result.Count(); i++)
+			{
+				result[i].User = _context.UserRepository.GetById(result[i].UserId);
+				result[i].Meal = _context.MealRepository.GetById(result[i].MealId);
+				result[i].Portion = _context.PortionRepository.GetById(result[i].PortionId);
+			}
+
+			return result;
+		}
+
+		public IEnumerable<OrderModel> GetBy(int userId, DateTime date)
+		{
+			if (userId <= 0) throw new ArgumentNullException(nameof(userId), "Id cannot be null!");
+			if (date.Equals(default)) throw new ArgumentNullException(nameof(date), "Date cannot be default!");
+
+			var result = _context.OrderRepository.GetByUserIdAndDate(userId, date)
+				.Select(x => (OrderModel)x)
+				.ToList();
+
+			for (int i=0; i < result.Count(); i++)
+			{
+				result[i].User = _context.UserRepository.GetById(result[i].UserId);
+				result[i].Meal = _context.MealRepository.GetById(result[i].MealId);
+				result[i].Portion = _context.PortionRepository.GetById(result[i].PortionId);
+			}
 
 			return result;
 		}
@@ -23,7 +50,11 @@ namespace TimeshEAT.Business.Services
 		{
 			if (id <= 0) throw new ArgumentNullException(nameof(id), "Id cannot be null!");
 
-			var result = _context.OrderRepository.GetById(id);
+			OrderModel result = _context.OrderRepository.GetById(id);
+
+			result.User = _context.UserRepository.GetById(result.UserId);
+			result.Meal = _context.MealRepository.GetById(result.MealId);
+			result.Portion = _context.PortionRepository.GetById(result.PortionId);
 
 			return result;
 		}

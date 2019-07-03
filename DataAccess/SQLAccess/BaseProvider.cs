@@ -47,7 +47,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 			}
 		}
 
-		private List<T> GetAllCommand(SqlCommand sqlCommand)
+		protected List<T> GetAllCommand(SqlCommand sqlCommand)
 		{
 			List<T> data = new List<T>();
 			using (SqlDataReader reader = sqlCommand.ExecuteReader())

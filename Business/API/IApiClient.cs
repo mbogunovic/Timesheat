@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using RestSharp;
 using TimeshEAT.Business.API.Models;
@@ -31,6 +32,7 @@ namespace TimeshEAT.Business.API
         ApiResponseModel<T> UpdateRole<T>(RoleModel model) where T : new();
 		void DeleteRole(RoleModel model);
         ApiResponseModel<List<T>> GetAllOrders<T>() where T : new();
+        ApiResponseModel<List<T>> GetAllOrdersBy<T>(int userId, DateTime date) where T : new();
         ApiResponseModel<T> GetOrderById<T>(int id) where T : new();
         ApiResponseModel<T> AddOrder<T>(OrderModel model) where T : new();
         ApiResponseModel<T> UpdateOrder<T>(OrderModel model) where T : new();

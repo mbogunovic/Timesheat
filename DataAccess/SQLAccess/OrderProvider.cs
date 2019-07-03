@@ -1,4 +1,8 @@
-﻿using System.Data.SqlClient;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using TimeshEAT.Domain.Interfaces;
 using TimeshEAT.Domain.Models;
 using TimeshEAT.Domain.Interfaces.Repositories;
 
@@ -31,6 +35,37 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 			sqlCommand.Parameters.AddWithValue("@Quantity", order.Quantity);
 			sqlCommand.Parameters.AddWithValue("@UserId", order.UserId);
 			sqlCommand.Parameters.AddWithValue("@Comment", order.Comment);
+		}
+
+		public IEnumerable<Order> GetByUserIdAndDate(int userId, DateTime date, ITransaction transaction = null)
+		{
+			if (transaction != null)
+			{
+				using (SqlCommand sqlCommand = new SqlCommand("OrdersGetByUserIdAndDate", (SqlConnection)transaction.Connection, (SqlTransaction)transaction.Transaction))
+				{
+					sqlCommand.CommandType = CommandType.StoredProcedure;
+					sqlCommand.Parameters.AddWithValue("@UserId", userId);
+					sqlCommand.Parameters.AddWithValue("@Date", date);
+
+					return GetAllCommand(sqlCommand);
+				}
+			}
+			else
+			{
+				using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
+				{
+					sqlConnection.Open();
+
+					using (SqlCommand sqlCommand = new SqlCommand("OrdersGetByUserIdAndDate", sqlConnection))
+					{
+						sqlCommand.CommandType = CommandType.StoredProcedure;
+						sqlCommand.Parameters.AddWithValue("@UserId", userId);
+						sqlCommand.Parameters.AddWithValue("@Date", date);
+
+						return GetAllCommand(sqlCommand);
+					}
+				}
+			}
 		}
 	}
 }
