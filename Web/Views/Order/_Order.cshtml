@@ -1,0 +1,54 @@
+﻿@model TimeshEAT.Business.Models.OrderModel
+
+@if (Model.HasValue())
+{
+    <div class="tr">
+        <div class="td accordion" data-accordion>Izaberi jelo</div>
+        <div class="td" style="flex-grow: 2;">
+            <select>
+                <option value="" selected disabled hidden>Izaberi kategoriju</option>
+                <option value="1">Kuvana jela</option>
+                <option value="2">Dorucak</option>
+                <option value="3">Rostilj</option>
+                <option value="4">Predjela</option>
+            </select>
+        </div>
+        <div class="td" style="flex-grow:3; justify-content: center;">
+            <select>
+                <option value="" selected disabled hidden>Izaberi jelo</option>
+                <option value="1">Punjena becka</option>
+                <option value="2">Sarmice</option>
+                <option value="3">Pasulj prebranac</option>
+            </select>
+        </div>
+        <div class="td" style="flex-grow: 2;justify-content: center;">
+            <select>
+                <option value="" selected disabled hidden>Izaberi velicinu porcije</option>
+                <option value="1">Mala</option>
+                <option value="2">Velika</option>
+            </select>
+        </div>
+        <div class="td" style="flex-grow:3;justify-content: center;">
+            <input type="text" placeholder="Dodatni komentar" />
+        </div>
+        <div class="td" style="justify-content: center;">
+            <select>
+                <option value="1">1 kom.</option>
+                <option value="2">2 kom.</option>
+                <option value="3">3 kom.</option>
+            </select>
+        </div>
+        <div class="td" style="justify-content: center;">
+            <input type="text" class="time-picker" />
+        </div>
+        <div class="td" style="justify-content: center;">
+            <input type="text" disabled />
+        </div>
+        <div class="td" style="justify-content: center;">
+            <div class="order__table-operations">
+                <button type="submit" class="save font-ico-save"></button>
+                <button type="submit" class="delete font-ico-delete"></button>
+            </div>
+        </div>
+    </div>
+}

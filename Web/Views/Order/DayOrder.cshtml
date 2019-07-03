@@ -1,0 +1,44 @@
+﻿@model TimeshEAT.Web.Controllers.DayOrderRenderModel
+
+    <div class="order__table">
+        <h3>25. mart - 31. mart, 2019 (13. nedelja)</h3>
+        <ul class="order__week">
+            <li class=""><a href="javascript:;"><p></p><b>&lt;</b></a></li>
+            <li class=""><a href="javascript:;"><p>25. Mart</p><b>Ponedeljak</b></a></li>
+            <li class="active"><a href="javascript:;"><p>26. Mart</p><b>Utorak</b></a></li>
+            <li class=""><a href="javascript:;"><p>27. Mart</p><b>Sreda</b></a></li>
+            <li class=""><a href="javascript:;"><p>28. Mart</p><b>Cetvrtak</b></a></li>
+            <li class=""><a href="javascript:;"><p>29. Mart</p><b>Petak</b></a></li>
+            <li class=""><a href="javascript:;"><p>30. Mart</p><b>Subota</b></a></li>
+            <li class=""><a href="javascript:;"><p>31. Mart</p><b>Nedelja</b></a></li>
+            <li class=""><a href="javascript:;"><p></p><b>&gt;</b></a></li>
+        </ul>
+        <ul class="order__week order__week-mobile">
+            <li class=""><a href="javascript:;"><b>&lt;</b></a></li>
+            <li class=""><a href="javascript:;"><b>25.</b></a></li>
+            <li class="active"><a href="javascript:;"><b>26.</b></a></li>
+            <li class=""><a href="javascript:;"><b>27.</b></a></li>
+            <li class=""><a href="javascript:;"><b>28.</b></a></li>
+            <li class=""><a href="javascript:;"><b>29.</b></a></li>
+            <li class=""><a href="javascript:;"><b>30.</b></a></li>
+            <li class=""><a href="javascript:;"><b>31.</b></a></li>
+            <li class=""><a href="javascript:;"><b>&gt;</b></a></li>
+        </ul>
+        <div class="table">
+            <div class="tr th">
+                <div class="td" style="flex-grow: 2;">Kategorija</div>
+                <div class="td" style="flex-grow: 3;">Jelo</div>
+                <div class="td" style="flex-grow: 2;">Velicina porcije</div>
+                <div class="td" style="flex-grow: 3;">Komentar</div>
+                <div class="td">Kolicina</div>
+                <div class="td">Vreme</div>
+                <div class="td">Cena</div>
+                <div class="td">Operacije</div>
+            </div>
+            @foreach (var order in Model.Orders.Value)
+            {
+                Html.RenderPartial("_Order", order);
+            }
+        </div>
+    </div>
+    <div class="content__footer">Ukupno: 240 | <b>120</b> Din.</div>

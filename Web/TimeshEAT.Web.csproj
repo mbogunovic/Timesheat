@@ -231,6 +231,8 @@
     <Content Include="Views\Meal\Index.cshtml" />
     <Content Include="Views\Category\_CategoryDetails.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Order\DayOrder.cshtml" />
+    <Content Include="Views\Order\_Order.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
