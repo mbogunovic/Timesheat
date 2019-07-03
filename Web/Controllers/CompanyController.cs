@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using TimeshEAT.Business.Models;
 using TimeshEAT.Web.Attributes;
@@ -29,8 +30,17 @@ namespace TimeshEAT.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            var selectedMeals = model.CompanyMealsIds.Split(',');
-            model.Meals = _api.GetAllMeals<MealModel>()?.Data.Where(m => selectedMeals.Contains(m.Id.ToString())).ToList();
+            var selectedMeals = model.CompanyMealsIds?.Split(',');
+            if (selectedMeals == null)
+            {
+                model.Meals = new List<MealModel>();
+            }
+            else
+            {
+                model.Meals = _api.GetAllMeals<MealModel>()?.Data.Where(m => selectedMeals.Contains(m.Id.ToString()))
+                    .ToList();
+            }
+
             if (model.Id == 0)
             {
                 Business.API.Models.ApiResponseModel<CompanyDetailsRenderModel> result = _api.AddCompany<CompanyDetailsRenderModel>(model);
