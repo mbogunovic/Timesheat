@@ -14,7 +14,9 @@ namespace TimeshEAT.Web.Optimization
 				.Include("~/js/global.min.js", new JsRewriteUrlTransform())
                 .Include("~/js/reportaproblem.js")
 				.Include("~/js/table-search.js")
-                .Include("~/js/companies.js");
+                .Include("~/js/common.js")
+                .Include("~/js/companies.js")
+                .Include("~/js/meals.js");
 
 			bundles.Add(script);
 

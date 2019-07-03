@@ -22,13 +22,22 @@ namespace TimeshEAT.Web.Models.Render
 		public int CategoryId { get; set; }
 
 		public IList<SelectListItem> CategoryList { get; set; }
+        public string MealPortionsIds { get; set; }
+        [Display(Name = "Porcije jela:")]
+        public IList<SelectListItem> MealPortions { get; set; }
+        public IList<PortionModel> Portions { get; set; }
+        [Display(Name = "Porcije:")]
+        public IList<SelectListItem> PortionsList { get; set; }
 
-		public static implicit operator MealModel(MealDetailsRenderModel meal)
+        public static implicit operator MealModel(MealDetailsRenderModel meal)
 		{
 			if (meal == null)
 				return null;
 
-			return new MealModel(meal.Name, meal.Price, meal.CategoryId, meal.Id, meal.Version);
+            var mealModel = new MealModel(meal.Name, meal.Price, meal.CategoryId, meal.Id, meal.Version);
+            mealModel.Portions = meal.Portions;
+
+            return mealModel;
 		}
 	}
 }
