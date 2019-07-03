@@ -14,7 +14,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 		protected override string _insertProcedure { get; } = "MealInsert";
 		protected override string _updateProcedure { get; } = "MealUpdate";
 		protected override string _deleteProcedure { get; } = "MealDelete";
-        protected string _getAllCompanyMealsView { get; } = "MealsCompaniesGetAll";
+        protected string _getAllCompanyMealsProcedure { get; } = "MealsCompaniesGetByCompanyId";
         protected string _insertCompanyMealProcedure { get; } = "MealCompanyInsert";
         protected string _deleteCompanyMealProcedure { get; } = "MealCompanyDelete";
 
@@ -38,8 +38,12 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
         {
             if (transaction != null)
             {
-                using (SqlCommand sqlCommand = new SqlCommand(GetAllFromView(_getAllCompanyMealsView), (SqlConnection)transaction.Connection, (SqlTransaction)transaction.Transaction))
+                using (SqlCommand sqlCommand = new SqlCommand(_getAllCompanyMealsProcedure, (SqlConnection)transaction.Connection, (SqlTransaction)transaction.Transaction))
                 {
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    SqlParameter companyIdParam = new SqlParameter("@CompanyId", SqlDbType.Int);
+                    companyIdParam.Value = company.Id;
+                    sqlCommand.Parameters.Add(companyIdParam);
                     return GetAllCommand(sqlCommand);
                 }
             }
@@ -49,8 +53,12 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
                 {
                     sqlConnection.Open();
 
-                    using (SqlCommand sqlCommand = new SqlCommand(GetAllFromView(_getAllCompanyMealsView), sqlConnection))
+                    using (SqlCommand sqlCommand = new SqlCommand(_getAllCompanyMealsProcedure, sqlConnection))
                     {
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        SqlParameter companyIdParam = new SqlParameter("@CompanyId", SqlDbType.Int);
+                        companyIdParam.Value = company.Id;
+                        sqlCommand.Parameters.Add(companyIdParam);
                         return GetAllCommand(sqlCommand);
                     }
                 }
@@ -95,9 +103,9 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
             mealIdParameter.Value = meal.Id;
             sqlCommand.Parameters.Add(mealIdParameter);
 
-            SqlParameter portionIdParam = new SqlParameter("@CompanyId", SqlDbType.Int);
-            portionIdParam.Value = company.Id;
-            sqlCommand.Parameters.Add(portionIdParam);
+            SqlParameter companyIdParam = new SqlParameter("@CompanyId", SqlDbType.Int);
+            companyIdParam.Value = company.Id;
+            sqlCommand.Parameters.Add(companyIdParam);
         }
 
         public void DeleteMealForCompany(Meal meal, Company company, ITransaction transaction = null)

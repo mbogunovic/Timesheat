@@ -21,11 +21,23 @@ function bindClickRemove(target, addSelectContainer, dataField) {
     $(target).remove();
 }
 
+function updateHiddenField(selectedListItems, currentForm) {
+    // create new comma separated values
+    var newValue = "";
+    for (var i = 0; i < selectedListItems.length; i++) {
+        newValue += $(selectedListItems[i]).data("mealid") + ",";
+    }
+    newValue = newValue.substring(0, newValue.length - 1); //remove trailing comma
+    setValue($(currentForm).find("[name=CompanyMealsIds]"), newValue); //set the new value to the element
+}
+
 $(document).ready(function () {
     // bind on page load
     $(".js-company-meals").children().on("click",
-        function(e) {
-            bindClickRemove($(this), $(this).closest("form").find("select[name=MealList]", "mealid"));
+        function (e) {
+            var form = $(this).closest("form");
+            bindClickRemove($(this), $(this).closest("form").find("select[name=MealList]"), "mealid");
+            updateHiddenField($(form).find(".js-company-meals").children(), $(form));
         });
     $("select[name=MealList]").change(function (e) {
         var target = $(e.target); // select container
@@ -46,16 +58,12 @@ $(document).ready(function () {
         var selectedListItems = $(selectedList).children(); //all selected elements
         $(selectedListItems).off("click"); //invalidate old click
         // bind new click
-        $(selectedListItems).on("click", function () {
+        $(selectedListItems).on("click", function (e) {
+            var form = $(this).closest("form");
             bindClickRemove($(this), $(currentForm).find("select[name=MealList]"), "mealid");
+            updateHiddenField($(form).find(".js-company-meals").children(), $(form));
         });
-        // create new comma separated values
-        var newValue = "";
-        for (var i = 0; i < selectedListItems.length; i++) {
-            newValue += $(selectedListItems[i]).data("mealid") + ",";
-        }
-        newValue = newValue.substring(0, newValue.length - 1); //remove trailing comma
-        setValue($(currentForm).find("[name=CompanyMealsIds]"), newValue); //set the new value to the element
+        updateHiddenField(selectedListItems, currentForm);
         $(selectItem).remove(); //remove the element from options
     });
 });

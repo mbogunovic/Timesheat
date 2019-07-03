@@ -20,7 +20,7 @@ namespace TimeshEAT.Business.Services
 
             foreach (var company in result)
             {
-                company.Meals = _context.MealRepository.GetMealsForCompany(company).Select(m => (MealModel)m);
+                company.Meals = _context.MealRepository.GetMealsForCompany(company).Select(m => (MealModel)m).ToList();
             }
 
 			return result;
@@ -31,7 +31,7 @@ namespace TimeshEAT.Business.Services
 			if (id <= 0) throw new ArgumentNullException(nameof(id), "Id cannot be null!");
 
 			var result = (CompanyModel)_context.CompanyRepository.GetById(id);
-            result.Meals = _context.MealRepository.GetMealsForCompany(result).Select(m => (MealModel)m);
+            result.Meals = _context.MealRepository.GetMealsForCompany(result).Select(m => (MealModel)m).ToList();
 			return result;
 		}
 
@@ -45,7 +45,7 @@ namespace TimeshEAT.Business.Services
             {
                 foreach (var companyMeal in company.Meals)
                 {
-                    _context.MealRepository.AddMealForCompany(companyMeal, company);
+                    _context.MealRepository.AddMealForCompany(companyMeal, result);
                 }
             }
 

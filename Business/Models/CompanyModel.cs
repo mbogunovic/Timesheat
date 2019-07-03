@@ -79,7 +79,7 @@ namespace TimeshEAT.Business.Models
 			}
 		}
 
-        public IEnumerable<MealModel> Meals { get; set; }
+        public IList<MealModel> Meals { get; set; }
 
 		#region [Implicit Operators]
 

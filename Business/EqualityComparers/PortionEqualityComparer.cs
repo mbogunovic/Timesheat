@@ -14,6 +14,6 @@ namespace TimeshEAT.Business.EqualityComparers
             return x.Id == y.Id;
         }
 
-        public int GetHashCode(PortionModel obj) => obj.GetHashCode();
+        public int GetHashCode(PortionModel obj) => obj.Id;
     }
 }

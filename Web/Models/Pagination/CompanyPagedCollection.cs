@@ -23,7 +23,11 @@ namespace TimeshEAT.Web.Models.Pagination
             allMeals = new Lazy<IList<MealModel>>(() => _api.GetAllMeals<MealModel>().Data);
             foreach (CompanyDetailsRenderModel company in Items)
             {
-                company.CompanyMeals = MealList.Where(mli => mli.Value == company.Id.ToString()).ToList();
+                company.CompanyMeals = company.Meals?.Select(m => new SelectListItem
+                {
+                    Text = m.Name,
+                    Value = m.Id.ToString()
+                }).ToList() ?? new List<SelectListItem>();
                 company.CompanyMealsIds = string.Join(",",company.CompanyMeals.Select(cm => cm.Value));
                 company.MealList = MealList.Where(mli => !company.CompanyMealsIds.Split(',').Contains(mli.Value)).ToList();
             }
