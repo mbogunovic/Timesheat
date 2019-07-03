@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Web;
 using TimeshEAT.Web.Extensions;
 using TimeshEAT.Web.Models.View;
+using System.Linq;
 
 namespace TimeshEAT.Web.Navigation
 {
@@ -22,7 +23,7 @@ namespace TimeshEAT.Web.Navigation
 		public string PageName { get; }
 		public string Url { get; set; }
 		public bool IsActive =>
-			HttpContext.Current.Request.Url.AbsoluteUri.Contains(Url);
-
+			HttpContext.Current.Request.Url.AbsolutePath.Contains(string.Concat(Url.TakeWhile(x => x != '?')));
+			
 	}
 }
