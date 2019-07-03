@@ -26,26 +26,10 @@ namespace TimeshEAT.Web.Controllers
 			}
 			else
 			{
-				var model = new DayOrderRenderModel(date.Value);
+				var model = new DayOrderViewModel(date.Value);
 
 				return View("DayOrder", model);
 			}
 		}
     }
-
-	public class DayOrderRenderModel : NavigationViewModel
-	{
-		public override string PageTitle => "Naruči obrok";
-		public override string PageIcon => "home";
-
-		public DayOrderRenderModel(DateTime date)
-		{
-			Orders = new Lazy<IEnumerable<OrderModel>>(() => DependencyResolver.Current.GetService<IApiClient>()
-				.GetAllOrdersBy<OrderModel>((HttpContext.Current.User as MemberPrincipal).Id, date)?.Data);
-			Date = date;
-		}
-
-		public DateTime Date { get; }
-		public Lazy<IEnumerable<OrderModel>> Orders { get; }
-	}
 }

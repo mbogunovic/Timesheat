@@ -30,7 +30,7 @@ namespace TimeshEAT.Business.Services
 		public IEnumerable<OrderModel> GetBy(int userId, DateTime date)
 		{
 			if (userId <= 0) throw new ArgumentNullException(nameof(userId), "Id cannot be null!");
-			if (date.Equals(default)) throw new ArgumentNullException(nameof(date), "Date cannot be default!");
+			if (date.Equals(default(DateTime))) throw new ArgumentNullException(nameof(date), "Date cannot be default!");
 
 			var result = _context.OrderRepository.GetByUserIdAndDate(userId, date)
 				.Select(x => (OrderModel)x)

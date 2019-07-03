@@ -1,4 +1,4 @@
-﻿@model TimeshEAT.Web.Controllers.DayOrderRenderModel
+﻿@model DayOrderViewModel
 
     <div class="order__table">
         <h3>25. mart - 31. mart, 2019 (13. nedelja)</h3>
@@ -24,21 +24,25 @@
             <li class=""><a href="javascript:;"><b>31.</b></a></li>
             <li class=""><a href="javascript:;"><b>&gt;</b></a></li>
         </ul>
-        <div class="table">
-            <div class="tr th">
-                <div class="td" style="flex-grow: 2;">Kategorija</div>
-                <div class="td" style="flex-grow: 3;">Jelo</div>
-                <div class="td" style="flex-grow: 2;">Velicina porcije</div>
-                <div class="td" style="flex-grow: 3;">Komentar</div>
-                <div class="td">Kolicina</div>
-                <div class="td">Vreme</div>
-                <div class="td">Cena</div>
-                <div class="td">Operacije</div>
-            </div>
-            @foreach (var order in Model.Orders.Value)
-            {
-                Html.RenderPartial("_Order", order);
-            }
-        </div>
+		<div class="table">
+			<div class="tr th">
+				<div class="td" style="flex-grow: 2;">Kategorija</div>
+				<div class="td" style="flex-grow: 3;">Jelo</div>
+				<div class="td" style="flex-grow: 2;">Velicina porcije</div>
+				<div class="td" style="flex-grow: 3;">Komentar</div>
+				<div class="td">Kolicina</div>
+				<div class="td">Vreme</div>
+				<div class="td">Cena</div>
+				<div class="td">Operacije</div>
+			</div>
+			@if (Model.Orders.Value.HasValue())
+			{
+				foreach (var order in Model.Orders.Value)
+				{
+					order.Categories = Model.Categories.Value;
+					Html.RenderPartial("_OrderDetails", order);
+				}
+			}
+		</div>
     </div>
     <div class="content__footer">Ukupno: 240 | <b>120</b> Din.</div>

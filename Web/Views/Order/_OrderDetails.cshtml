@@ -1,26 +1,15 @@
-﻿@model TimeshEAT.Business.Models.OrderModel
+﻿@model OrderDetailsRenderModel
 
 @if (Model.HasValue())
 {
     <div class="tr">
         <div class="td accordion" data-accordion>Izaberi jelo</div>
         <div class="td" style="flex-grow: 2;">
-            <select>
-                <option value="" selected disabled hidden>Izaberi kategoriju</option>
-                <option value="1">Kuvana jela</option>
-                <option value="2">Dorucak</option>
-                <option value="3">Rostilj</option>
-                <option value="4">Predjela</option>
-            </select>
+				@Html.DropDownListFor(x => x.CategoryId, Model.CategoryList, "Izaberite kategoriju")
         </div>
-        <div class="td" style="flex-grow:3; justify-content: center;">
-            <select>
-                <option value="" selected disabled hidden>Izaberi jelo</option>
-                <option value="1">Punjena becka</option>
-                <option value="2">Sarmice</option>
-                <option value="3">Pasulj prebranac</option>
-            </select>
-        </div>
+		<div class="td" style="flex-grow:3; justify-content: center;">
+			@Html.DropDownListFor(x => x.MealId, Model.MealList, "Izaberite obrok")
+		</div>
         <div class="td" style="flex-grow: 2;justify-content: center;">
             <select>
                 <option value="" selected disabled hidden>Izaberi velicinu porcije</option>
@@ -29,7 +18,7 @@
             </select>
         </div>
         <div class="td" style="flex-grow:3;justify-content: center;">
-            <input type="text" placeholder="Dodatni komentar" />
+            @Html.TextBoxFor(x => x.Comment, new { placeholder = Model.DisplayName(x => x.Comment) })
         </div>
         <div class="td" style="justify-content: center;">
             <select>

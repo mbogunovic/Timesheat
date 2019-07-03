@@ -164,6 +164,7 @@
     <Compile Include="Models\Render\Order\DayRenderModel.cs" />
     <Compile Include="Models\Render\User\UserDetailsRenderModel.cs" />
     <Compile Include="Models\View\CategoryViewModel.cs" />
+    <Compile Include="Models\View\DayOrderViewModel.cs" />
     <Compile Include="Models\View\MealViewModel.cs" />
     <Compile Include="Navigation\INavigationViewModel.cs" />
     <Compile Include="Navigation\INavigationContext.cs" />
@@ -232,7 +233,7 @@
     <Content Include="Views\Category\_CategoryDetails.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Order\DayOrder.cshtml" />
-    <Content Include="Views\Order\_Order.cshtml" />
+    <Content Include="Views\Order\_OrderDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

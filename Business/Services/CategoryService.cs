@@ -11,9 +11,21 @@ namespace TimeshEAT.Business.Services
 	{
 		public CategoryService(IRepositoryContext context) : base(context) { }
 
-		public IEnumerable<CategoryModel> Get() => 
-			_context.CategoryRepository.GetAll()
-				.Select(x => (CategoryModel)x);
+		public IEnumerable<CategoryModel> Get()
+		{
+			var result = _context.CategoryRepository.GetAll()
+				.Select(x => (CategoryModel)x)
+				.ToList();
+
+			for(int i=0; i < result.Count(); i++)
+			{
+				result[i].Meals = new MealService(_context).Get()
+					.Where(x => x.CategoryId.Equals(result[i].Id))
+					.ToList();
+			}
+
+			return result;
+		}
 
 		public CategoryModel GetBy(int id)
 		{
