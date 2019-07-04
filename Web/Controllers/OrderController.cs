@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Web;
 using System.Web.Mvc;
-using TimeshEAT.Business.API;
-using TimeshEAT.Business.Models;
-using TimeshEAT.Domain.Models;
 using TimeshEAT.Web.Attributes;
 using TimeshEAT.Web.Interfaces;
-using TimeshEAT.Web.Membership;
 using TimeshEAT.Web.Models.View;
 
 namespace TimeshEAT.Web.Controllers
@@ -26,9 +20,7 @@ namespace TimeshEAT.Web.Controllers
 			}
 			else
 			{
-				var model = new DayOrderViewModel(date.Value);
-
-				return View("DayOrder", model);
+				return View("DayOrder", new DayOrderViewModel(date.Value));
 			}
 		}
     }

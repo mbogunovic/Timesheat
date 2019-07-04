@@ -6,6 +6,7 @@ using TimeshEAT.Business.Models;
 using TimeshEAT.Domain.Interfaces;
 using TimeshEAT.Domain.Interfaces.Repositories;
 using TimeshEAT.Domain.Models;
+using TimeshEAT.Repository.Repositories;
 
 namespace TimeshEAT.Business.Services
 {
@@ -21,13 +22,14 @@ namespace TimeshEAT.Business.Services
 			List<UserModel> result = _context.UserRepository.GetAll()
 				.Select(x => (UserModel)x)
 				.ToList();
+			var companyService = new CompanyService(_context);
 
-			//TODO: companies models
 			for (int i=0; i < result.Count(); i++)
 			{
 				result[i].Roles = _context.RoleRepository.GetAllByUserId(result[i].Id)
 					.Select(x => (RoleModel)x)
 					.ToList();
+				result[i].Company = companyService.GetBy(result[i].CompanyId);
 			}
 
 			return result.ToList();

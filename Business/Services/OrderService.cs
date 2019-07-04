@@ -17,11 +17,11 @@ namespace TimeshEAT.Business.Services
 				.Select(x => (OrderModel)x)
 				.ToList();
 
-			for (int i=0; i < result.Count(); i++)
+			foreach (var item in result)
 			{
-				result[i].User = _context.UserRepository.GetById(result[i].UserId);
-				result[i].Meal = _context.MealRepository.GetById(result[i].MealId);
-				result[i].Portion = _context.PortionRepository.GetById(result[i].PortionId);
+				item.User = _context.UserRepository.GetById(item.UserId);
+				item.Meal = new MealService(_context).GetBy(item.MealId);
+				item.Portion = _context.PortionRepository.GetById(item.PortionId);
 			}
 
 			return result;
@@ -36,11 +36,11 @@ namespace TimeshEAT.Business.Services
 				.Select(x => (OrderModel)x)
 				.ToList();
 
-			for (int i=0; i < result.Count(); i++)
+			foreach (var item in result)
 			{
-				result[i].User = _context.UserRepository.GetById(result[i].UserId);
-				result[i].Meal = _context.MealRepository.GetById(result[i].MealId);
-				result[i].Portion = _context.PortionRepository.GetById(result[i].PortionId);
+				item.User = _context.UserRepository.GetById(item.UserId);
+				item.Meal = new MealService(_context).GetBy(item.MealId);
+				item.Portion = _context.PortionRepository.GetById(item.PortionId);
 			}
 
 			return result;

@@ -39,7 +39,7 @@
 			{
 				foreach (var order in Model.Orders.Value)
 				{
-					order.Categories = Model.Categories.Value;
+                    order.InitializeLists(Model.CategoryList, Model.GetMealList(order.CategoryId));
 					Html.RenderPartial("_OrderDetails", order);
 				}
 			}

@@ -15,11 +15,24 @@ namespace TimeshEAT.Web.Models.View
 		public override string PageTitle => "Naruči obrok";
 		public override string PageIcon => "home";
 
-		public readonly Lazy<IList<CategoryModel>> Categories;
+		private CompanyModel company => (HttpContext.Current.User as MemberPrincipal).Company;
+
+		public IList<SelectListItem> GetMealList(int categoryId) => company.Meals
+			.Where(x => x.CategoryId.Equals(categoryId))
+			.Select(x => new SelectListItem()
+			{
+				Value = x.Id.ToString(), Text = x.Name
+			}).ToList();
+
+		public IList<SelectListItem> CategoryList { get; set; }
 
 		public DayOrderViewModel(DateTime date)
 		{
-			Categories = new Lazy<IList<CategoryModel>>(() => _api.GetAllCategories<CategoryModel>()?.Data);
+			CategoryList = company.Meals
+				.Select(x => new SelectListItem(){ Value = x.CategoryId.ToString(), Text = x.Category.Name })
+				.Distinct()
+				.ToList();
+
 			Orders = new Lazy<IEnumerable<OrderDetailsRenderModel>>(() => _api
 				.GetAllOrdersBy<OrderDetailsRenderModel>((HttpContext.Current.User as MemberPrincipal).Id, date)?.Data);
 			Date = date;
@@ -31,37 +44,41 @@ namespace TimeshEAT.Web.Models.View
 
 	public class OrderDetailsRenderModel : IForm
 	{
+		public void InitializeLists(IList<SelectListItem> categoryList, IList<SelectListItem> mealList)
+		{
+			CategoryList = categoryList ?? new List<SelectListItem>();
+			MealList = mealList ?? new List<SelectListItem>();
+			PortionList = Meal?.Portions?
+				.Select(x => new SelectListItem() {Value = x.Id.ToString(), Text = x.Name})
+				.ToList() ?? new List<SelectListItem>();
+		}
+
 		public int Id { get; set; }
 		public long Version { get; set; }
 		public int UserId { get; set; }
 		public DateTime OrderDate { get; set; }
+		public MealModel Meal { get; set; }
+		public int Total => Meal.Price * Quantity;
 
-		public IList<CategoryModel> Categories { get; set; }
-		public IList<SelectListItem> CategoryList => this.Categories
-			.Select(x => new SelectListItem()
-			{
-				Value = x.Id.ToString(),
-				Text = x.Name
-			})
-			.ToList();
-		public IList<SelectListItem> MealList => this.Categories.First(x => x.Id.Equals(this.CategoryId))
-			.Meals
-			.Select(x => new SelectListItem()
-			{
-				Value = x.Id.ToString(),
-				Text = x.Name
-			})
-			.ToList();
+		public IList<SelectListItem> CategoryList { get; set; }
+		public IList<SelectListItem> MealList { get; set; }
+		public IList<SelectListItem> PortionList { get; set; }
+
+		[Required(ErrorMessage = "Morate izabrati kategoriju.")]
+		[Display(Name = "Kategorija")]
+		private int categoryId;
+		public int CategoryId
+		{
+			get { return categoryId != 0 ? categoryId : Meal?.CategoryId ?? 0; }
+			set { categoryId = value; }
+		}
 
 		[Required(ErrorMessage = "Morate izabrati količinu.")]
 		[Display(Name = "Količina")]
-		public int Quantity { get; set; }
+		public int Quantity { get; set; } = 1;
 		[Required(ErrorMessage = "Morate izabrati vreme.")]
 		[Display(Name = "Vreme")]
 		public TimeSpan LunchTime { get; set; }
-		[Required(ErrorMessage = "Morate izabrati kategoriju.")]
-		[Display(Name = "Kategorija")]
-		public int CategoryId { get; set; }
 		[Required(ErrorMessage = "Morate izabrati obrok.")]
 		[Display(Name = "Obrok")]
 		public int MealId { get; set; }

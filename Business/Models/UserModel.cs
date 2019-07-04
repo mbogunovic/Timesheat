@@ -29,6 +29,7 @@ namespace TimeshEAT.Business.Models
 		}
 
 		public IEnumerable<RoleModel> Roles { get; set; }
+		public CompanyModel Company { get; set; }
 
 		public string FullName
 		{

@@ -63,8 +63,9 @@ namespace TimeshEAT.Business.Models
 		}
 
         public IEnumerable<PortionModel> Portions { get; set; }
+        public CategoryModel Category { get; set; }
 
-		#region [Implicit Operators]
+        #region [Implicit Operators]
 
 		public static implicit operator Meal(MealModel mealModel)
 		{

@@ -30,8 +30,8 @@ namespace TimeshEAT.Business.Models
 		}
 
 		public PortionModel Portion { get; set; }
-		public Meal Meal { get; set; }
-		public User User { get; set; }
+		public MealModel Meal { get; set; }
+		public UserModel User { get; set; }
 
 		public int Quantity
 		{
