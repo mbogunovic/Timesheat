@@ -1,4 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using TimeshEAT.Business.Models;
 using TimeshEAT.Web.Attributes;
 using TimeshEAT.Web.Interfaces;
 using TimeshEAT.Web.Models.Filtering;
@@ -30,7 +33,18 @@ namespace TimeshEAT.Web.Controllers
 				return RedirectToAction("Index");
 			}
 
-			if (model.Id == 0)
+            var selectedMeals = model.MealPortionsIds?.Split(',');
+            if (selectedMeals == null)
+            {
+                model.Portions = new List<PortionModel>();
+            }
+            else
+            {
+                model.Portions = _api.GetAllPortions<PortionModel>()?.Data.Where(m => selectedMeals.Contains(m.Id.ToString()))
+                    .ToList();
+            }
+
+            if (model.Id == 0)
 			{
 				Business.API.Models.ApiResponseModel<MealDetailsRenderModel> result = _api.AddMeal<MealDetailsRenderModel>(model);
 			}
@@ -51,7 +65,18 @@ namespace TimeshEAT.Web.Controllers
 				return RedirectToAction("Index");
 			}
 
-			_api.DeleteMeal(model);
+            var selectedPortions = model.MealPortionsIds?.Split(',');
+            if (selectedPortions == null)
+            {
+                model.Portions = new List<PortionModel>();
+            }
+            else
+            {
+                model.Portions = _api.GetAllPortions<PortionModel>()?.Data
+                    .Where(m => selectedPortions.Contains(m.Id.ToString())).ToList();
+            }
+
+            _api.DeleteMeal(model);
 
 			return RedirectToAction("Index");
 		}

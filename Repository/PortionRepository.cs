@@ -28,5 +28,14 @@ namespace TimeshEAT.Repository.Repositories
 
 		public ITransaction CreateNewTransaction() =>
 			_provider.CreateNewTransaction();
-	}
+
+        public IEnumerable<Portion> GetPortionsForMeal(Meal meal, ITransaction transaction = null) =>
+            _provider.GetPortionsForMeal(meal, transaction);
+
+        public void AddPortionForMeal(Meal meal, Portion portion, ITransaction transaction = null) =>
+            _provider.AddPortionForMeal(meal, portion, transaction);
+
+        public void DeletePortionForMeal(Meal meal, Portion portion, ITransaction transaction = null) =>
+            _provider.DeletePortionForMeal(meal, portion, transaction);
+    }
 }

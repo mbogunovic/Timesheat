@@ -7,7 +7,7 @@
 <div class="accordion__table">
 	@if (Model.Meals.Items.HasValue())
 	{
-		Html.RenderPartial("_MealDetails", new MealDetailsRenderModel() { CategoryList = Model.Meals.CategoryList });
+		Html.RenderPartial("_MealDetails", new MealDetailsRenderModel() { CategoryList = Model.Meals.CategoryList, PortionsList = Model.Meals.PortionList});
 		foreach (var meal in Model.Meals.Items)
 		{
 			Html.RenderPartial("_MealDetails", meal);

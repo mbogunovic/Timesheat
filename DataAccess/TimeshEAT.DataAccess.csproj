@@ -49,7 +49,7 @@
     <Compile Include="SQLAccess\CompanyProvider.cs" />
     <Compile Include="SQLAccess\MealProvider.cs" />
     <Compile Include="SQLAccess\OrderProvider.cs" />
-    <Compile Include="SQLAccess\PortionRepository.cs" />
+    <Compile Include="SQLAccess\PortionProvider.cs" />
     <Compile Include="SQLAccess\RoleProvider.cs" />
     <Compile Include="SQLAccess\UserProvider.cs" />
   </ItemGroup>

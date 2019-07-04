@@ -12,22 +12,29 @@ namespace TimeshEAT.Web.Models.Render.Company
         public long Version { get; set; }
 
         [Required(ErrorMessage = "Ime je obavezno polje.")]
-        [Display(Name = "Ime")]
+        [Display(Name = "Ime kompanije:")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Email je obavezno polje.")]
-        [Display(Name = "Email")]
+        [Display(Name = "Email:")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Dnevni popust je obavezno polje.")]
-        [Display(Name = "Dnevni popust")]
+        [Display(Name = "Dnevni popust:")]
         public int DailyDiscount { get; set; }
+        [Display(Name = "Jela:")]
         public IList<SelectListItem> MealList { get; set; }
+        [Display(Name = "Jela kompanije:")]
+        public IList<SelectListItem> CompanyMeals { get; set; }
+        public string CompanyMealsIds { get; set; }
+        public IList<MealModel> Meals { get; set; }
 
         public static implicit operator CompanyModel(CompanyDetailsRenderModel company)
         {
             if (company == null)
                 return null;
 
-            return new CompanyModel(company.Name, company.Email, company.DailyDiscount, company.Id, company.Version);
+            var companyModel = new CompanyModel(company.Name, company.Email, company.DailyDiscount, company.Id, company.Version);
+            companyModel.Meals = company.Meals;
+            return companyModel;
         }
     }
 }

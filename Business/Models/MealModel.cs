@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using TimeshEAT.Domain.Models;
 
@@ -60,6 +61,8 @@ namespace TimeshEAT.Business.Models
 				_categoryId = value;
 			}
 		}
+
+        public IEnumerable<PortionModel> Portions { get; set; }
 
 		#region [Implicit Operators]
 

@@ -34,7 +34,7 @@ namespace TimeshEAT.Business.API
         {
             RestRequest request = new RestRequest("/api/order");
             request.Method = Method.POST;
-            request.AddParameter("order", model);
+            request.AddJsonBody(model);
 
             return Execute<T>(request);
         }
@@ -43,7 +43,7 @@ namespace TimeshEAT.Business.API
         {
             RestRequest request = new RestRequest("/api/order");
             request.Method = Method.PUT;
-            request.AddParameter("order", model);
+            request.AddJsonBody(model);
 
             return Execute<T>(request);
         }
@@ -52,7 +52,7 @@ namespace TimeshEAT.Business.API
         {
             RestRequest request = new RestRequest("/api/order");
             request.Method = Method.DELETE;
-            request.AddParameter("order", model);
+            request.AddJsonBody(model);
 
             Execute<OrderModel>(request);
         }

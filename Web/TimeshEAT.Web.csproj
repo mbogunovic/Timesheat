@@ -123,8 +123,11 @@
     <Content Include="css\style.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="js\common.js" />
+    <Content Include="js\companies.js" />
     <Content Include="js\global.js" />
     <Content Include="js\global.min.js" />
+    <Content Include="js\meals.js" />
     <Content Include="js\table-search.js" />
     <Content Include="js\reportaproblem.js" />
     <Content Include="Web.config">
@@ -228,6 +231,7 @@
     <Content Include="Views\User\_UserDetails.cshtml" />
     <Content Include="Views\Shared\_Pagination.cshtml" />
     <Content Include="Views\Shared\_Filtering.cshtml" />
+    <Content Include="Views\Company\_CompanyDetails.cshtml" />
     <Content Include="Views\Meal\_MealDetails.cshtml" />
     <Content Include="Views\Meal\Index.cshtml" />
     <Content Include="Views\Category\_CategoryDetails.cshtml" />
