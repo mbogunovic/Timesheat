@@ -143,6 +143,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\MealController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\IFormExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Helpers\DateHelper.cs" />
@@ -168,8 +169,10 @@
     <Compile Include="Models\Render\Order\DayRenderModel.cs" />
     <Compile Include="Models\Render\User\UserDetailsRenderModel.cs" />
     <Compile Include="Models\View\CategoryViewModel.cs" />
+    <Compile Include="Models\View\DateViewModel.cs" />
     <Compile Include="Models\View\DayOrderViewModel.cs" />
     <Compile Include="Models\View\MealViewModel.cs" />
+    <Compile Include="Models\View\OrderDetailsRenderModel.cs" />
     <Compile Include="Navigation\INavigationViewModel.cs" />
     <Compile Include="Navigation\INavigationContext.cs" />
     <Compile Include="Navigation\NavigationItem.cs" />
