@@ -26,7 +26,7 @@ namespace TimeshEAT.Business.API
         {
             RestRequest request = new RestRequest("/api/role");
             request.Method = Method.POST;
-            request.AddObject(model);
+            request.AddJsonBody(model);
 
             return Execute<T>(request);
         }
@@ -35,7 +35,7 @@ namespace TimeshEAT.Business.API
         {
             RestRequest request = new RestRequest("/api/role");
             request.Method = Method.PUT;
-            request.AddObject(model);
+            request.AddJsonBody(model);
 
             return Execute<T>(request);
         }
@@ -44,7 +44,7 @@ namespace TimeshEAT.Business.API
         {
             RestRequest request = new RestRequest("/api/role");
             request.Method = Method.DELETE;
-            request.AddObject(model);
+            request.AddJsonBody(model);
 
             Execute<RoleModel>(request);
         }

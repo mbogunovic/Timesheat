@@ -35,7 +35,7 @@
             <div class="td" style="justify-content: center;">
                 <div class="order__table-operations">
                     <button type="submit" class="save font-ico-save"></button>
-                    <button type="submit" class="delete font-ico-delete" @(Model.Id > 0 ? String.Empty : "disabled")></button>
+                    <button type="submit" class="delete font-ico-delete"  formethod="post" formaction="@Url.Action("Delete", "Order")" @(Model.Id > 0 ? String.Empty : "disabled")></button>
                 </div>
             </div>
         </div>

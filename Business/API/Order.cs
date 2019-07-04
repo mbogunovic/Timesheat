@@ -52,7 +52,7 @@ namespace TimeshEAT.Business.API
         {
             RestRequest request = new RestRequest("/api/order");
             request.Method = Method.DELETE;
-            request.AddObject(model);
+            request.AddJsonBody(model);
 
             Execute<OrderModel>(request);
         }

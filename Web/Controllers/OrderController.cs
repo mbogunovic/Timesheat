@@ -32,7 +32,7 @@ namespace TimeshEAT.Web.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-				return RedirectToAction("Index", model.OrderDate);
+				return RedirectToAction("Index", new { date = model.OrderDate });
 			}
 
 			if (model.Id == 0)
@@ -44,7 +44,21 @@ namespace TimeshEAT.Web.Controllers
 				_api.UpdateOrder<OrderDetailsRenderModel>(model);
 			}
 
-			return RedirectToAction("Index", model.OrderDate);
+			return RedirectToAction("Index", new { date = model.OrderDate });
+		}
+
+		[ValidateAntiForgeryToken]
+		[HttpPost]
+		public ActionResult Delete(OrderDetailsRenderModel model)
+		{
+			if (model == null)
+			{
+				return RedirectToAction("Index");
+			}
+
+			_api.DeleteOrder(model);
+
+			return RedirectToAction("Index", new { date = model.OrderDate });
 		}
 
 		[HttpGet]

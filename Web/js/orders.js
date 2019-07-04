@@ -10,9 +10,8 @@
                             function (key, value) {
                                 $meals.append('<option value=' + value.Value + '>' + value.Text + '</option>');
                             });
-                    } else {
-                        $meals.trigger('change');
                     }
+                    $meals.trigger('change');
                 });
         });
 
