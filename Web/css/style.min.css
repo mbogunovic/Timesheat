@@ -3847,6 +3847,7 @@ select {
 .board__month-navigation {
   position: relative;
   top: 29px;
+  width: 40px;
   background-color: #444444;
   display: -webkit-box;
   display: -webkit-flex;
