@@ -16,7 +16,8 @@ namespace TimeshEAT.Web.Optimization
 				.Include("~/js/table-search.js")
                 .Include("~/js/common.js")
                 .Include("~/js/companies.js")
-                .Include("~/js/meals.js");
+                .Include("~/js/meals.js")
+				.Include("~/js/orders.js");
 
 			bundles.Add(script);
 

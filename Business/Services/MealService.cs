@@ -21,8 +21,23 @@ namespace TimeshEAT.Business.Services
 
             foreach (var meal in result)
             {
+	            meal.Category = _context.CategoryRepository.GetById(meal.CategoryId);
                 meal.Portions = _context.PortionRepository.GetPortionsForMeal(meal).Select(p => (PortionModel)p);
             }
+
+			return result;
+		}
+
+		public IEnumerable<MealModel> GetBy(CompanyModel company)
+		{
+			var result = _context.MealRepository.GetMealsForCompany(company)
+				.Select(x => (MealModel) x).ToList();
+
+			foreach (var meal in result)
+			{
+				meal.Category = _context.CategoryRepository.GetById(meal.CategoryId);
+				meal.Portions = _context.PortionRepository.GetPortionsForMeal(meal).Select(p => (PortionModel)p);
+			}
 
 			return result;
 		}

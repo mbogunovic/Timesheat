@@ -128,6 +128,7 @@
     <Content Include="js\global.js" />
     <Content Include="js\global.min.js" />
     <Content Include="js\meals.js" />
+    <Content Include="js\orders.js" />
     <Content Include="js\table-search.js" />
     <Content Include="js\reportaproblem.js" />
     <Content Include="Web.config">
@@ -142,6 +143,7 @@
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\MealController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\IFormExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Helpers\DateHelper.cs" />
@@ -167,7 +169,10 @@
     <Compile Include="Models\Render\Order\DayRenderModel.cs" />
     <Compile Include="Models\Render\User\UserDetailsRenderModel.cs" />
     <Compile Include="Models\View\CategoryViewModel.cs" />
+    <Compile Include="Models\View\DateViewModel.cs" />
+    <Compile Include="Models\View\DayOrderViewModel.cs" />
     <Compile Include="Models\View\MealViewModel.cs" />
+    <Compile Include="Models\View\OrderDetailsRenderModel.cs" />
     <Compile Include="Navigation\INavigationViewModel.cs" />
     <Compile Include="Navigation\INavigationContext.cs" />
     <Compile Include="Navigation\NavigationItem.cs" />
@@ -235,6 +240,8 @@
     <Content Include="Views\Meal\Index.cshtml" />
     <Content Include="Views\Category\_CategoryDetails.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Order\DayOrder.cshtml" />
+    <Content Include="Views\Order\_OrderDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

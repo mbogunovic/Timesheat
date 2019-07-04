@@ -20,7 +20,7 @@ namespace TimeshEAT.Business.Services
 
             foreach (var company in result)
             {
-                company.Meals = _context.MealRepository.GetMealsForCompany(company).Select(m => (MealModel)m).ToList();
+                company.Meals = new MealService(_context).GetBy(company).ToList();
             }
 
 			return result;
@@ -31,7 +31,8 @@ namespace TimeshEAT.Business.Services
 			if (id <= 0) throw new ArgumentNullException(nameof(id), "Id cannot be null!");
 
 			var result = (CompanyModel)_context.CompanyRepository.GetById(id);
-            result.Meals = _context.MealRepository.GetMealsForCompany(result).Select(m => (MealModel)m).ToList();
+            result.Meals = new MealService(_context).GetBy(result).ToList();
+
 			return result;
 		}
 

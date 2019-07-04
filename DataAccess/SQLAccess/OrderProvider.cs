@@ -18,10 +18,11 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 
 		protected override void AddInsertParams(SqlCommand sqlCommand, Order order)
 		{
-			sqlCommand.Parameters.AddWithValue("@MealId", order.MealId);
 			sqlCommand.Parameters.AddWithValue("@LunchTime", order.LunchTime);
 			sqlCommand.Parameters.AddWithValue("@OrderDate", order.OrderDate);
 			sqlCommand.Parameters.AddWithValue("@Quantity", order.Quantity);
+			sqlCommand.Parameters.AddWithValue("@MealId", order.MealId);
+			sqlCommand.Parameters.AddWithValue("@PortionId", order.PortionId);
 			sqlCommand.Parameters.AddWithValue("@UserId", order.UserId);
 			sqlCommand.Parameters.AddWithValue("@Comment", order.Comment);
 		}
@@ -29,10 +30,11 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 		protected override void AddUpdateParams(SqlCommand sqlCommand, Order order)
 		{
 			sqlCommand.Parameters.AddWithValue("@Id", order.Id);
-			sqlCommand.Parameters.AddWithValue("@MealId", order.MealId);
 			sqlCommand.Parameters.AddWithValue("@LunchTime", order.LunchTime);
 			sqlCommand.Parameters.AddWithValue("@OrderDate", order.OrderDate);
 			sqlCommand.Parameters.AddWithValue("@Quantity", order.Quantity);
+			sqlCommand.Parameters.AddWithValue("@MealId", order.MealId);
+			sqlCommand.Parameters.AddWithValue("@PortionId", order.PortionId);
 			sqlCommand.Parameters.AddWithValue("@UserId", order.UserId);
 			sqlCommand.Parameters.AddWithValue("@Comment", order.Comment);
 		}

@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Web;
-using Microsoft.Ajax.Utilities;
+using System.Web.Mvc;
 
 namespace TimeshEAT.Web
 {
@@ -20,7 +19,6 @@ namespace TimeshEAT.Web
 
 		public const int ITEMS_PER_AGE = 2;
 
-		public static readonly string[] LETTERS = { "A", "B", "V", "G", "D", "Đ", "E", "Ž", "Z", "I", "J", "K", "L", "LJ", "M", "N", "NJ", "O", "P", "R", "S", "T", "U", "F", "H", "C", "Č", "Ć", "DŽ", "Š" };
 
 		#region [Months]
 
@@ -87,12 +85,26 @@ namespace TimeshEAT.Web
 
 		#endregion
 
+		#region [INavigation default route values]
 		public static object DefaultRouteValues(string pageName) =>
 			_defaultRouteValues.ContainsKey(pageName) ? _defaultRouteValues[pageName] : null;
 
 		private static Dictionary<string, object> _defaultRouteValues = new Dictionary<string, object>()
 		{
 			{"Order", new {month = (Months) DateTime.Now.Month}}
+		};
+
+		#endregion
+
+		public static readonly string[] LETTERS = { "A", "B", "V", "G", "D", "Đ", "E", "Ž", "Z", "I", "J", "K", "L", "LJ", "M", "N", "NJ", "O", "P", "R", "S", "T", "U", "F", "H", "C", "Č", "Ć", "DŽ", "Š" };
+
+		public static readonly IList<SelectListItem> QuantityList = new List<SelectListItem>()
+		{
+			new SelectListItem(){ Value = "1", Text = "1 kom." },
+			new SelectListItem(){ Value = "2", Text = "2 kom." },
+			new SelectListItem(){ Value = "3", Text = "3 kom." },
+			new SelectListItem(){ Value = "4", Text = "4 kom." },
+			new SelectListItem(){ Value = "5", Text = "5 kom." }
 		};
 	}
 }

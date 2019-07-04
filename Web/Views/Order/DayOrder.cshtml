@@ -1,0 +1,44 @@
+﻿@model DayOrderViewModel
+
+<div class="order__table">
+    <h3>@Model.StartDate.Date.Day. @Model.StartDate.Month - @Model.EndDate.Date.Day. @Model.EndDate.Month, @Model.StartDate.Date.Year (@Model.StartDate.Week)</h3>
+    <ul class="order__week">
+        <li class=""><a href="@Url.Action("Index", new { date = Model.Date.AddDays(-1)})"><p></p><b>&lt;</b></a></li>
+        @foreach (var date in Model.DateRange)
+        {
+            <li class="@(date.Date == Model.Date ? "active" : "")"><a href="@Url.Action("Index", new { date = date.Date, })"><p>@date.Date.Day. @date.Month</p><b>@date.Day</b></a></li>
+        }
+        <li class=""><a href="@Url.Action("Index", new { date = Model.Date.AddDays(1)})"><p></p><b>&gt;</b></a></li>
+    </ul>
+    <ul class="order__week order__week-mobile">
+        <li class=""><a href="@Url.Action("Index", new { date = Model.Date.AddDays(-1)})"><b>&lt;</b></a></li>
+        @foreach (var date in Model.DateRange)
+        {
+            <li class="@(date.Date == Model.Date ? "active" : "")"><a href="@Url.Action("Index", new { date = date.Date, })"><b>@date.Date.Day.</b></a></li>
+        }
+        <li class=""><a href="@Url.Action("Index", new { date = Model.Date.AddDays(1)})"><b>&gt;</b></a></li>
+    </ul>
+    <div class="table">
+        <div class="tr th">
+            <div class="td" style="flex-grow: 2;">Kategorija</div>
+            <div class="td" style="flex-grow: 3;">Jelo</div>
+            <div class="td" style="flex-grow: 2;">Velicina porcije</div>
+            <div class="td" style="flex-grow: 3;">Komentar</div>
+            <div class="td">Kolicina</div>
+            <div class="td">Vreme</div>
+            <div class="td">Cena</div>
+            <div class="td">Operacije</div>
+        </div>
+        @{Html.RenderPartial("_OrderDetails", new OrderDetailsRenderModel(Model.CategoryList, Model.Date));}
+        @if (Model.Orders.Value.HasValue())
+        {
+            foreach (var order in Model.Orders.Value)
+            {
+                order.InitializeLists(Model.CategoryList, Model.GetMealList(order.CategoryId));
+                order.OrderDate = Model.Date;
+                Html.RenderPartial("_OrderDetails", order);
+            }
+        }
+    </div>
+</div>
+<div class="content__footer">Ukupno: @Model.Total @*| <b>120</b>*@Din.</div>

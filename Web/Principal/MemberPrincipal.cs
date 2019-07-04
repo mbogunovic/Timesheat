@@ -28,6 +28,7 @@ namespace TimeshEAT.Web.Membership
 
 		public IIdentity Identity { get; private set; }
 		public int Id => _user.Id;
+		public CompanyModel Company => _user.Company;
 
 		public Tuple<bool, string> Login(string email, string password)
 		{

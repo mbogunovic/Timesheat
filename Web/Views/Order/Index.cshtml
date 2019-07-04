@@ -50,7 +50,7 @@
                                     </ul>
                                 </div>
                             }
-							<a href="javascript:;" class="total"><span>Ukupno: </span><span>@day.Total Din.</span></a>
+							<a href="@Url.Action("Index", new { date = day.Date })" class="total"><span>Ukupno: </span><span>@day.Total Din.</span></a>
 						</td>
 					}
 				</tr>
