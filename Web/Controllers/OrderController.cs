@@ -23,5 +23,26 @@ namespace TimeshEAT.Web.Controllers
 				return View("DayOrder", new DayOrderViewModel(date.Value));
 			}
 		}
+
+		[ValidateAntiForgeryToken]
+		[HttpPost]
+		public ActionResult Save(OrderDetailsRenderModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				return RedirectToAction("Index");
+			}
+
+			if (model.Id == 0)
+			{
+				Business.API.Models.ApiResponseModel<OrderDetailsRenderModel> result = _api.AddOrder<OrderDetailsRenderModel>(model);
+			}
+			else
+			{
+				_api.UpdateOrder<OrderDetailsRenderModel>(model);
+			}
+
+			return RedirectToAction("Index");
+		}
     }
 }

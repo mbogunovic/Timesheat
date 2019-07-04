@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using TimeshEAT.Business.Models;
 using TimeshEAT.Web.Interfaces;
 using TimeshEAT.Web.Membership;
@@ -30,7 +32,7 @@ namespace TimeshEAT.Web.Models.View
 		{
 			CategoryList = company.Meals
 				.Select(x => new SelectListItem(){ Value = x.CategoryId.ToString(), Text = x.Category.Name })
-				.Distinct()
+				.DistinctBy(x => x.Value)
 				.ToList();
 
 			Orders = new Lazy<IEnumerable<OrderDetailsRenderModel>>(() => _api
@@ -58,7 +60,7 @@ namespace TimeshEAT.Web.Models.View
 		public int UserId { get; set; }
 		public DateTime OrderDate { get; set; }
 		public MealModel Meal { get; set; }
-		public int Total => Meal.Price * Quantity;
+		public int Total => Meal?.Price ?? 0 * Quantity;
 
 		public IList<SelectListItem> CategoryList { get; set; }
 		public IList<SelectListItem> MealList { get; set; }
@@ -78,7 +80,7 @@ namespace TimeshEAT.Web.Models.View
 		public int Quantity { get; set; } = 1;
 		[Required(ErrorMessage = "Morate izabrati vreme.")]
 		[Display(Name = "Vreme")]
-		public TimeSpan LunchTime { get; set; }
+		public string LunchTimeString { get; set; }
 		[Required(ErrorMessage = "Morate izabrati obrok.")]
 		[Display(Name = "Obrok")]
 		public int MealId { get; set; }
@@ -86,6 +88,17 @@ namespace TimeshEAT.Web.Models.View
 		[Display(Name = "Veličina porcije")]
 		public int PortionId { get; set; }
 		[Display(Name = "Dodatni komentar")]
+
+		public TimeSpan LunchTime => DateTime.ParseExact(LunchTimeString,
+			"hh:mm tt", CultureInfo.InvariantCulture).TimeOfDay;
 		public string Comment { get; set; }
+
+		public static implicit operator OrderModel(OrderDetailsRenderModel order)
+		{
+			if (order == null) return null;
+
+			return new OrderModel(order.Quantity, order.LunchTime, order.OrderDate, order.UserId, order.MealId,
+				order.PortionId, order.Comment, order.Id, order.Version);
+		}
 	}
 }
