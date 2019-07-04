@@ -3116,16 +3116,18 @@
 		_accordion2.default.init();
 		_errorPage2.default.init();
 
-		$('input.time-picker').timepicker({
-			timeFormat: 'h:mm p',
-			interval: 30,
-			minTime: '09:00am',
-			maxTime: '05:00pm',
-			defaultTime: '12:00pm',
-			startTime: '09:00am',
-			dynamic: false,
-			dropdown: true,
-			scrollbar: false
+		$('input.time-picker').each(function () {
+			$(this).timepicker({
+				timeFormat: 'h:mm p',
+				interval: 30,
+				minTime: '09:00am',
+				maxTime: '05:00pm',
+				defaultTime: $(this).data('time'),
+				startTime: '09:00am',
+				dynamic: false,
+				dropdown: true,
+				scrollbar: false
+			});
 		});
 	});
 
