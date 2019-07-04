@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using TimeshEAT.Business.Models;
+using TimeshEAT.Common.Extensions;
 using TimeshEAT.Web.Interfaces;
 using TimeshEAT.Web.Membership;
 
@@ -42,10 +43,22 @@ namespace TimeshEAT.Web.Models.View
 
 		public Lazy<IEnumerable<OrderDetailsRenderModel>> Orders { get; }
 		public DateTime Date { get; }
+		public int Total => Orders.Value?.Sum(x => x.Quantity * x.Meal?.Price) ?? 0;
 	}
 
 	public class OrderDetailsRenderModel : IForm
 	{
+		public OrderDetailsRenderModel() {}
+
+		public OrderDetailsRenderModel(IList<SelectListItem> categoryList, DateTime orderDate)
+		{
+			CategoryList = categoryList ?? new List<SelectListItem>();
+			UserId = (HttpContext.Current.User as MemberPrincipal).Id;
+			MealList = new List<SelectListItem>();
+			PortionList = new List<SelectListItem>();
+			OrderDate = orderDate;
+		}
+
 		public void InitializeLists(IList<SelectListItem> categoryList, IList<SelectListItem> mealList)
 		{
 			CategoryList = categoryList ?? new List<SelectListItem>();
@@ -69,6 +82,8 @@ namespace TimeshEAT.Web.Models.View
 		[Required(ErrorMessage = "Morate izabrati kategoriju.")]
 		[Display(Name = "Kategorija")]
 		private int categoryId;
+
+
 		public int CategoryId
 		{
 			get { return categoryId != 0 ? categoryId : Meal?.CategoryId ?? 0; }
@@ -87,11 +102,22 @@ namespace TimeshEAT.Web.Models.View
 		[Required(ErrorMessage = "Morate izabrati porciju.")]
 		[Display(Name = "Veličina porcije")]
 		public int PortionId { get; set; }
-		[Display(Name = "Dodatni komentar")]
 
-		public TimeSpan LunchTime => DateTime.ParseExact(LunchTimeString,
-			"hh:mm tt", CultureInfo.InvariantCulture).TimeOfDay;
+		[Display(Name = "Dodatni komentar")]
 		public string Comment { get; set; }
+
+		private TimeSpan lunchTime;
+		public TimeSpan LunchTime
+		{
+			get
+			{
+				return lunchTime == default(TimeSpan)
+					? DateTime.ParseExact(LunchTimeString.HasValue() ? LunchTimeString : "12:00 PM",
+						"hh:mm tt", CultureInfo.InvariantCulture).TimeOfDay
+					: lunchTime;
+			}
+			set { lunchTime = value; }
+		}
 
 		public static implicit operator OrderModel(OrderDetailsRenderModel order)
 		{

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using TimeshEAT.Web.Attributes;
 using TimeshEAT.Web.Interfaces;
@@ -30,7 +32,7 @@ namespace TimeshEAT.Web.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-				return RedirectToAction("Index");
+				return RedirectToAction("Index", model.OrderDate);
 			}
 
 			if (model.Id == 0)
@@ -42,7 +44,31 @@ namespace TimeshEAT.Web.Controllers
 				_api.UpdateOrder<OrderDetailsRenderModel>(model);
 			}
 
-			return RedirectToAction("Index");
+			return RedirectToAction("Index", model.OrderDate);
+		}
+
+		[HttpGet]
+		public JsonResult GetMealList(int? categoryId)
+		{
+			if (categoryId == null) return null;
+
+			var result = _member.Company?.Meals?
+				.Where(x => x.CategoryId.Equals(categoryId))
+				.Select(x => new SelectListItem() {Value = x.Id.ToString(), Text = x.Name}) ?? new List<SelectListItem>();
+
+			return Json(result, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpGet]
+		public JsonResult GetPortionList(int? mealId)
+		{
+			if (mealId == null) return null;
+
+			var result = _member.Company?.Meals?
+				             .First(x => x.Id.Equals(mealId))?.Portions
+				             .Select(x => new SelectListItem() {Value = x.Id.ToString(), Text = x.Name}) ?? new List<SelectListItem>();
+
+			return Json(result, JsonRequestBehavior.AllowGet);
 		}
     }
 }

@@ -128,6 +128,7 @@
     <Content Include="js\global.js" />
     <Content Include="js\global.min.js" />
     <Content Include="js\meals.js" />
+    <Content Include="js\orders.js" />
     <Content Include="js\table-search.js" />
     <Content Include="js\reportaproblem.js" />
     <Content Include="Web.config">
