@@ -17,3 +17,15 @@ Sama izrada je podeljena kako sledi:
 doc. dr Predrag Pecev <br/>
 pecev@tfzr.uns.ac.rs
 
+<hr/>
+
+# PROJEKAT JE USPEŠNO REALIZOVAN I ODBRANJEN
+
+Studentima koji su radili na navedenom projektu je onemogućen dalji rad na ovom repozitorijumu koji sada služi kao arhiva uspešno realizovanog projekta. **Projekat je evaluiran sa 40 od maksimalnih 40 bodova**. Detaljna evaluacija projekta i članova tima nalazi se na wiki stranici projekta [09. Evaluacija projekta i članova tima](https://github.com/TFZR-RSOK/SI2019-Team02-Timesheat/wiki/09.-Evaluacija-projekta-i-%C4%8Dlanova-tima "09. Evaluacija projekta i članova tima")
+
+doc. dr Predrag Pecev <br/>
+pecev@tfzr.uns.ac.rs
+
+**07.07.2019.**
+
+
