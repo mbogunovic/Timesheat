@@ -16,10 +16,6 @@
 						@Html.LabelFor(x => x.Name)
 						@Html.TextBoxFor(x => x.Name, new { placeholder = Model.DisplayName(x => x.Name) })
 					</div>
-					<div class="field">
-						@Html.LabelFor(x => x.Price)
-						@Html.TextBoxFor(x => x.Price, new { placeholder = Model.DisplayName(x => x.Price), type = "number", min = 0 })
-					</div>
 				</div>
 				<div class="col-4">
 					<div class="field">

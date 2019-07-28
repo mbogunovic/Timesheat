@@ -15,11 +15,10 @@ namespace TimeshEAT.Business.Models
 			
 		}
 
-		public MealModel(string name, int price, int categoryId, int id = 0, Int64 version = 0) : base(id, version)
+		public MealModel(string name, int categoryId, int id = 0, Int64 version = 0) : base(id, version)
 		{
 			Id = id;
 			Name = name;
-			Price = price;
 			CategoryId = categoryId;
 			Version = version;
 		}
@@ -42,7 +41,6 @@ namespace TimeshEAT.Business.Models
 			}
 		}
 
-		public int Price { get; set; }
 		public int CategoryId
 		{
 			get
@@ -74,7 +72,7 @@ namespace TimeshEAT.Business.Models
 				throw new NullReferenceException("Meal cannot be null!");
 			}
 
-			return new Meal(mealModel.Id, mealModel.Name, mealModel.Price, mealModel.CategoryId, mealModel.Version);
+			return new Meal(mealModel.Id, mealModel.Name, mealModel.CategoryId, mealModel.Version);
 		}
 
 		public static implicit operator MealModel(Meal dbMeal)
@@ -84,7 +82,7 @@ namespace TimeshEAT.Business.Models
 				throw new NullReferenceException("Meal cannot be null!");
 			}
 
-			return new MealModel(dbMeal.Name, dbMeal.Price, dbMeal.CategoryId, dbMeal.Id, dbMeal.Version);
+			return new MealModel(dbMeal.Name, dbMeal.CategoryId, dbMeal.Id, dbMeal.Version);
 		}
 
 		#endregion

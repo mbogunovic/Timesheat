@@ -39,7 +39,8 @@ namespace TimeshEAT.Web.Models.View
         public int UserId { get; set; }
         public DateTime OrderDate { get; set; }
         public MealModel Meal { get; set; }
-        public int Total => Meal?.Price ?? 0 * Quantity;
+        // todo check if this needs updates
+        public int Total => Meal?.Portions?.FirstOrDefault(x => x.Id == PortionId)?.Price ?? 0 * Quantity;
 
         public IList<SelectListItem> CategoryList { get; set; }
         public IList<SelectListItem> MealList { get; set; }

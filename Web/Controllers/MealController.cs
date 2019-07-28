@@ -33,6 +33,7 @@ namespace TimeshEAT.Web.Controllers
 				return RedirectToAction("Index");
 			}
 
+            // todo create new model and logic for this
             var selectedMeals = model.MealPortionsIds?.Split(',');
             if (selectedMeals == null)
             {
@@ -65,6 +66,7 @@ namespace TimeshEAT.Web.Controllers
 				return RedirectToAction("Index");
 			}
 
+            // todo create new model and logic for this
             var selectedPortions = model.MealPortionsIds?.Split(',');
             if (selectedPortions == null)
             {

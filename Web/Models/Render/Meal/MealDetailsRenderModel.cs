@@ -14,14 +14,12 @@ namespace TimeshEAT.Web.Models.Render
 		[Required(ErrorMessage = "Naziv obroka je obavezno polje.")]
 		[Display(Name = "Naziv obroka:")]
 		public string Name { get; set; }
-		[Required(ErrorMessage = "Cena obroka je obavezno polje.")]
-		[Display(Name = "Cena obroka:")]
-		public int Price { get; set; }
-		[Required(ErrorMessage = "Kategorija je obavezno polje.")]
+        [Required(ErrorMessage = "Kategorija je obavezno polje.")]
 		[Display(Name = "Kategorija:")]
 		public int CategoryId { get; set; }
 
 		public IList<SelectListItem> CategoryList { get; set; }
+        // todo update the IDs to use the MealsPortions model instead of the IDs
         public string MealPortionsIds { get; set; }
         [Display(Name = "Porcije jela:")]
         public IList<SelectListItem> MealPortions { get; set; }
@@ -34,7 +32,7 @@ namespace TimeshEAT.Web.Models.Render
 			if (meal == null)
 				return null;
 
-            var mealModel = new MealModel(meal.Name, meal.Price, meal.CategoryId, meal.Id, meal.Version);
+            var mealModel = new MealModel(meal.Name, meal.CategoryId, meal.Id, meal.Version);
             mealModel.Portions = meal.Portions;
 
             return mealModel;
