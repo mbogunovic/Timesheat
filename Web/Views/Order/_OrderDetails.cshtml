@@ -10,7 +10,7 @@
         @Html.HiddenFor(x => x.UserId)
         @Html.HiddenFor(x => x.OrderDate)
         <div class="tr">
-            <div class="td accordion" data-accordion>Izaberi jelo</div>
+            <div class="td accordion" data-accordion>@(Model.Id == 0 ? "Izaberi jelo" : Model.Meal.Name)</div>
             <div class="td" style="flex-grow: 2;">
                 @Html.DropDownListFor(x => x.CategoryId, Model.CategoryList, "Izaberite kategoriju", new { data_category = "" })
             </div>

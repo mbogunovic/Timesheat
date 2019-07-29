@@ -60,7 +60,7 @@ namespace TimeshEAT.Business.Services
             {
                 foreach (var portion in meal.Portions)
                 {
-                    _context.PortionRepository.AddPortionForMeal(meal, portion);
+                    _context.PortionRepository.AddPortionForMeal(result, portion);
                 }
             }
 

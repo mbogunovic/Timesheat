@@ -66,10 +66,7 @@ namespace TimeshEAT.Business.API
 
 		public ApiResponseModel<T> Execute<T>(RestRequest request, bool isMasterTokenRequest = false) where T : new()
 		{
-			if (isMasterTokenRequest)
-			{
-				request.AddHeader("Authorization", $"Bearer {MasterToken}");
-			}
+			request.AddHeader("Authorization", $"Bearer { (isMasterTokenRequest ? MasterToken : _token) }");
 			request.OnBeforeDeserialization = resp =>
 			{
 				int responseStatus = (int)resp.ResponseStatus;
@@ -97,10 +94,6 @@ namespace TimeshEAT.Business.API
 
 			request.RequestFormat = DataFormat.Json;
 			request.DateFormat = DateTimeFormat;
-			if (!string.IsNullOrWhiteSpace(_token))
-			{
-				request.AddHeader("Authorization", $"Bearer {_token}");
-			}
 
 			IRestResponse<T> response = _client.Execute<T>(request);
 

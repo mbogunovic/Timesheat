@@ -24,8 +24,10 @@
                     @Html.LabelFor(m => m.Email)
                     @Html.TextBoxFor(m => m.Email, new { placeholder = Model.DisplayName(m => m.Email), type = "email" })
                 </div>
-                <button type="submit" class="save font-ico-save"></button>
-                <button type="submit" class="delete font-ico-delete" formmethod="POST" formaction="@Url.Action("Delete", "Company")"></button>
+                <div class="accordion__buttons float-right">
+                    <button type="submit" class="save font-ico-save"></button>
+                    <button type="submit" class="delete font-ico-delete" formmethod="POST" formaction="@Url.Action("Delete", "Company")"></button>
+                </div>
             </div>
             <div class="col-4">
                 <div class="field">

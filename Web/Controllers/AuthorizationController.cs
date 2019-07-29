@@ -93,7 +93,17 @@ namespace TimeshEAT.Web.Controllers
 			return Redirect("/");
 		}
 
-		[ValidateAntiForgeryToken]
+        [HttpGet]
+        [Authorize(Roles = "User")]
+        public ActionResult ResetMyPassword()
+        {
+            _member.ForgotPassword();
+
+            //TODO: JSON RESPONSE MESSAGE MODEL
+            return Redirect("/");
+        }
+
+        [ValidateAntiForgeryToken]
 		[HttpPost]
 		public ActionResult ResetPassword(ResetPasswordViewModel model)
 		{

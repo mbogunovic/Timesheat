@@ -29,8 +29,9 @@ namespace TimeshEAT.Web.Membership
 		public IIdentity Identity { get; private set; }
 		public int Id => _user.Id;
 		public CompanyModel Company => _user.Company;
+        public string FullName => _user.FullName;
 
-		public Tuple<bool, string> Login(string email, string password)
+        public Tuple<bool, string> Login(string email, string password)
 		{
 			int loginCount = (int?)HttpContext.Current.Session["login_counter"] ?? 0;
 
@@ -95,9 +96,9 @@ namespace TimeshEAT.Web.Membership
 			return true;
 		}
 
-		public void ForgotPassword(string email)
+		public void ForgotPassword(string email = null)
 		{
-			Business.API.Models.ApiResponseModel<UserModel> userResponse = _api.GetUserByEmail<UserModel>(email);
+			Business.API.Models.ApiResponseModel<UserModel> userResponse = _api.GetUserByEmail<UserModel>(email ?? _user.Email);
 			if (userResponse.Status.Equals(HttpStatusCode.OK) && userResponse.Data != null)
 			{
 				EmailSender emailSender = new EmailSender(DependencyResolver.Current.GetService<ILogger>());
@@ -105,7 +106,7 @@ namespace TimeshEAT.Web.Membership
 
 				WebCache.Set(token, userResponse.Data.Id);
 				string resetPasswordLink = $"{HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)}/Authorization/ResetPassword?token={token}";
-				emailSender.Send(email, AppSettings.DefaultEmail, "TimeshEAT - Link za resetovanje lozinke", resetPasswordLink);
+				emailSender.Send(_user.Email, AppSettings.DefaultEmail, "TimeshEAT - Link za resetovanje lozinke", resetPasswordLink);
 			}
 
 		}

@@ -145,6 +145,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\IFormExtensions.cs" />
+    <Compile Include="Extensions\IPrincipalExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Helpers\DateHelper.cs" />
     <Compile Include="Interfaces\IForm.cs" />

@@ -6,12 +6,14 @@
 }
 
 <div class="accordion__table">
-    @if (Model.Companies.Items.HasValue())
-    {
-        Html.RenderPartial("_CompanyDetails", new CompanyDetailsRenderModel {MealList = Model.Companies.MealList});
-        foreach (var company in Model.Companies.Items)
+    @{
+        Html.RenderPartial("_CompanyDetails", new CompanyDetailsRenderModel { MealList = Model.Companies.MealList });
+        if (Model.Companies.Items.HasValue())
         {
-            Html.RenderPartial("_CompanyDetails", company);
+            foreach (var company in Model.Companies.Items)
+            {
+                Html.RenderPartial("_CompanyDetails", company);
+            }
         }
     }
 </div>
