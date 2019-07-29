@@ -12,7 +12,6 @@ namespace TimeshEAT.Web.Optimization
 
 			var script = new ScriptBundle("~/scripts/default")
 				.Include("~/js/global.min.js", new JsRewriteUrlTransform())
-                .Include("~/js/reportaproblem.js")
 				.Include("~/js/table-search.js")
                 .Include("~/js/common.js")
                 .Include("~/js/companies.js")

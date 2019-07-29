@@ -2,12 +2,14 @@
 using TimeshEAT.Business.Helpers;
 using TimeshEAT.Business.Logging.Interfaces;
 using TimeshEAT.Common;
+using TimeshEAT.Web.Attributes;
 using TimeshEAT.Web.Models.View;
 
 namespace TimeshEAT.Web.Controllers
 {
-	public class ReportAProblemController : Controller
-    {
+	[RoleAuthorize(Roles = "User")]
+	public class ReportAProblemController : BaseController
+	{
         private readonly ILogger _logger;
 
         public ReportAProblemController(ILogger logger)
@@ -22,24 +24,27 @@ namespace TimeshEAT.Web.Controllers
             return View(model);
         }
 
-        public string Submit(ReportAProblemModelSubmitViewModel formModel)
+        public ActionResult Submit(ReportAProblemModelSubmitViewModel formModel)
         {
-            if (ModelState.IsValid)
+			ReportAProblemModelViewModel model = new ReportAProblemModelViewModel();
+			model.FormModel = formModel;
+
+			if (ModelState.IsValid)
             {
                 try
                 {
                     EmailSender sender = new EmailSender(_logger);
-                    sender.Send(AppSettings.ReportAProblemReceiver, AppSettings.ReportAProblemSender, formModel.Subject,
+                    sender.Send(AppSettings.DefaultEmail, AppSettings.DefaultEmail, formModel.Subject,
                         formModel.Message);
-                    return "Hvala Vam na prijavi problema.";
-                }
-                catch
+					return View("Index", model);
+				}
+				catch
                 {
-                    return "Doslo je do greske, molimo Vas da pokusate ponovo kasnije.";
-                }
-            }
+					return View("Index", model);
+				}
+			}
 
-            return "Morate popuniti formu.";
+			return View("Index", model);
         }
     }
 }
