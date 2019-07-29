@@ -9,7 +9,6 @@ namespace TimeshEAT.Business.Models
 	{
 		private string _name;
 		private string _email;
-		private int dailyDiscount;
 
         public CompanyModel()
         {
@@ -60,24 +59,7 @@ namespace TimeshEAT.Business.Models
 			}
 		}
 		
-		public int DailyDiscount
-		{
-			get
-			{
-				Debug.Assert(dailyDiscount > 0);
-
-				return dailyDiscount;
-			}
-			set
-			{
-				if (value <= 0)
-				{
-					throw new ArgumentNullException(nameof(DailyDiscount), "Valid daily discount is mandatory!");
-				}
-
-				dailyDiscount = value;
-			}
-		}
+		public int DailyDiscount { get; set; }
 
         public IList<MealModel> Meals { get; set; }
 
