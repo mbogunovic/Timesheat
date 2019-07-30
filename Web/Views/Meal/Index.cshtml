@@ -20,3 +20,7 @@
 @{
     Html.RenderPartial("_Pagination", Model.Meals.Pagination);
 }
+
+@section additionalFooter{
+    @Scripts.RenderFormat("<script src='{0}' defer></script>", "~/scripts/forms")
+}

@@ -2,54 +2,63 @@
 
 @if (Model.HasValue())
 {
-	<div class="accordion__item">
-		<div class="accordion" data-accordion><span>@(Model.Name.HasValue() ? Model.Name : Model.DisplayName(x => x.Name))</span></div>
-			@using (Html.BeginForm("Save", "Meal", FormMethod.Post, new { @class= "accordion__content", style = "display:none;" }))
-			{
-				@Html.AntiForgeryToken()
-				@Html.HiddenFor(x => x.Id)
-				@Html.HiddenFor(x => x.Version)
+    <div class="accordion__item">
+        <div class="accordion" data-accordion><span>@(Model.Name.HasValue() ? Model.Name : Model.DisplayName(x => x.Name))</span></div>
+        @using (Ajax.BeginForm("Save", "Meal", null, new AjaxOptions { HttpMethod = "POST" }, new { @class = "accordion__content", style = "display:none;" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.Id)
+            @Html.HiddenFor(x => x.Version)
 
 
-				<div class="col-4">
-					<div class="field">
-						@Html.LabelFor(x => x.Name)
-						@Html.TextBoxFor(x => x.Name, new { placeholder = Model.DisplayName(x => x.Name) })
-					</div>
-					<div class="field">
-						@Html.LabelFor(x => x.Price)
-						@Html.TextBoxFor(x => x.Price, new { placeholder = Model.DisplayName(x => x.Price), type = "number", min = 0 })
-					</div>
-				</div>
-				<div class="col-4">
-					<div class="field">
-						@Html.LabelFor(x => x.CategoryId)
-						@Html.DropDownListFor(x => x.CategoryId, Model.CategoryList, "Izaberi kategoriju")
-					</div>
-					<div class="accordion__buttons float-right">
-						<button type="submit" class="save font-ico-save"></button>
-						<button type="submit" class="delete font-ico-delete"  formethod="post" formaction="@Url.Action("Delete", "Meal")"></button>
-					</div>
-				</div>
-				<div class="col-4">
-                    <div class="field">
-                        @Html.LabelFor(m => m.PortionsList)
-                        @Html.DropDownListFor(m => m.PortionsList, Model.PortionsList, "Dodaj porciju")
+            <div class="col-4">
+                <div class="field">
+                    @Html.LabelFor(x => x.Name)
+                    <div class="validation__wrapper">
+                        @Html.TextBoxFor(x => x.Name, new { placeholder = Model.DisplayName(x => x.Name) })
+                        @Html.ValidationMessageFor(x => x.Name)
                     </div>
-                    <div class="field">
-                        @Html.LabelFor(m => m.MealPortions)
-                        @Html.HiddenFor(m => m.MealPortionsIds)
-                        <ul class="js-meal-portions">
-                            @if (Model.MealPortions.HasValue())
+                </div>
+                <div class="field">
+                    @Html.LabelFor(x => x.Price)
+                    <div class="validation__wrapper">
+                        @Html.TextBoxFor(x => x.Price, new { placeholder = Model.DisplayName(x => x.Price), type = "number", min = 0 })
+                        @Html.ValidationMessageFor(x => x.Price)
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="field">
+                    @Html.LabelFor(x => x.CategoryId)
+                    <div class="validation__wrapper">
+                        @Html.DropDownListFor(x => x.CategoryId, Model.CategoryList, "Izaberi kategoriju")
+                    @Html.ValidationMessageFor(x => x.CategoryId)
+                    </div>
+                </div>
+                <div class="accordion__buttons float-right">
+                    <button type="submit" class="save font-ico-save"></button>
+                    <button type="submit" class="delete font-ico-delete" formethod="post" formaction="@Url.Action("Delete", "Meal")"></button>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="field">
+                    @Html.LabelFor(m => m.PortionsList)
+                    @Html.DropDownListFor(m => m.PortionsList, Model.PortionsList, "Dodaj porciju")
+                </div>
+                <div class="field">
+                    @Html.LabelFor(m => m.MealPortions)
+                    @Html.HiddenFor(m => m.MealPortionsIds)
+                    <ul class="js-meal-portions">
+                        @if (Model.MealPortions.HasValue())
+                        {
+                            foreach (var portion in Model.MealPortions)
                             {
-                                foreach (var portion in Model.MealPortions)
-                                {
-                                    <li data-portionid="@portion.Value">@portion.Text</li>
-                                }
+                                <li data-portionid="@portion.Value">@portion.Text</li>
                             }
-                        </ul>
-                    </div>
-				</div>
-			}
-		</div>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
 }
