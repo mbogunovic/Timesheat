@@ -1,12 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TimeshEAT.Web.Interfaces;
 
 namespace TimeshEAT.Web.Models.View
 {
-	public class ReportAProblemModelSubmitViewModel
+	public class ReportAProblemModelSubmitViewModel : IForm
     {
-        [Required(ErrorMessage = "Tema ne moze biti prazna!")]
+	    [Display(Name = "Tema")]
+	    [Required(ErrorMessage = "Tema ne može biti prazna!")]
         public string Subject { get; set; }
-        [Required(ErrorMessage = "Poruka ne moze biti prazna!")]
+        [Display(Name = "Poruka")]
+        [Required(ErrorMessage = "Poruka ne može biti prazna!")]
         public string Message { get; set; }
     }
 }

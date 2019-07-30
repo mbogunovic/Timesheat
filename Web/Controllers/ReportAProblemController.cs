@@ -1,6 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using TimeshEAT.Business.Helpers;
-using TimeshEAT.Business.Logging.Interfaces;
 using TimeshEAT.Common;
 using TimeshEAT.Web.Attributes;
 using TimeshEAT.Web.Models.View;
@@ -10,41 +10,27 @@ namespace TimeshEAT.Web.Controllers
 	[RoleAuthorize(Roles = "User")]
 	public class ReportAProblemController : BaseController
 	{
-        private readonly ILogger _logger;
-
-        public ReportAProblemController(ILogger logger)
+		public ActionResult Index() =>
+         View(new ReportAProblemModelViewModel());
+        
+        public ActionResult Submit(ReportAProblemModelSubmitViewModel model)
         {
-            _logger = logger;
-        }
-
-        public ActionResult Index()
-        {
-            ReportAProblemModelViewModel model = new ReportAProblemModelViewModel();
-            model.FormModel = new ReportAProblemModelSubmitViewModel();
-            return View(model);
-        }
-
-        public ActionResult Submit(ReportAProblemModelSubmitViewModel formModel)
-        {
-			ReportAProblemModelViewModel model = new ReportAProblemModelViewModel();
-			model.FormModel = formModel;
-
-			if (ModelState.IsValid)
+	        if (ModelState.IsValid)
             {
                 try
                 {
-                    EmailSender sender = new EmailSender(_logger);
-                    sender.Send(AppSettings.DefaultEmail, AppSettings.DefaultEmail, formModel.Subject,
-                        formModel.Message);
-					return View("Index", model);
-				}
-				catch
+                    EmailSender sender = new EmailSender(_log);
+                    sender.Send(AppSettings.DefaultEmail, AppSettings.DefaultEmail, model.Subject,
+                        model.Message);
+                    return PartialView("_Message", "Hvala vam što ste prijavili problem, pokušaćemo da rešimo problem u najkraćem roku!");
+                }
+				catch(Exception e)
                 {
-					return View("Index", model);
+					return PartialView("_Message", e.Message);
 				}
 			}
 
-			return View("Index", model);
+			return PartialView("_ReportAProblemForm", model);
         }
     }
 }

@@ -1,0 +1,20 @@
+﻿@model TimeshEAT.Web.Models.View.ReportAProblemModelSubmitViewModel
+
+@using (Ajax.BeginForm("Submit", "ReportAProblem", null, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "submit-bug" }, new { @class = "standard-form md", id = "submit-bug" }))
+{
+    <ul>
+        <li>
+            <label>@Model.DisplayName(m => m.Subject)</label>
+            @Html.TextBoxFor(m => m.Subject)
+            @Html.ValidationMessageFor(m => m.Subject)
+        </li>
+        <li>
+            <label>@Model.DisplayName(m => m.Message)</label>
+            @Html.TextAreaFor(m => m.Message)
+            @Html.ValidationMessageFor(m => m.Message)
+        </li>
+        <li>
+            <button type="submit" class="btn">Pošalji</button>
+        </li>
+    </ul>
+}

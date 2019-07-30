@@ -4,6 +4,5 @@
     {
         public override string PageIcon => "bug";
         public override string PageTitle => "Prijavi problem";
-        public ReportAProblemModelSubmitViewModel FormModel { get; set; }
     }
 }

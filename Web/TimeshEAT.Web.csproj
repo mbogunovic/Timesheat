@@ -128,8 +128,12 @@
     <Content Include="js\global.js" />
     <Content Include="js\global.min.js" />
     <Content Include="js\meals.js" />
+    <Content Include="js\forms.js" />
     <Content Include="js\orders.js" />
     <Content Include="js\table-search.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -242,6 +246,8 @@
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Order\DayOrder.cshtml" />
     <Content Include="Views\Order\_OrderDetails.cshtml" />
+    <Content Include="Views\ReportAProblem\_ReportAProblemForm.cshtml" />
+    <Content Include="Views\Shared\_Message.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
