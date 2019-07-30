@@ -34,13 +34,16 @@
                     </div>
                     <div class="field">
                         @Html.LabelFor(m => m.MealPortions)
-                        @Html.HiddenFor(m => m.MealPortionsIds)
+                        @Html.HiddenFor(m => m.MealPortionsObjects)
                         <ul class="js-meal-portions">
                             @if (Model.MealPortions.HasValue())
                             {
                                 foreach (var portion in Model.MealPortions)
                                 {
-                                    <li data-portionid="@portion.Value">@portion.Text</li>
+                                    <li data-portionid="@portion.Value">
+                                        <span>@portion.Text</span>
+                                        <input type="number" class="js-portion-price"/>
+                                    </li>
                                 }
                             }
                         </ul>

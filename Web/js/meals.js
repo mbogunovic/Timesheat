@@ -3,8 +3,8 @@
     $(".js-meal-portions").children().on("click",
         function (e) {
             var form = $(this).closest("form");
-            bindClickRemove($(this), $(this).closest("form").find("select[name=PortionsList]"), "portionid");
-            updateHiddenField($(form).find(".js-meal-portions").children(), $(form), "portionid", "[name=MealPortionsIds]");
+            bindClickRemove($(this), $(this).closest("form").find("select[name=PortionsList]"), "portioninfo");
+            updateHiddenField($(form).find(".js-meal-portions").children(), $(form), "portioninfo", "[name=MealPortionsObjects]");
         });
     $("select[name=PortionsList]").change(function (e) {
         var target = $(e.target); // select container
@@ -17,7 +17,7 @@
         // create the li element for made selections list
         var $element = createElement("<li>",
             {
-                "data-portionid": $(selectItem).val()
+                "data-portioninfo": $(selectItem).val()
             });
         $element.text($(selectItem).text());
         // add the created element
@@ -27,10 +27,10 @@
         // bind new click
         $(selectedListItems).on("click", function (e) {
             var form = $(this).closest("form");
-            bindClickRemove($(this), $(currentForm).find("select[name=PortionsList]"), "portionid");
-            updateHiddenField($(form).find(".js-meal-portions").children(), $(form), "portionid", "[name=MealPortionsIds]");
+            bindClickRemove($(this), $(currentForm).find("select[name=PortionsList]"), "portioninfo");
+            updateHiddenField($(form).find(".js-meal-portions").children(), $(form), "portioninfo", "[name=MealPortionsObjects]");
         });
-        updateHiddenField(selectedListItems, currentForm, "portionid", "[name=MealPortionsIds]");
+        updateHiddenField(selectedListItems, currentForm, "portioninfo", "[name=MealPortionsObjects]");
         $(selectItem).remove(); //remove the element from options
     });
 });

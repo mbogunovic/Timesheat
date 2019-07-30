@@ -38,8 +38,8 @@ namespace TimeshEAT.Web.Models.Pagination
                     Text = p.Portion.Name,
                     Value = p.Portion.Id.ToString()
                 }).ToList() ?? new List<SelectListItem>();
-                meal.MealPortionsIds = string.Join(",", meal.MealPortions.Select(mp => mp.Value));
-                meal.PortionsList = PortionList.Where(pli => !meal.MealPortionsIds.Split(',').Contains(pli.Value)).ToList();
+                meal.MealPortionsObjects = string.Join(",", meal.MealPortions.Select(mp => mp.Value));
+                meal.PortionsList = PortionList.Where(pli => !meal.MealPortionsObjects.Split(',').Contains(pli.Value)).ToList();
 				meal.CategoryList = CategoryList;
 			}
 		}

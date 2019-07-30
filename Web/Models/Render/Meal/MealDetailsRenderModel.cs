@@ -19,8 +19,7 @@ namespace TimeshEAT.Web.Models.Render
 		public int CategoryId { get; set; }
 
 		public IList<SelectListItem> CategoryList { get; set; }
-        // todo update the IDs to use the MealsPortions model instead of the IDs
-        public string MealPortionsIds { get; set; }
+        public string MealPortionsObjects { get; set; }
         [Display(Name = "Porcije jela:")]
         public IList<SelectListItem> MealPortions { get; set; }
         public IList<MealPortionModel> Portions { get; set; }

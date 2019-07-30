@@ -34,7 +34,7 @@ namespace TimeshEAT.Web.Controllers
 			}
 
             // todo create new model and logic for this
-            var selectedMeals = model.MealPortionsIds?.Split(',');
+            var selectedMeals = model.MealPortionsObjects?.Split(',');
             if (selectedMeals == null)
             {
                 model.Portions = new List<MealPortionModel>();
@@ -67,7 +67,7 @@ namespace TimeshEAT.Web.Controllers
 			}
 
             // todo create new model and logic for this
-            var selectedPortions = model.MealPortionsIds?.Split(',');
+            var selectedPortions = model.MealPortionsObjects?.Split(',');
             if (selectedPortions == null)
             {
                 model.Portions = new List<MealPortionModel>();
