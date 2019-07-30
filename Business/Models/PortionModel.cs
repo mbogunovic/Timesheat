@@ -13,11 +13,10 @@ namespace TimeshEAT.Business.Models
             
         }
 
-		public PortionModel(string name, int price, int id = 0, long version = 0) : base(id, version)
+		public PortionModel(string name, int id = 0, long version = 0) : base(id, version)
 		{
 			Id = id;
 			Name = name;
-            Price = price;
 			Version = version;
 		}
 
@@ -39,9 +38,7 @@ namespace TimeshEAT.Business.Models
 			}
 		}
 
-        public int Price { get; set; }
-
-		#region [Implicit Operators]
+        #region [Implicit Operators]
 
 		public static implicit operator Portion(PortionModel portionModel)
 		{
@@ -60,7 +57,7 @@ namespace TimeshEAT.Business.Models
 				throw new NullReferenceException("Portion cannot be null!");
 			}
 
-			return new PortionModel(dbPortion.Name, dbPortion.Price, dbPortion.Id, dbPortion.Version);
+			return new PortionModel(dbPortion.Name, dbPortion.Id, dbPortion.Version);
 		}
 
 		#endregion

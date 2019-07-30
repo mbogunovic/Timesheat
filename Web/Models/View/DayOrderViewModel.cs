@@ -70,6 +70,6 @@ namespace TimeshEAT.Web.Models.View
         public DateViewModel EndDate { get; }
         public DateViewModel CurrentDate { get; }
         public IEnumerable<DateViewModel> DateRange { get; set; }
-		public int Total => Orders.Value?.Sum(x => x.Quantity * x.Meal?.Portions?.FirstOrDefault(p => p.Id == x.PortionId)?.Price ?? 0) ?? 0;
+		public int Total => Orders.Value?.Sum(x => x.Quantity * x.Meal?.Portions?.FirstOrDefault(p => p.Portion.Id == x.PortionId)?.Price ?? 0) ?? 0;
 	}
 }

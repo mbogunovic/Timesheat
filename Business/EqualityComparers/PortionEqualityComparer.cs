@@ -4,16 +4,16 @@ using TimeshEAT.Business.Models;
 
 namespace TimeshEAT.Business.EqualityComparers
 {
-    public class PortionEqualityComparer : IEqualityComparer<PortionModel>
+    public class MealPortionEqualityComparer : IEqualityComparer<MealPortionModel>
     {
-        public bool Equals(PortionModel x, PortionModel y)
+        public bool Equals(MealPortionModel x, MealPortionModel y)
         {
-            if(x == null) throw new ArgumentNullException(nameof(x), "First portion cannot be null!");
-            if(y == null) throw new ArgumentNullException(nameof(y), "Second portion cannot be null!");
+            if(x == null) throw new ArgumentNullException(nameof(x), "First MealPortion model cannot be null!");
+            if(y == null) throw new ArgumentNullException(nameof(y), "Second MealPortion model cannot be null!");
 
-            return x.Id == y.Id;
+            return x.Portion.Id == y.Portion.Id;
         }
 
-        public int GetHashCode(PortionModel obj) => obj.Id;
+        public int GetHashCode(MealPortionModel obj) => obj.Portion.Id;
     }
 }

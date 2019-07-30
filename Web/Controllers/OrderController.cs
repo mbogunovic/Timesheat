@@ -80,7 +80,7 @@ namespace TimeshEAT.Web.Controllers
 
 			var result = _member.Company?.Meals?
 				             .First(x => x.Id.Equals(mealId))?.Portions
-				             .Select(x => new SelectListItem() {Value = x.Id.ToString(), Text = x.Name}) ?? new List<SelectListItem>();
+				             .Select(x => new SelectListItem() {Value = x.Portion.Id.ToString(), Text = x.Portion.Name}) ?? new List<SelectListItem>();
 
 			return Json(result, JsonRequestBehavior.AllowGet);
 		}

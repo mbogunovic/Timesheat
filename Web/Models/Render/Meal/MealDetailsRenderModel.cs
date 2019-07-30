@@ -23,7 +23,7 @@ namespace TimeshEAT.Web.Models.Render
         public string MealPortionsIds { get; set; }
         [Display(Name = "Porcije jela:")]
         public IList<SelectListItem> MealPortions { get; set; }
-        public IList<PortionModel> Portions { get; set; }
+        public IList<MealPortionModel> Portions { get; set; }
         [Display(Name = "Porcije:")]
         public IList<SelectListItem> PortionsList { get; set; }
 

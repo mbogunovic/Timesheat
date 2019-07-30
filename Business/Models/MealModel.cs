@@ -60,7 +60,7 @@ namespace TimeshEAT.Business.Models
 			}
 		}
 
-        public IEnumerable<PortionModel> Portions { get; set; }
+        public IEnumerable<MealPortionModel> Portions { get; set; }
         public CategoryModel Category { get; set; }
 
         #region [Implicit Operators]

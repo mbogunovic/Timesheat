@@ -90,6 +90,7 @@
     <Compile Include="Models\AuthorizationModel.cs" />
     <Compile Include="Models\AuthorizationResponseModel.cs" />
     <Compile Include="Models\LoginResultModel.cs" />
+    <Compile Include="Models\MealPortionModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\PortionModel.cs" />
     <Compile Include="Models\RoleModel.cs" />

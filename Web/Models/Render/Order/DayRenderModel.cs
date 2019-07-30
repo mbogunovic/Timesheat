@@ -18,7 +18,7 @@ namespace TimeshEAT.Web.Models.Render.Order
 			Date = date;
 			IsActive = Date.ToString("dd.MM.yyyy").Equals(DateTime.Now.ToString("dd.MM.yyyy"));
 			IsDisabled = !Date.ToString("MM.yyyy").Equals(queryDate.ToString("MM.yyyy"));
-			Total = orders?.Sum(x => x.Quantity * x.Portion.Price) ?? 0;
+			Total = orders?.Sum(x => x.Quantity * x.Meal.Portions?.FirstOrDefault(p => p.Portion.Id == x.PortionId)?.Price ?? 0) ?? 0;
 		}
 
 		public string[] Orders { get; }

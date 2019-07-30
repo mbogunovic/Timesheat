@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using TimeshEAT.DataAccess.Extensions;
 using TimeshEAT.Domain.Interfaces;
 using TimeshEAT.Domain.Interfaces.Repositories;
 using TimeshEAT.Domain.Models;
@@ -30,7 +31,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 			sqlCommand.Parameters.AddWithValue("@Name", user.Name);
 		}
 
-        public IEnumerable<Portion> GetPortionsForMeal(Meal meal, ITransaction transaction = null)
+        public IEnumerable<MealPortion> GetPortionsForMeal(Meal meal, ITransaction transaction = null)
         {
             if (transaction != null)
             {
@@ -40,7 +41,7 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
                     SqlParameter mealIdParameter = new SqlParameter("@MealId", SqlDbType.Int);
                     mealIdParameter.Value = meal.Id;
                     sqlCommand.Parameters.Add(mealIdParameter);
-                    return GetAllCommand(sqlCommand);
+                    return GetAllPortionsForMeal(sqlCommand);
                 }
             }
             else
@@ -55,19 +56,19 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
                         SqlParameter mealIdParameter = new SqlParameter("@MealId", SqlDbType.Int);
                         mealIdParameter.Value = meal.Id;
                         sqlCommand.Parameters.Add(mealIdParameter);
-                        return GetAllCommand(sqlCommand);
+                        return GetAllPortionsForMeal(sqlCommand);
                     }
                 }
             }
         }
 
-        public void AddPortionForMeal(Meal meal, Portion portion, ITransaction transaction = null)
+        public void AddPortionForMeal(MealPortion mealPortion, ITransaction transaction = null)
         {
             if (transaction != null)
             {
                 using (SqlCommand sqlCommand = new SqlCommand(_insertMealPortionProcedure, (SqlConnection)transaction.Connection, (SqlTransaction)transaction.Transaction))
                 {
-                    InsertPortionForMealSqlCommand(sqlCommand, meal, portion);
+                    InsertPortionForMealSqlCommand(sqlCommand, mealPortion);
                 }
             }
             else
@@ -78,28 +79,31 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 
                     using (SqlCommand sqlCommand = new SqlCommand(_insertMealPortionProcedure, sqlConnection))
                     {
-                        InsertPortionForMealSqlCommand(sqlCommand, meal, portion);
+                        InsertPortionForMealSqlCommand(sqlCommand, mealPortion);
                     }
                 }
             }
         }
 
-        protected void InsertPortionForMealSqlCommand(SqlCommand sqlCommand, Meal meal, Portion portion)
+        protected void InsertPortionForMealSqlCommand(SqlCommand sqlCommand, MealPortion mealPortion)
         {
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
-            AddMealPortionParameters(sqlCommand, meal, portion);
+            AddMealPortionParameters(sqlCommand, mealPortion);
+            SqlParameter portionIdParam = new SqlParameter("@Price", SqlDbType.Int);
+            portionIdParam.Value = mealPortion.Price;
+            sqlCommand.Parameters.Add(portionIdParam);
 
             sqlCommand.ExecuteNonQuery();
         }
 
-        public void DeletePortionForMeal(Meal meal, Portion portion, ITransaction transaction = null)
+        public void DeletePortionForMeal(MealPortion mealPortion, ITransaction transaction = null)
         {
             if (transaction != null)
             {
                 using (SqlCommand sqlCommand = new SqlCommand(_deleteMealPortionProcedure, (SqlConnection)transaction.Connection, (SqlTransaction)transaction.Transaction))
                 {
-                    DeletePortionForMealSqlCommand(sqlCommand, meal, portion);
+                    DeletePortionForMealSqlCommand(sqlCommand, mealPortion);
                 }
             }
             else
@@ -110,30 +114,47 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 
                     using (SqlCommand sqlCommand = new SqlCommand(_deleteMealPortionProcedure, sqlConnection))
                     {
-                        DeletePortionForMealSqlCommand(sqlCommand, meal, portion);
+                        DeletePortionForMealSqlCommand(sqlCommand, mealPortion);
                     }
                 }
             }
         }
 
-        protected void DeletePortionForMealSqlCommand(SqlCommand sqlCommand, Meal meal, Portion portion)
+        protected void DeletePortionForMealSqlCommand(SqlCommand sqlCommand, MealPortion mealPortion)
         {
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
-            AddMealPortionParameters(sqlCommand, meal, portion);
+            AddMealPortionParameters(sqlCommand, mealPortion);
 
             sqlCommand.ExecuteNonQuery();
         }
 
-        protected void AddMealPortionParameters(SqlCommand sqlCommand, Meal meal, Portion portion)
+        protected void AddMealPortionParameters(SqlCommand sqlCommand, MealPortion mealPortion)
         {
             SqlParameter mealIdParameter = new SqlParameter("@MealId", SqlDbType.Int);
-            mealIdParameter.Value = meal.Id;
+            mealIdParameter.Value = mealPortion.MealId;
             sqlCommand.Parameters.Add(mealIdParameter);
 
             SqlParameter portionIdParam = new SqlParameter("@PortionId", SqlDbType.Int);
-            portionIdParam.Value = portion.Id;
+            portionIdParam.Value = mealPortion.PortionId;
             sqlCommand.Parameters.Add(portionIdParam);
+        }
+
+        protected IEnumerable<MealPortion> GetAllPortionsForMeal(SqlCommand sqlCommand, ITransaction transaction = null)
+        {
+            List<MealPortion> data = new List<MealPortion>();
+            using (SqlDataReader reader = sqlCommand.ExecuteReader())
+            {
+                if (reader.HasRows == true)
+                {
+                    while (reader.Read())
+                    {
+                        data.Add(DBAccessExtensions.MapTableEntityTo<MealPortion>(reader));
+                    }
+                }
+            }
+
+            return data;
         }
     }
 }
