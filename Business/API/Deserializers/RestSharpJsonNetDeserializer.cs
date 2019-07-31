@@ -13,7 +13,8 @@ namespace TimeshEAT.Business.API.Deserializers
             {
                 NullValueHandling = NullValueHandling.Ignore,
                 TypeNameHandling = TypeNameHandling.All,
-                PreserveReferencesHandling = PreserveReferencesHandling.All
+                ReferenceLoopHandling = ReferenceLoopHandling.Serialize,
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
             };
 
             serializerSettings.Converters.Add(new DateTimeJsonConverter());

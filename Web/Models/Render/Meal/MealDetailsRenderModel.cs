@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web.Mvc;
 using TimeshEAT.Business.Models;
 using TimeshEAT.Web.Interfaces;
@@ -27,14 +28,14 @@ namespace TimeshEAT.Web.Models.Render
         public IList<SelectListItem> PortionsList { get; set; }
 
         public static implicit operator MealModel(MealDetailsRenderModel meal)
-		{
-			if (meal == null)
-				return null;
+        {
+            if (meal == null)
+                return null;
 
             var mealModel = new MealModel(meal.Name, meal.CategoryId, meal.Id, meal.Version);
             mealModel.Portions = meal.Portions;
 
             return mealModel;
-		}
-	}
+        }
+    }
 }

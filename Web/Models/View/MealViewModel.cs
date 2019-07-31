@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TimeshEAT.Business.Models;
 using TimeshEAT.Web.Models.Filtering;
 using TimeshEAT.Web.Models.Pagination;
 using TimeshEAT.Web.Models.Render;
@@ -10,8 +11,9 @@ namespace TimeshEAT.Web.Models.View
 	public class MealViewModel : NavigationViewModel
 	{
 		public MealViewModel()
-		{
-			meals = new Lazy<IEnumerable<MealDetailsRenderModel>>(() => _api.GetAllMeals<MealDetailsRenderModel>()?.Data.OrderBy(x => x.Name));
+        {
+
+            meals = new Lazy<IEnumerable<MealDetailsRenderModel>>(() => _api.GetAllMeals<MealDetailsRenderModel>()?.Data.OrderBy(x => x.Name));
 			searchResult = new Lazy<MealPagedCollection>(() => Search());
 		}
 
