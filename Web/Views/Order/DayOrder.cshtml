@@ -6,7 +6,7 @@
         <li class=""><a href="@Url.Action("Index", new { date = Model.Date.AddDays(-1)})"><p></p><b>&lt;</b></a></li>
         @foreach (var date in Model.DateRange)
         {
-            <li class="@(date.Date == Model.Date ? "active" : "")"><a href="@Url.Action("Index", new { date = date.Date, })"><p>@date.Date.Day. @date.Month</p><b>@date.Day</b></a></li>
+            <li class="@(date.Date == Model.Date ? "active" : "")"><a href="@Url.Action("Index", new { date = date.Date, })"><div class="weekday__wrapper"><p>@date.Date.Day. @date.Month</p><b>@date.Day</b></div></a></li>
         }
         <li class=""><a href="@Url.Action("Index", new { date = Model.Date.AddDays(1)})"><p></p><b>&gt;</b></a></li>
     </ul>

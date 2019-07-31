@@ -3118,7 +3118,7 @@
 
 		$('input.time-picker').each(function () {
 			$(this).timepicker({
-				timeFormat: 'hh:mm p',
+				timeFormat: 'h:mm p',
 				interval: 30,
 				minTime: '09:00am',
 				maxTime: '05:00pm',

@@ -3077,6 +3077,15 @@ img {
   background-size: 20px;
 }
 
+.font-ico-reports:before {
+  content: "";
+  background-image: url("../assets/images/icons/ico-reports.svg");
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-size: 20px;
+}
+
 html, body {
   height: 100%;
 }
@@ -3253,10 +3262,8 @@ input[type='submit'] {
   transition: 0.4s ease-out;
 }
 
-@media only screen and (min-width: 1025px) {
-  .no-touch .btn:hover {
-    background-color: #cf892c;
-  }
+.btn:hover {
+  background-color: #cf892c;
 }
 
 input,
@@ -3341,6 +3348,7 @@ select {
   text-align: center;
   margin: 0 auto;
   width: 100%;
+  position: relative;
 }
 
 .standard-form.md {
@@ -3373,6 +3381,65 @@ select {
   padding-bottom: 10px;
   text-transform: uppercase;
   font-weight: bold;
+}
+
+.field-validation-error {
+  font-size: 11px;
+  position: absolute;
+  z-index: 10;
+  margin-top: 6px;
+  color: #ffffff;
+  background: #ffaf46;
+  -webkit-box-shadow: 0 6px 2px -2px rgba(207, 137, 44, 0.47);
+          box-shadow: 0 6px 2px -2px rgba(207, 137, 44, 0.47);
+  padding: 5px 10px;
+  border-radius: 6px;
+  pointer-events: none;
+  left: 0;
+  line-height: 11px;
+  -webkit-transition: opacity 0.5s linear;
+  transition: opacity 0.5s linear;
+}
+
+.table .field-validation-error {
+  margin-top: 46px !important;
+}
+
+.field-validation-error:before {
+  content: '';
+  width: 0;
+  height: 0;
+  top: -5px;
+  position: absolute;
+  left: 6px;
+  border-left: 5px solid rgba(0, 0, 0, 0);
+  border-right: 5px solid rgba(0, 0, 0, 0);
+  border-bottom: 5px solid #ffaf46;
+}
+
+.field-validation-valid {
+  opacity: 0;
+}
+
+.input-validation-error {
+  border: 1px solid #ffaf46;
+  color: #ffaf46;
+}
+
+.valid {
+  border: 1px solid #cccbcb;
+}
+
+.validation__wrapper {
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
+
+.validation__wrapper input, select {
+  width: 100%;
 }
 
 /*--------------------------------------------------------------
@@ -3745,6 +3812,7 @@ select {
 .board__month-table {
   width: calc(100% - 40px);
   table-layout: fixed;
+  background: #fff;
 }
 
 @media only screen and (max-width: 767.98px) {
@@ -3772,15 +3840,10 @@ select {
 
 .board__month-table td {
   position: relative;
-  border: 1px solid #cccbcb;
+  outline: 1px solid #cccbcb;
+  outline-offset: -0.5px;
   padding: 5px;
   cursor: pointer;
-}
-
-.board__month-table td:hover .total {
-  color: #ffaf46;
-  -webkit-transition: 0.4s ease-out;
-  transition: 0.4s ease-out;
 }
 
 .board__month-table tbody tr {
@@ -3797,6 +3860,7 @@ select {
 
 .board__month-table .head {
   text-transform: uppercase;
+  color: #444444;
 }
 
 @media only screen and (max-width: 767.98px) {
@@ -3841,13 +3905,13 @@ select {
 }
 
 .board__month-table .mobile-head th {
-  border: 1px solid #cccbcb;
+  outline: 1px solid #cccbcb;
+  outline-offset: -0.5px;
 }
 
 .board__month-navigation {
   position: relative;
   top: 29px;
-  width: 40px;
   background-color: #444444;
   display: -webkit-box;
   display: -webkit-flex;
@@ -4000,6 +4064,7 @@ select {
       -ms-flex-pack: center;
           justify-content: center;
   width: 100%;
+  margin: 0.5px;
 }
 
 .box__link {
@@ -4087,23 +4152,16 @@ select {
 .order__table .order__week li {
   margin: 0 auto;
   width: 100%;
-  border: 1px solid #cccbcb;
-  margin-left: -1px;
-  padding: 10px;
+  outline: 1px solid #cccbcb;
+  outline-offset: -0.5px;
 }
 
 .order__table .order__week li b {
   text-transform: uppercase;
 }
 
-.order__table .order__week li:hover {
-  cursor: pointer;
-}
-
-.order__table .order__week li:hover a {
-  color: #ffaf46;
-  -webkit-transition: 0.4s ease-out;
-  transition: 0.4s ease-out;
+.order__table .order__week .weekday__wrapper {
+  padding: 10px;
 }
 
 .order__table .order__week-mobile {
@@ -4231,7 +4289,7 @@ select {
       -ms-flex-preferred-size: 0;
           flex-basis: 0;
   word-break: break-word;
-  overflow: hidden;
+  position: relative;
   text-overflow: ellipsis;
   min-width: 0px;
   white-space: nowrap;
@@ -4370,18 +4428,22 @@ select {
 
 .login {
   position: relative;
-  top: 25%;
+  height: 100%;
 }
 
 .login__box {
   max-width: 400px;
   width: 80%;
-  margin: 0 auto;
   background-color: #fff;
   border-radius: 30px;
   border: 1px solid #cccbcb;
   text-align: center;
   padding: 50px 50px 45px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 @media only screen and (max-width: 767.98px) {
@@ -4471,6 +4533,84 @@ select {
 
 .accordion__buttons button::before {
   padding: 5px 20px 5px 20px;
+}
+
+.filter {
+  background-color: #444444;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  color: #fff;
+  margin: 15px 0 20px;
+  -webkit-box-pack: stretch;
+  -webkit-justify-content: stretch;
+      -ms-flex-pack: stretch;
+          justify-content: stretch;
+}
+
+.filter__item {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 10px;
+  line-height: 40px;
+}
+
+.filter__item input, .filter__item textarea, .filter__item select {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.filter__text {
+  padding-right: 10px;
+}
+
+.table__wrapper {
+  overflow-x: auto;
+}
+
+.board__filter-table {
+  width: 100%;
+  background-color: #444444;
+}
+
+.board__filter-table thead,
+.board__filter-table tfoot {
+  color: #fff;
+  font-size: 17px;
+  width: 100%;
+}
+
+.board__filter-table tbody {
+  background-color: #fff;
+}
+
+.board__filter-table tbody tr td {
+  outline: 1px solid #cccbcb;
+  outline-offset: -0.5px;
+}
+
+.board__filter-table th, .board__filter-table td {
+  text-align: left;
+  padding: 10px;
+}
+
+.board__filter-table td b {
+  color: #ffaf46;
+}
+
+@media only screen and (max-width: 991.98px) {
+  .board__filter-table {
+    white-space: nowrap;
+  }
 }
 
 /*# sourceMappingURL=style.min.css.map */
