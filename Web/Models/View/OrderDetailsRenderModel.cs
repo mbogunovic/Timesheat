@@ -50,6 +50,8 @@ namespace TimeshEAT.Web.Models.View
         private int categoryId;
 
 
+        [Required(ErrorMessage = "Morate izabrati kategoriju.")]
+        [Display(Name = "Kategorija")]
         public int CategoryId
         {
             get { return categoryId != 0 ? categoryId : Meal?.CategoryId ?? 0; }

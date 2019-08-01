@@ -4,7 +4,7 @@
 {
     <div class="accordion__item">
         <div class="accordion" data-accordion><span>@(Model.Name.HasValue() ? Model.Name : Model.DisplayName(x => x.Name))</span></div>
-        @using (Ajax.BeginForm("Save", "Meal", null, new AjaxOptions { HttpMethod = "POST" }, new { @class = "accordion__content", style = "display:none;" }))
+        @using (Ajax.BeginForm("Save", "Meal", null, new AjaxOptions { HttpMethod = "POST", OnComplete = "location.reload();" }, new { @class = "accordion__content", style = "display:none;" }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(x => x.Id)
@@ -37,7 +37,7 @@
                 </div>
                 <div class="accordion__buttons float-right">
                     <button type="submit" class="save font-ico-save"></button>
-                    <button type="submit" class="delete font-ico-delete" formethod="post" formaction="@Url.Action("Delete", "Meal")"></button>
+                    <button type="submit" class="delete font-ico-delete" formmethod="post" formaction="@Url.Action("Delete", "Meal")"></button>
                 </div>
             </div>
             <div class="col-4">

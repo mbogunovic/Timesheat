@@ -42,3 +42,7 @@
     </div>
 </div>
 <div class="content__footer">Ukupno: @Model.Total @*| <b>120</b>*@Din.</div>
+
+@section additionalFooter{
+    @Scripts.RenderFormat("<script src='{0}' defer></script>", "~/scripts/forms")
+}

@@ -21,3 +21,7 @@
 @{
     Html.RenderPartial("_Pagination", Model.Companies.Pagination);
 }
+
+@section additionalFooter{
+    @Scripts.RenderFormat("<script src='{0}' defer></script>", "~/scripts/forms")
+}

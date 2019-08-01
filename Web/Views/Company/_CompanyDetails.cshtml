@@ -2,7 +2,7 @@
 
 @if (Model.HasValue())
 {
-    using (Html.BeginForm("Save", "Company", FormMethod.Post, new { @class = "accordion__item" }))
+    using (Ajax.BeginForm("Save", "Company", null, new AjaxOptions { HttpMethod = "POST", OnComplete = "location.reload();" }, new { @class = "accordion__item" }))
     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(x => x.Id)
@@ -12,17 +12,26 @@
             <div class="col-4">
                 <div class="field">
                     @Html.LabelFor(m => m.Name)
-                    @Html.TextBoxFor(m => m.Name, new { placeholder = Model.DisplayName(m => m.Name) })
+                    <div class="validation__wrapper">
+                        @Html.TextBoxFor(m => m.Name, new { placeholder = Model.DisplayName(m => m.Name) })
+                        @Html.ValidationMessageFor(m => m.Name)
+                    </div>
                 </div>
                 <div class="field">
                     @Html.LabelFor(m => m.DailyDiscount)
-                    @Html.TextBoxFor(m => m.DailyDiscount, new { placeholder = Model.DisplayName(m => m.DailyDiscount), type = "number", min = 0 })
+                    <div class="validation__wrapper">
+                        @Html.TextBoxFor(m => m.DailyDiscount, new { placeholder = Model.DisplayName(m => m.DailyDiscount), type = "number", min = 0 })
+                        @Html.ValidationMessageFor(m => m.DailyDiscount)
+                    </div>
                 </div>
             </div>
             <div class="col-4">
                 <div class="field">
                     @Html.LabelFor(m => m.Email)
-                    @Html.TextBoxFor(m => m.Email, new { placeholder = Model.DisplayName(m => m.Email), type = "email" })
+                    <div class="validation__wrapper">
+                        @Html.TextBoxFor(m => m.Email, new { placeholder = Model.DisplayName(m => m.Email), type = "email" })
+                        @Html.ValidationMessageFor(m => m.Email)
+                    </div>
                 </div>
                 <div class="accordion__buttons float-right">
                     <button type="submit" class="save font-ico-save"></button>

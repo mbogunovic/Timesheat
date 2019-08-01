@@ -2,7 +2,7 @@
 
 @if (Model.HasValue())
 {
-    using (Ajax.BeginForm("Save", "User", null, new AjaxOptions { HttpMethod = "POST" }))
+    using (Ajax.BeginForm("Save", "User", null, new AjaxOptions { HttpMethod = "POST", OnComplete = "location.reload();" }))
     {
 		@Html.AntiForgeryToken()
 		@Html.HiddenFor(x => x.Id)
@@ -37,7 +37,7 @@
 				 style="justify-content: center;">
 				<div class="order__table-operations">
 					<button type="submit" name="Save" class="save font-ico-save"></button>
-					<button type="submit" name="Delete" class="delete font-ico-delete" formethod="post" formaction="@Url.Action("Delete", "User")"></button>
+					<button type="submit" name="Delete" class="delete font-ico-delete" formmethod="post" formaction="@Url.Action("Delete", "User")"></button>
 				</div>
 			</div>
 		</div>
