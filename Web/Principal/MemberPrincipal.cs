@@ -106,7 +106,7 @@ namespace TimeshEAT.Web.Membership
 
 				WebCache.Set(token, userResponse.Data.Id);
 				string resetPasswordLink = $"{HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)}/Authorization/ResetPassword?token={token}";
-				emailSender.Send(_user.Email, AppSettings.DefaultEmail, "TimeshEAT - Link za resetovanje lozinke", resetPasswordLink);
+				emailSender.Send(!string.IsNullOrWhiteSpace(email) ? email : _user.Email, AppSettings.DefaultEmail, "TimeshEAT - Link za resetovanje lozinke", resetPasswordLink);
 			}
 
 		}
