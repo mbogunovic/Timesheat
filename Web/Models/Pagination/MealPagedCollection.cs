@@ -38,7 +38,7 @@ namespace TimeshEAT.Web.Models.Pagination
                     Text = p.Portion.Name,
                     Value = p.Portion.Id.ToString()
                 }).ToList() ?? new List<SelectListItem>();
-                meal.MealPortionsObjects = string.Join(",", meal.MealPortions.Select(mp => mp.Value));
+                meal.MealPortionsObjects = string.Join(",", meal.Portions?.Select(mp => "{ \"PortionId\":" + mp.Portion.Id + ", \"Price\":" + mp.Price + "}") ?? Array.Empty<string>());
                 meal.PortionsList = PortionList.Where(pli => !meal.MealPortionsObjects.Split(',').Contains(pli.Value)).ToList();
 				meal.CategoryList = CategoryList;
 			}

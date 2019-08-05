@@ -13,7 +13,14 @@ namespace TimeshEAT.Web.Models.View
 		public MealViewModel()
         {
 
-            meals = new Lazy<IEnumerable<MealDetailsRenderModel>>(() => _api.GetAllMeals<MealDetailsRenderModel>()?.Data.OrderBy(x => x.Name));
+            meals = new Lazy<IEnumerable<MealDetailsRenderModel>>(() => _api.GetAllMeals<MealModel>()?.Data.Select(m => new MealDetailsRenderModel
+            {
+                Id = m.Id,
+                CategoryId = m.CategoryId,
+                Name = m.Name,
+                Version = m.Version,
+                Portions = m.Portions.ToList()
+            }).OrderBy(x => x.Name));
 			searchResult = new Lazy<MealPagedCollection>(() => Search());
 		}
 

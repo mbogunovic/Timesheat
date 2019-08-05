@@ -40,9 +40,9 @@
                             {
                                 foreach (var portion in Model.MealPortions)
                                 {
-                                    <li data-portionid="@portion.Value">
-                                        <span>@portion.Text</span>
-                                        <input type="number" class="js-portion-price"/>
+                                    <li>
+                                        <span data-portionid="@portion.Value">@portion.Text</span>
+                                        <input type="number" min="0" class="js-portion-price"/>
                                     </li>
                                 }
                             }

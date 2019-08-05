@@ -11,10 +11,10 @@ function appendElement(container, element) {
     $(container).append(element);
 }
 
-function bindClickRemove(target, addSelectContainer, dataField) {
+function bindClickRemove(target, dataSource,addSelectContainer, dataField) {
     var $element = createElement("<option>",
         {
-            "value": $(target).data(dataField)
+            "value": $(dataSource).data(dataField)
         });
     $element.text($(target).text());
     $(addSelectContainer).append($element);
