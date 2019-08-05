@@ -1,62 +1,64 @@
 ﻿@model OrderViewModel
 <div class="board">
-	<ul class="board__month-navigation" data-board-navigation>
+    <ul class="board__month-navigation" data-board-navigation>
         <li data-board-navigation-down><a href="javascript:;"><</a></li>
         @foreach (var month in Constants.MonthList)
         {
             <li @(month.IsActive ? "class=active" : String.Empty)><a href="@Url.Action("Index", "Order", new { month = month.Month })"><span class="month">@month.Name</span><span class="mobile-month">@((int)month.Month)</span></a></li>
         }
         <li data-board-navigation-up><a href="javascript:;">></a></li>
-	</ul>
-	<table class="board__month-table" data-board>
-		<thead>
-			<tr class="head">
-				<th>Ponedeljak</th>
-				<th>Utorak</th>
-				<th>Sreda</th>
-				<th>Cetvrtak</th>
-				<th>Petak</th>
-				<th>Subota</th>
-				<th>Nedelja</th>
-			</tr>
-			<tr class="mobile-head">
-				<th>P</th>
-				<th>U</th>
-				<th>S</th>
-				<th>C</th>
-				<th>P</th>
-				<th>S</th>
-				<th>N</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var week in Model.Weeks)
-			{
-				<tr>
-					@foreach (var day in week)
-					{
-						<td @(day.IsActive ? "class=active" : String.Empty) @(day.IsDisabled ? "class=disabled" : String.Empty)>
-                            <div class="month">
-                                <span>@(day.Date.Day).</span>
-                            </div>
-                            @if (day.Orders.HasValue())
-                            {
+    </ul>
+    <table class="board__month-table" data-board>
+        <thead>
+            <tr class="head">
+                <th>Ponedeljak</th>
+                <th>Utorak</th>
+                <th>Sreda</th>
+                <th>Cetvrtak</th>
+                <th>Petak</th>
+                <th>Subota</th>
+                <th>Nedelja</th>
+            </tr>
+            <tr class="mobile-head">
+                <th>P</th>
+                <th>U</th>
+                <th>S</th>
+                <th>C</th>
+                <th>P</th>
+                <th>S</th>
+                <th>N</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var week in Model.Weeks)
+            {
+                <tr>
+                    @foreach (var day in week)
+                    {
+                        <td @(day.IsActive ? "class=active" : String.Empty) @(day.IsDisabled ? "class=disabled" : String.Empty)>
+                            <a href="@Url.Action("Index", new { date = day.Date })">
+                                <div class="month">
+                                    <span>@(day.Date.Day).</span>
+                                </div>
                                 <div class="orders">
                                     <ul>
-                                        @foreach (var order in day.Orders)
+                                        @if (day.Orders.HasValue())
                                         {
-                                            <li>@order</li>
+                                            foreach (var order in day.Orders)
+                                            {
+                                                <li>@order</li>
+                                            }
                                         }
                                     </ul>
                                 </div>
-                            }
-							<a href="@Url.Action("Index", new { date = day.Date })" class="total"><span>Ukupno: </span><span>@day.Total Din.</span></a>
-						</td>
-					}
-				</tr>
-			}
+                                <div class="total"><span>Ukupno: </span><span>@day.Total Din.</span></div>
+                            </a>
+                        </td>
+                    }
+                </tr>
+            }
 
-		</tbody>
-	</table>
+        </tbody>
+    </table>
 </div>
 <div class="content__footer">Ukupno: @Model.Total @*| <b>120</b>*@Din.</div>

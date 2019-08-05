@@ -11,11 +11,11 @@
 				<div class="header__container">
 					<ul class="user-panel">
 						<li class="user-panel__item">
-							<a href="javascript:;" class="user-panel__link" data-has-dropdown>Maksim Bogunovic</a>
+							<a href="javascript:;" class="user-panel__link" data-has-dropdown>@(HttpContext.Current.User.GetFullName())</a>
 							<div class="user-panel__submenu" data-dropdown>
 								<ul>
 									<li>
-										<a href="javascript:;">Reset Password</a>
+										<a href="@Url.Action("ResetMyPassword", "Authorization")">Resetuj šifru</a>
 									</li>
 								</ul>
 							</div>

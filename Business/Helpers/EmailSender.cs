@@ -38,7 +38,7 @@ namespace TimeshEAT.Business.Helpers
             catch (Exception ex)
             {
                 _logger.WriteErrorLog("Error occured while sending email", ex);
-                throw;
+                throw new Exception("Došlo je do greške pri slanju poruke, molimo vas pokušajte kasnije.");
             }
         }
     }

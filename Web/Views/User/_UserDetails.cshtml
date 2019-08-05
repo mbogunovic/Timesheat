@@ -2,8 +2,8 @@
 
 @if (Model.HasValue())
 {
-	using (Html.BeginForm("Save", "User", FormMethod.Post))
-	{
+    using (Ajax.BeginForm("Save", "User", null, new AjaxOptions { HttpMethod = "POST", OnComplete = "location.reload();" }))
+    {
 		@Html.AntiForgeryToken()
 		@Html.HiddenFor(x => x.Id)
 		@Html.HiddenFor(x => x.Version)
@@ -12,13 +12,16 @@
 			<div class="td accordion" data-accordion>@(Model.FullName.HasValue() ? Model.FullName : Model.DisplayName(x => x.FullName))</div>
 			<div class="td" style="flex-grow:3;justify-content: center;">
 				@Html.TextBoxFor(m => m.FullName, new { placeholder = Model.DisplayName(x => x.FullName) })
+                @Html.ValidationMessageFor(m => m.FullName)
 			</div>
 			<div class="td" style="flex-grow:2; justify-content: center;">
 				@Html.DropDownListFor(m => m.CompanyId, Model.CompanyList, "Izaberi kompaniju")
+                @Html.ValidationMessageFor(m => m.CompanyId)
 			</div>
 			<div class="td" style="flex-grow:3;justify-content: center;">
 				@Html.TextBoxFor(m => m.Email, new { placeholder = Model.DisplayName(x => x.Email) })
-			</div>
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
 			<div class="td @(Model.Id == 0 ? "disabled" : String.Empty)"
 				 style="flex-grow:2;justify-content: center;">
 				<a class="table__btn" href="@Url.Action("ResetPasswordForUser","Authorization", Model.Email)">Resetuj</a>
@@ -34,7 +37,7 @@
 				 style="justify-content: center;">
 				<div class="order__table-operations">
 					<button type="submit" name="Save" class="save font-ico-save"></button>
-					<button type="submit" name="Delete" class="delete font-ico-delete" formethod="post" formaction="@Url.Action("Delete", "User")"></button>
+					<button type="submit" name="Delete" class="delete font-ico-delete" formmethod="post" formaction="@Url.Action("Delete", "User")"></button>
 				</div>
 			</div>
 		</div>

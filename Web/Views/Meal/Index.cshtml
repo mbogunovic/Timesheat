@@ -1,20 +1,26 @@
 ﻿@model MealViewModel
 
 @{
-	Html.RenderPartial("_Filtering", Model.Filter);
+    Html.RenderPartial("_Filtering", Model.Filter);
 }
 
 <div class="accordion__table">
-	@if (Model.Meals.Items.HasValue())
-	{
-		Html.RenderPartial("_MealDetails", new MealDetailsRenderModel() { CategoryList = Model.Meals.CategoryList, PortionsList = Model.Meals.PortionList});
-		foreach (var meal in Model.Meals.Items)
-		{
-			Html.RenderPartial("_MealDetails", meal);
-		}
-	}
+    @{
+        Html.RenderPartial("_MealDetails", new MealDetailsRenderModel() { CategoryList = Model.Meals.CategoryList, PortionsList = Model.Meals.PortionList });
+        if (Model.Meals.Items.HasValue())
+        {
+            foreach (var meal in Model.Meals.Items)
+            {
+                Html.RenderPartial("_MealDetails", meal);
+            }
+        }
+    }
 </div>
 
 @{
-	Html.RenderPartial("_Pagination", Model.Meals.Pagination);
+    Html.RenderPartial("_Pagination", Model.Meals.Pagination);
+}
+
+@section additionalFooter{
+    @Scripts.RenderFormat("<script src='{0}' defer></script>", "~/scripts/forms")
 }

@@ -1,45 +1,36 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using TimeshEAT.Business.Helpers;
-using TimeshEAT.Business.Logging.Interfaces;
 using TimeshEAT.Common;
+using TimeshEAT.Web.Attributes;
 using TimeshEAT.Web.Models.View;
 
 namespace TimeshEAT.Web.Controllers
 {
-	public class ReportAProblemController : Controller
-    {
-        private readonly ILogger _logger;
-
-        public ReportAProblemController(ILogger logger)
+	[RoleAuthorize(Roles = "User")]
+	public class ReportAProblemController : BaseController
+	{
+		public ActionResult Index() =>
+         View(new ReportAProblemModelViewModel());
+        
+        public ActionResult Submit(ReportAProblemModelSubmitViewModel model)
         {
-            _logger = logger;
-        }
-
-        public ActionResult Index()
-        {
-            ReportAProblemModelViewModel model = new ReportAProblemModelViewModel();
-            model.FormModel = new ReportAProblemModelSubmitViewModel();
-            return View(model);
-        }
-
-        public string Submit(ReportAProblemModelSubmitViewModel formModel)
-        {
-            if (ModelState.IsValid)
+	        if (ModelState.IsValid)
             {
                 try
                 {
-                    EmailSender sender = new EmailSender(_logger);
-                    sender.Send(AppSettings.ReportAProblemReceiver, AppSettings.ReportAProblemSender, formModel.Subject,
-                        formModel.Message);
-                    return "Hvala Vam na prijavi problema.";
+                    EmailSender sender = new EmailSender(_log);
+                    sender.Send(AppSettings.DefaultEmail, AppSettings.DefaultEmail, model.Subject,
+                        model.Message);
+                    return PartialView("_Message", "Hvala vam što ste prijavili problem, pokušaćemo da rešimo problem u najkraćem roku!");
                 }
-                catch
+				catch(Exception e)
                 {
-                    return "Doslo je do greske, molimo Vas da pokusate ponovo kasnije.";
-                }
-            }
+					return PartialView("_Message", e.Message);
+				}
+			}
 
-            return "Morate popuniti formu.";
+			return PartialView("_ReportAProblemForm", model);
         }
     }
 }

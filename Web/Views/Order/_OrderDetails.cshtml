@@ -2,32 +2,37 @@
 
 @if (Model.HasValue())
 {
-    using (Html.BeginForm("Save", "Order"))
-    {
+    using (Ajax.BeginForm("Save", "Order", null, new AjaxOptions { HttpMethod = "POST", OnComplete = "location.reload();" }))
+     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(x => x.Id)
         @Html.HiddenFor(x => x.Version)
         @Html.HiddenFor(x => x.UserId)
         @Html.HiddenFor(x => x.OrderDate)
         <div class="tr">
-            <div class="td accordion" data-accordion>Izaberi jelo</div>
+            <div class="td accordion" data-accordion>@(Model.Id == 0 ? "Izaberi jelo" : Model.Meal.Name)</div>
             <div class="td" style="flex-grow: 2;">
                 @Html.DropDownListFor(x => x.CategoryId, Model.CategoryList, "Izaberite kategoriju", new { data_category = "" })
+                @Html.ValidationMessageFor(x => x.CategoryId)
             </div>
             <div class="td" style="flex-grow:3; justify-content: center;">
                 @Html.DropDownListFor(x => x.MealId, Model.MealList, "Izaberite obrok", new { data_meal = "" })
+                @Html.ValidationMessageFor(x => x.MealId)
             </div>
             <div class="td" style="flex-grow: 2; justify-content: center;">
                 @Html.DropDownListFor(x => x.PortionId, Model.PortionList, "Izaberite veličinu porcije", new { data_portion = "" })
+                @Html.ValidationMessageFor(x => x.PortionId)
             </div>
             <div class="td" style="flex-grow:3;justify-content: center;">
                 @Html.TextBoxFor(x => x.Comment, new { placeholder = Model.DisplayName(x => x.Comment) })
             </div>
             <div class="td" style="justify-content: center;">
                 @Html.DropDownListFor(x => x.Quantity, Constants.QuantityList)
+                @Html.ValidationMessageFor(x => x.Quantity)
             </div>
             <div class="td" style="justify-content: center;">
                 @Html.TextBoxFor(x => x.LunchTimeString, new { @class = "time-picker", data_time = Model.LunchTime })
+                @Html.ValidationMessageFor(x => x.LunchTimeString)
             </div>
             <div class="td" style="justify-content: center;">
                 <input type="text" disabled value="@Model.Total" />
@@ -35,7 +40,7 @@
             <div class="td" style="justify-content: center;">
                 <div class="order__table-operations">
                     <button type="submit" class="save font-ico-save"></button>
-                    <button type="submit" class="delete font-ico-delete"  formethod="post" formaction="@Url.Action("Delete", "Order")" @(Model.Id > 0 ? String.Empty : "disabled")></button>
+                    <button type="submit" class="delete font-ico-delete"  formmethod="post" formaction="@Url.Action("Delete", "Order")" @(Model.Id > 0 ? String.Empty : "disabled")></button>
                 </div>
             </div>
         </div>

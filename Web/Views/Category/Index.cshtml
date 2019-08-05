@@ -1,23 +1,30 @@
 ﻿@model CategoryViewModel
 
-@{ 
-	Html.RenderPartial("_Filtering", Model.Filter);
+@{
+    Html.RenderPartial("_Filtering", Model.Filter);
 }
 
 <div class="table">
-	<div class="tr th">
-		<div class="td" style="flex-grow: 3;">Naziv kategorije</div>
-		<div class="td">Operacije</div>
-	</div>
-		@if (Model.Categories.Items.HasValue())
-		{
-			Html.RenderPartial("_CategoryDetails", new CategoryDetailsRenderModel());
-			foreach (var category in Model.Categories.Items)
-			{
-				Html.RenderPartial("_CategoryDetails", category);
-			}
-		}
+    <div class="tr th">
+        <div class="td" style="flex-grow: 3;">Naziv kategorije</div>
+        <div class="td">Operacije</div>
+    </div>
+    @{
+        Html.RenderPartial("_CategoryDetails", new CategoryDetailsRenderModel());
+        if (Model.Categories.Items.HasValue())
+        {
+            foreach (var category in Model.Categories.Items)
+            {
+                Html.RenderPartial("_CategoryDetails", category);
+            }
+        }
+    }
+
 </div>
 @{
-	Html.RenderPartial("_Pagination", Model.Categories.Pagination);
+    Html.RenderPartial("_Pagination", Model.Categories.Pagination);
+}
+
+@section additionalFooter{
+    @Scripts.RenderFormat("<script src='{0}' defer></script>", "~/scripts/forms")
 }

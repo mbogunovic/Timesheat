@@ -2,22 +2,9 @@
 
 <div class="content__section centered">
     <p>U zivotu nista nije savrseno, ako ste naisli na problem tokom koriscenja aplikacije, uocili resenje ili mesto za unapredjenje aplikacije molimo vas da iskoristite formu koja se nalazi ispod ovog teksta.</p>
-    <form class="standard-form md">
-        <ul>
-            <li>
-                <label>Tema</label>
-                @Html.TextBoxFor(m => m.FormModel.Subject)
-                @Html.ValidationMessageFor(m => m.FormModel.Subject)
-            </li>
-            <li>
-                <label>Poruka</label>
-                @Html.TextAreaFor(m => m.FormModel.Message)
-                @Html.ValidationMessageFor(m => m.FormModel.Message)
-            </li>
-            <li>
-                <button type="submit" class="btn">Posalji</button>
-            </li>
-        </ul>
-        
-    </form>
+    @{ Html.RenderPartial("_ReportAProblemForm", new ReportAProblemModelSubmitViewModel()); }
 </div>
+
+@section additionalFooter{
+    @Scripts.RenderFormat("<script src='{0}' defer></script>", "~/scripts/forms")
+}
