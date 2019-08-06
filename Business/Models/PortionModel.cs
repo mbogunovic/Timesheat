@@ -38,7 +38,7 @@ namespace TimeshEAT.Business.Models
 			}
 		}
 
-		#region [Implicit Operators]
+        #region [Implicit Operators]
 
 		public static implicit operator Portion(PortionModel portionModel)
 		{

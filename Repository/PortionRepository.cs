@@ -29,13 +29,13 @@ namespace TimeshEAT.Repository.Repositories
 		public ITransaction CreateNewTransaction() =>
 			_provider.CreateNewTransaction();
 
-        public IEnumerable<Portion> GetPortionsForMeal(Meal meal, ITransaction transaction = null) =>
+        public IEnumerable<MealPortion> GetPortionsForMeal(Meal meal, ITransaction transaction = null) =>
             _provider.GetPortionsForMeal(meal, transaction);
 
-        public void AddPortionForMeal(Meal meal, Portion portion, ITransaction transaction = null) =>
-            _provider.AddPortionForMeal(meal, portion, transaction);
+        public void AddPortionForMeal(MealPortion mealPortion, ITransaction transaction = null) =>
+            _provider.AddPortionForMeal(mealPortion, transaction);
 
-        public void DeletePortionForMeal(Meal meal, Portion portion, ITransaction transaction = null) =>
-            _provider.DeletePortionForMeal(meal, portion, transaction);
+        public void DeletePortionForMeal(MealPortion mealPortion, ITransaction transaction = null) =>
+            _provider.DeletePortionForMeal(mealPortion, transaction);
     }
 }

@@ -33,14 +33,15 @@ namespace TimeshEAT.Web.Controllers
 				return RedirectToAction("Index");
 			}
 
-            var selectedMeals = model.MealPortionsIds?.Split(',');
+            // todo create new model and logic for this
+            var selectedMeals = model.MealPortionsObjects?.Split(',');
             if (selectedMeals == null)
             {
-                model.Portions = new List<PortionModel>();
+                model.Portions = new List<MealPortionModel>();
             }
             else
             {
-                model.Portions = _api.GetAllPortions<PortionModel>()?.Data.Where(m => selectedMeals.Contains(m.Id.ToString()))
+                model.Portions = _api.GetAllPortions<MealPortionModel>()?.Data.Where(m => selectedMeals.Contains(m.Portion.Id.ToString()))
                     .ToList();
             }
 
@@ -65,15 +66,16 @@ namespace TimeshEAT.Web.Controllers
 				return RedirectToAction("Index");
 			}
 
-            var selectedPortions = model.MealPortionsIds?.Split(',');
+            // todo create new model and logic for this
+            var selectedPortions = model.MealPortionsObjects?.Split(',');
             if (selectedPortions == null)
             {
-                model.Portions = new List<PortionModel>();
+                model.Portions = new List<MealPortionModel>();
             }
             else
             {
-                model.Portions = _api.GetAllPortions<PortionModel>()?.Data
-                    .Where(m => selectedPortions.Contains(m.Id.ToString())).ToList();
+                model.Portions = _api.GetAllPortions<MealPortionModel>()?.Data
+                    .Where(m => selectedPortions.Contains(m.Portion.Id.ToString())).ToList();
             }
 
             _api.DeleteMeal(model);

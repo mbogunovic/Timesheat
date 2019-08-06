@@ -22,7 +22,12 @@ namespace TimeshEAT.Business.Services
             foreach (var meal in result)
             {
 	            meal.Category = _context.CategoryRepository.GetById(meal.CategoryId);
-                meal.Portions = _context.PortionRepository.GetPortionsForMeal(meal).Select(p => (PortionModel)p);
+                meal.Portions = _context.PortionRepository.GetPortionsForMeal(meal).Select(p => new MealPortionModel
+                {
+                    Meal = meal,
+                    Portion = (PortionModel)_context.PortionRepository.GetById(p.PortionId),
+                    Price = p.Price
+                });
             }
 
 			return result;
@@ -36,7 +41,12 @@ namespace TimeshEAT.Business.Services
 			foreach (var meal in result)
 			{
 				meal.Category = _context.CategoryRepository.GetById(meal.CategoryId);
-				meal.Portions = _context.PortionRepository.GetPortionsForMeal(meal).Select(p => (PortionModel)p);
+				meal.Portions = _context.PortionRepository.GetPortionsForMeal(meal).Select(p => new MealPortionModel
+                {
+                    Meal = meal,
+                    Portion = _context.PortionRepository.GetById(p.PortionId),
+                    Price = p.Price
+                });
 			}
 
 			return result;
@@ -47,8 +57,13 @@ namespace TimeshEAT.Business.Services
 			if (id <= 0) throw new ArgumentNullException(nameof(id), "Id cannot be null!");
 
 			var result = (MealModel)_context.MealRepository.GetById(id);
-            result.Portions = _context.PortionRepository.GetPortionsForMeal(result).Select(p => (PortionModel) p);
-			return result;
+            result.Portions = _context.PortionRepository.GetPortionsForMeal(result).Select(p => new MealPortionModel
+            {
+                Meal = result,
+                Portion = _context.PortionRepository.GetById(p.PortionId),
+                Price = p.Price
+            });
+            return result;
 		}
 
 		public MealModel Add(MealModel meal)
@@ -60,7 +75,12 @@ namespace TimeshEAT.Business.Services
             {
                 foreach (var portion in meal.Portions)
                 {
-                    _context.PortionRepository.AddPortionForMeal(result, portion);
+                    _context.PortionRepository.AddPortionForMeal(new MealPortion
+                    {
+                        MealId = portion.Meal.Id,
+                        PortionId = portion.Portion.Id,
+                        Price = portion.Price
+                    });
                 }
             }
 
@@ -73,16 +93,31 @@ namespace TimeshEAT.Business.Services
 
 			var result = _context.MealRepository.Update(meal);
 
-            var existingPortions = _context.PortionRepository.GetPortionsForMeal(meal).Select(p => (PortionModel)p).ToList();
-
-            foreach (var addedPortion in meal.Portions.Except(existingPortions, new PortionEqualityComparer()))
+            var existingPortions = _context.PortionRepository.GetPortionsForMeal(meal).Select(p => new MealPortionModel
             {
-                _context.PortionRepository.AddPortionForMeal(meal, addedPortion);
+                Meal = meal,
+                Portion = _context.PortionRepository.GetById(p.PortionId),
+                Price = p.Price
+            }).ToList();
+
+            foreach (var addedPortion in meal.Portions.Except(existingPortions, new MealPortionEqualityComparer()))
+            {
+                _context.PortionRepository.AddPortionForMeal(new MealPortion
+                {
+                    MealId = meal.Id,
+                    PortionId = addedPortion.Portion.Id,
+                    Price = addedPortion.Price
+                });
             }
 
-            foreach (var removedPortion in existingPortions.Except(meal.Portions, new PortionEqualityComparer()))
+            foreach (var removedPortion in existingPortions.Except(meal.Portions, new MealPortionEqualityComparer()))
             {
-                _context.PortionRepository.DeletePortionForMeal(meal, removedPortion);
+                _context.PortionRepository.DeletePortionForMeal(new MealPortion
+                {
+                    MealId = meal.Id,
+                    PortionId = removedPortion.Portion.Id,
+                    Price = removedPortion.Price
+                });
             }
 
 			return result;
@@ -94,7 +129,7 @@ namespace TimeshEAT.Business.Services
 
             foreach (var portion in _context.PortionRepository.GetPortionsForMeal(meal))
             {
-                _context.PortionRepository.DeletePortionForMeal(meal, portion);
+                _context.PortionRepository.DeletePortionForMeal(portion);
             }
 			_context.MealRepository.Delete(meal);
         }

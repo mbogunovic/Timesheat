@@ -3,7 +3,7 @@
     $(".js-company-meals").children().on("click",
         function (e) {
             var form = $(this).closest("form");
-            bindClickRemove($(this), $(this).closest("form").find("select[name=MealList]"), "mealid");
+            bindClickRemove($(this), $(this), $(this).closest("form").find("select[name=MealList]"), "mealid");
             updateHiddenField($(form).find(".js-company-meals").children(), $(form), "mealid", "[name=CompanyMealsIds]");
         });
     $("select[name=MealList]").change(function (e) {

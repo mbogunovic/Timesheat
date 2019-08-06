@@ -30,7 +30,7 @@ namespace TimeshEAT.Web.Models.View
             CategoryList = categoryList ?? new List<SelectListItem>();
             MealList = mealList ?? new List<SelectListItem>();
             PortionList = Meal?.Portions?
-                              .Select(x => new SelectListItem() {Value = x.Id.ToString(), Text = x.Name})
+                              .Select(x => new SelectListItem() {Value = x.Portion.Id.ToString(), Text = x.Portion.Name})
                               .ToList() ?? new List<SelectListItem>();
         }
 
@@ -39,7 +39,8 @@ namespace TimeshEAT.Web.Models.View
         public int UserId { get; set; }
         public DateTime OrderDate { get; set; }
         public MealModel Meal { get; set; }
-        public int Total => Meal?.Price ?? 0 * Quantity;
+        // todo check if this needs updates
+        public int Total => Meal?.Portions?.FirstOrDefault(x => x.Portion.Id == PortionId)?.Price ?? 0 * Quantity;
 
         public IList<SelectListItem> CategoryList { get; set; }
         public IList<SelectListItem> MealList { get; set; }

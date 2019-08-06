@@ -21,6 +21,7 @@ namespace TimeshEAT.DataAccess.Extensions
 
             foreach (PropertyInfo property in typeof(T).GetProperties())
             {
+                // todo fix the price crash for the Portions - no way to obtain this shit
 	            var propertyValue = record[property.Name]
 		            .DBNullTo(property.PropertyType.GetDefault());
 

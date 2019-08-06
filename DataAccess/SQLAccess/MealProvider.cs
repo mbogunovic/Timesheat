@@ -22,7 +22,6 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
         protected override void AddInsertParams(SqlCommand sqlCommand, Meal meal)
 		{
 			sqlCommand.Parameters.AddWithValue("@Name", meal.Name);
-			sqlCommand.Parameters.AddWithValue("@Price", meal.Price);
 			sqlCommand.Parameters.AddWithValue("@CategoryId", meal.CategoryId);
 		}
 
@@ -30,7 +29,6 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 		{
 			sqlCommand.Parameters.AddWithValue("@Id", meal.Id);
 			sqlCommand.Parameters.AddWithValue("@Name", meal.Name);
-			sqlCommand.Parameters.AddWithValue("@Price", meal.Price);
 			sqlCommand.Parameters.AddWithValue("@CategoryId", meal.CategoryId);
 		}
 
