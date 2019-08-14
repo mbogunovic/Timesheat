@@ -30,25 +30,25 @@
                 </div>
                 <div class="accordion__buttons float-right">
                     <button type="submit" class="save font-ico-save"></button>
-                    <button type="submit" class="delete font-ico-delete" formethod="post" formaction="@Url.Action("Delete", "Meal")"></button>
+                    <button type="submit" class="delete font-ico-delete" formmethod="post" formaction="@Url.Action("Delete", "Meal")"></button>
                 </div>
             </div>
             <div class="col-4">
                 <div class="field">
                     @Html.LabelFor(m => m.PortionsList)
-                    @Html.DropDownListFor(m => m.PortionsList, Model.PortionsList, "Dodaj porciju")
+                    @Html.DropDownListFor(m => m.PortionsList, Model.PortionsList, "Dodaj porciju", new { data_portions_list = "" })
                 </div>
                 <div class="field">
-                    @Html.LabelFor(m => m.MealPortions)
-                    @Html.HiddenFor(m => m.MealPortionsObjects)
-                    <ul class="js-meal-portions">
+                    @Html.LabelFor(m => m.SelectedMealPortions)
+                    <ul data-meal-portions class="portions__prices">
                         @if (Model.MealPortions.HasValue())
                         {
                             foreach (var portion in Model.MealPortions)
                             {
-                                <li>
-                                    <span data-portionid="@portion.Value">@portion.Text</span>
-                                    <input type="number" min="0" class="js-portion-price" />
+                                <li class="portion__price" data-meal-portion="@portion.Portion.Name" data-meal-portion-id="@portion.Portion.Id">
+                                    <span>@portion.Portion.Name</span>
+                                        <input name="@($"{nameof(Model.SelectedMealPortions)}[" + portion.Portion.Id + "]")" type="number" min="0" value="@portion.Price" data-portion-price />
+                                    <span>Din.</span>
                                 </li>
                             }
                         }

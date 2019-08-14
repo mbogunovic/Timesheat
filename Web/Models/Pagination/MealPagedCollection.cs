@@ -33,13 +33,7 @@ namespace TimeshEAT.Web.Models.Pagination
 
 			foreach (MealDetailsRenderModel meal in Items)
             {
-                meal.MealPortions = meal.Portions?.Select(p => new SelectListItem
-                {
-                    Text = p.Portion.Name,
-                    Value = p.Portion.Id.ToString()
-                }).ToList() ?? new List<SelectListItem>();
-                meal.MealPortionsObjects = string.Join(",", meal.Portions?.Select(mp => "{ \"PortionId\":" + mp.Portion.Id + ", \"Price\":" + mp.Price + "}") ?? Array.Empty<string>());
-                meal.PortionsList = PortionList.Where(pli => !meal.MealPortionsObjects.Split(',').Contains(pli.Value)).ToList();
+				meal.PortionsList = PortionList.Where(x => !meal.MealPortions.ToList().Any(y => y.Portion.Id.ToString().Equals(x.Value))).ToList();
 				meal.CategoryList = CategoryList;
 			}
 		}

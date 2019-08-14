@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web.Mvc;
 using TimeshEAT.Business.Models;
 using TimeshEAT.Web.Interfaces;
@@ -19,10 +20,10 @@ namespace TimeshEAT.Web.Models.Render
 		public int CategoryId { get; set; }
 
 		public IList<SelectListItem> CategoryList { get; set; }
-        public string MealPortionsObjects { get; set; }
         [Display(Name = "Porcije jela:")]
-        public IList<SelectListItem> MealPortions { get; set; }
-        public IList<MealPortionModel> Portions { get; set; }
+		[Required]
+        public Dictionary<string, string> SelectedMealPortions { get; set; }
+        public IList<MealPortionModel> MealPortions { get; set; }
         [Display(Name = "Porcije:")]
         public IList<SelectListItem> PortionsList { get; set; }
 
@@ -32,7 +33,11 @@ namespace TimeshEAT.Web.Models.Render
                 return null;
 
             var mealModel = new MealModel(meal.Name, meal.CategoryId, meal.Id, meal.Version);
-            mealModel.Portions = meal.Portions;
+            mealModel.MealPortions = meal.MealPortions;
+			mealModel.SelectedMealPortions = meal.SelectedMealPortions?
+				.ToList()
+				.ToDictionary(x => int.Parse(x.Key), y => int.Parse(y.Value)) 
+				?? new Dictionary<int, int>();
 
             return mealModel;
         }

@@ -19,7 +19,7 @@ namespace TimeshEAT.Web.Models.View
                 CategoryId = m.CategoryId,
                 Name = m.Name,
                 Version = m.Version,
-                Portions = m.Portions.ToList()
+                MealPortions = m.MealPortions.ToList()
             }).OrderBy(x => x.Name));
 			searchResult = new Lazy<MealPagedCollection>(() => Search());
 		}

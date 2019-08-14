@@ -3220,6 +3220,41 @@ button {
   color: white;
 }
 
+.portions__prices {
+  width: 100%;
+}
+
+.portion__price {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border: 1px solid #cccbcb;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  cursor: pointer;
+  color: #444444;
+  margin-bottom: 5px;
+}
+
+.portion__price input {
+  border: none;
+  margin-left: auto;
+  max-width: 68px;
+}
+
+.portion__price:hover {
+  background: #ffaf46;
+  border-color: #e59c3d;
+  color: #fff;
+}
+
+.portion__price:hover input {
+  color: #fff;
+  background: #ffaf46;
+}
+
 /*--------------------------------------------------------------
 # Layout
 --------------------------------------------------------------*/

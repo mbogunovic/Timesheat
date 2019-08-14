@@ -79,7 +79,7 @@ namespace TimeshEAT.Web.Controllers
 			if (mealId == null) return null;
 
 			var result = _member.Company?.Meals?
-				             .First(x => x.Id.Equals(mealId))?.Portions
+				             .First(x => x.Id.Equals(mealId))?.MealPortions
 				             .Select(x => new SelectListItem() {Value = x.Portion.Id.ToString(), Text = x.Portion.Name}) ?? new List<SelectListItem>();
 
 			return Json(result, JsonRequestBehavior.AllowGet);
