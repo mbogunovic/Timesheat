@@ -22,5 +22,16 @@
 }
 
 @section additionalFooter{
+    <script>
+        function showValidationMessages(parameters) {
+            for (var key in parameters.responseJSON) {
+                if (parameters.responseJSON.hasOwnProperty(key) && parameters.responseJSON[key] != null) {
+                    var $errorField = $(this).find('[data-valmsg-for=' + key + ']');
+                    $errorField[0].insertAdjacentHTML('beforeend', '<span id="' + key + '-error">' + parameters.responseJSON[key].ErrorMessage + '<span>');
+                    $errorField.removeClass('field-validation-valid').addClass('field-validation-error');
+                }
+            }
+        }
+    </script>
     @Scripts.RenderFormat("<script src='{0}' defer></script>", "~/scripts/forms")
 }

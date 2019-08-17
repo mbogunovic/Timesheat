@@ -4,7 +4,14 @@
 {
     <div class="accordion__item">
         <div class="accordion" data-accordion><span>@(Model.Name.HasValue() ? Model.Name : Model.DisplayName(x => x.Name))</span></div>
-        @using (Ajax.BeginForm("Save", "Meal", null, new AjaxOptions { HttpMethod = "POST", OnComplete = "location.reload();" }, new { @class = "accordion__content", style = "display:none;" }))
+        @using (Ajax.BeginForm("Save", "Meal", null,
+            new AjaxOptions
+            {
+                HttpMethod = "POST",
+                OnSuccess = "location.reload();",
+                OnFailure = "showValidationMessages"
+            },
+            new { @class = "accordion__content", style = "display:none;" }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(x => x.Id)
@@ -36,7 +43,10 @@
             <div class="col-4">
                 <div class="field">
                     @Html.LabelFor(m => m.PortionsList)
-                    @Html.DropDownListFor(m => m.PortionsList, Model.PortionsList, "Dodaj porciju", new { data_portions_list = "" })
+                    <div class="validation__wrapper">
+                        @Html.DropDownListFor(m => m.PortionsList, Model.PortionsList, "Dodaj porciju", new { data_portions_list = "" })
+                        @Html.ValidationMessageFor(x => x.SelectedMealPortions)
+                    </div>
                 </div>
                 <div class="field">
                     @Html.LabelFor(m => m.SelectedMealPortions)
@@ -47,7 +57,7 @@
                             {
                                 <li class="portion__price" data-meal-portion="@portion.Portion.Name" data-meal-portion-id="@portion.Portion.Id">
                                     <span>@portion.Portion.Name</span>
-                                        <input name="@($"{nameof(Model.SelectedMealPortions)}[" + portion.Portion.Id + "]")" type="number" min="0" value="@portion.Price" data-portion-price />
+                                    <input name="@($"{nameof(Model.SelectedMealPortions)}[" + portion.Portion.Id + "]")" type="number" min="0" value="@portion.Price" data-portion-price />
                                     <span>Din.</span>
                                 </li>
                             }

@@ -37,6 +37,22 @@ DECLARE	@return_value int,
 		@Id int,
 		@Version timestamp
 
+EXEC	@return_value = [dbo].[PortionInsert]
+		@Id = @Id OUTPUT,
+		@Name = N'Porcija',
+		@Version = @Version OUTPUT
+
+SELECT	@Id as N'@Id',
+		@Version as N'@Version'
+
+SELECT	'Return Value' = @return_value
+
+GO
+
+DECLARE	@return_value int,
+		@Id int,
+		@Version timestamp
+
 EXEC	@return_value = [dbo].[RoleInsert]
 		@Id = @Id OUTPUT,
 		@Name = N'Administrator',

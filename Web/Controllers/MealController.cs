@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using TimeshEAT.Business.Models;
 using TimeshEAT.Web.Attributes;
@@ -29,7 +30,8 @@ namespace TimeshEAT.Web.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-				return RedirectToAction("Index");
+				Response.StatusCode = (int)HttpStatusCode.BadRequest;
+				return Json(ModelState.ToDictionary(x => x.Key, x => x.Value.Errors.FirstOrDefault()));
 			}
 
 			if (model.Id == 0)

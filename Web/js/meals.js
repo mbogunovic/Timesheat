@@ -4,7 +4,7 @@
         const selectedIndex = $portionsOptions.prop('selectedIndex');
         let mealPortion = '<li class="portion__price" data-meal-portion="' + this[selectedIndex].text + '" data-meal-portion-id="' + $portionsOptions.val() + '">';
         mealPortion += '<span>' + this[selectedIndex].text + '</span>';
-        mealPortion += '<input name="SelectedMealPortions[' + $portionsOptions.val() + ']" type="number" min="0" data-portion-price/>';
+        mealPortion += '<input name="SelectedMealPortions[' + $portionsOptions.val() + ']" type="number" min="0" data-portion-price value="0"/>';
         mealPortion += '<span>Din.</span>'; 
         mealPortion += '</li>';
 

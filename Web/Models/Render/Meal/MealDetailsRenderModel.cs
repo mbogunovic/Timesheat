@@ -21,7 +21,7 @@ namespace TimeshEAT.Web.Models.Render
 
 		public IList<SelectListItem> CategoryList { get; set; }
         [Display(Name = "Porcije jela:")]
-		[Required]
+		[Required(ErrorMessage ="Morate dodati porcije jela.")]
         public Dictionary<string, string> SelectedMealPortions { get; set; }
         public IList<MealPortionModel> MealPortions { get; set; }
         [Display(Name = "Porcije:")]
@@ -33,10 +33,9 @@ namespace TimeshEAT.Web.Models.Render
                 return null;
 
             var mealModel = new MealModel(meal.Name, meal.CategoryId, meal.Id, meal.Version);
-            mealModel.MealPortions = meal.MealPortions;
 			mealModel.SelectedMealPortions = meal.SelectedMealPortions?
 				.ToList()
-				.ToDictionary(x => int.Parse(x.Key), y => int.Parse(y.Value)) 
+				.ToDictionary(x => int.Parse(x.Key), y => int.Parse(string.IsNullOrWhiteSpace(y.Value) ? "0" : y.Value)) 
 				?? new Dictionary<int, int>();
 
             return mealModel;
