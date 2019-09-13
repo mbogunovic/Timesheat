@@ -1,4 +1,6 @@
 ﻿using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
+using TimeshEAT.API.Handlers;
 
 namespace TimeshEAT.API
 {
@@ -12,6 +14,9 @@ namespace TimeshEAT.API
                 = Newtonsoft.Json.ReferenceLoopHandling.Serialize;
             config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling
                 = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+            
+            // register global error handler because Application_Error isn't triggered
+            config.Services.Replace(typeof(IExceptionHandler), new ErrorHandler());
 
             // Web API routes
             config.MapHttpAttributeRoutes();

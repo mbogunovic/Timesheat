@@ -1,14 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
 using SimpleInjector.Lifestyles;
-using TimeshEAT.API.Areas.HelpPage;
 using TimeshEAT.Business.Interfaces;
 using TimeshEAT.Business.Logging.Interfaces;
 using TimeshEAT.Business.Logging.Wrappers;
@@ -42,24 +38,5 @@ namespace TimeshEAT.API
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
-
-		protected void Application_Error()
-		{
-			ILogger log = DependencyResolver.Current.GetService<ILogger>();
-			string[] path = Request.Path?.Split('/');
-			Exception ex = Server.GetLastError();
-
-			//if controller and action can't be found in path
-			if (path == null || path.Count() < 3)
-			{
-				log.WriteErrorLog($"Unhandled exception occured while executing.", ex);
-			}
-			else
-			{
-				log.WriteErrorLog($"Unhandled exception occured while executing {path[1]} in {path[2]}.", ex);
-			}
-
-			Response.TrySkipIisCustomErrors = true;
-		}
-	}
+    }
 }
