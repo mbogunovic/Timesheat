@@ -1,5 +1,6 @@
 ﻿using Serilog;
 using System;
+using System.Web;
 
 namespace TimeshEAT.Business.Logging.Wrappers
 {
@@ -7,6 +8,7 @@ namespace TimeshEAT.Business.Logging.Wrappers
 	{
 		public SerilogWrapper(string path)
 		{
+			path = HttpContext.Current.Server.MapPath(path);
 			Log.Logger = new LoggerConfiguration()
 				.WriteTo.RollingFile(path + "/log-{Date}.txt")
 				.CreateLogger();
