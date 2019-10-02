@@ -3180,29 +3180,27 @@
 			var $boardNav = $('[data-board-navigation]');
 
 			if ($boardNav.length) {
-				$(window).on('load', function () {
-					var $navItems = $boardNav.children().not(':first');
+				var $navItems = $boardNav.children().not(':first');
 
-					$boardNav.css('height', $('[data-board]').height() - (window.innerWidth < 768 ? 0 : 29));
-					var translateOffset = $('[data-board-navigation-up]').position().top;
+				$boardNav.css('height', $('[data-board]').height() - (window.innerWidth < 768 ? 0 : 29));
+				var translateOffset = $('[data-board-navigation-up]').position().top;
 
+				$navItems.css('transform', 'translate(0px, ' + translateOffset + 'px)');
+				$(window).resize(function () {
+					return $boardNav.css('height', $('[data-board]').height() - 9);
+				});
+
+				$('[data-board-navigation-down]').on('click', function () {
+					$navItems.not(':last').css('transform', 'translate(0px, 0px)');
+				});
+
+				$('[data-board-navigation-up]').on('click', function () {
+					$navItems.not(':last').css('transform', 'translate(0px, ' + translateOffset + 'px)');
+				});
+
+				$(window).resize(function () {
+					translateOffset = translateOffset + $('[data-board-navigation-up]').position().top;
 					$navItems.css('transform', 'translate(0px, ' + translateOffset + 'px)');
-					$(window).resize(function () {
-						return $boardNav.css('height', $('[data-board]').height() - 9);
-					});
-
-					$('[data-board-navigation-down]').on('click', function () {
-						$navItems.not(':last').css('transform', 'translate(0px, 0px)');
-					});
-
-					$('[data-board-navigation-up]').on('click', function () {
-						$navItems.not(':last').css('transform', 'translate(0px, ' + translateOffset + 'px)');
-					});
-
-					$(window).resize(function () {
-						translateOffset = translateOffset + $('[data-board-navigation-up]').position().top;
-						$navItems.css('transform', 'translate(0px, ' + translateOffset + 'px)');
-					});
 				});
 			}
 		}

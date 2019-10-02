@@ -125,7 +125,6 @@
     <Content Include="Global.asax" />
     <Content Include="js\common.js" />
     <Content Include="js\companies.js" />
-    <Content Include="js\global.js" />
     <Content Include="js\global.min.js" />
     <Content Include="js\forms.js" />
     <Content Include="js\meals.js" />
@@ -209,7 +208,6 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="css\style.min.css.map" />
-    <Content Include="js\global.min.js.map" />
     <Content Include="assets\fonts\svgicons.ttf" />
     <Content Include="assets\fonts\svgicons.woff" />
     <Content Include="assets\fonts\svgicons.woff2" />

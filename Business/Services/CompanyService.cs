@@ -6,6 +6,7 @@ using TimeshEAT.Business.Models;
 using TimeshEAT.Domain.Interfaces.Repositories;
 using TimeshEAT.Business.Interfaces;
 using TimeshEAT.Common.Extensions;
+using TimeshEAT.Domain.Models;
 
 namespace TimeshEAT.Business.Services
 {
@@ -42,11 +43,11 @@ namespace TimeshEAT.Business.Services
 
 			var result = _context.CompanyRepository.Insert(company);
 
-            if (company.Meals.HasValue())
+            if (company.SelectedMeals.HasValue())
             {
-                foreach (var companyMeal in company.Meals)
+                foreach (var mealId in company.SelectedMeals)
                 {
-                    _context.MealRepository.AddMealForCompany(companyMeal, result);
+                    _context.MealRepository.AddMealForCompany(new Meal() { Id = mealId }, result);
                 }
             }
 
@@ -58,17 +59,17 @@ namespace TimeshEAT.Business.Services
 			if (company == null) throw new ArgumentNullException(nameof(company), "Company cannot be null!");
 
 			var result = _context.CompanyRepository.Update(company);
-            var existingMeals = _context.MealRepository.GetMealsForCompany(company).Select(m => (MealModel)m).ToList();
+            var existingMeals = _context.MealRepository.GetMealsForCompany(company).Select(p => p.Id);
 
-            foreach (var addedMeal in company.Meals.Except(existingMeals, new MealEqualityComparer()))
-            {
-                _context.MealRepository.AddMealForCompany(addedMeal, company);
-            }
+			foreach (var removedPortionId in existingMeals.Except(company.SelectedMeals))
+			{
+				_context.MealRepository.DeleteMealForCompany(new Meal() { Id = removedPortionId }, company);
+			}
 
-            foreach (var removedMeal in existingMeals.Except(company.Meals, new MealEqualityComparer()))
-            {
-                _context.MealRepository.DeleteMealForCompany(removedMeal, company);
-            }
+			foreach (var addedMealId in company.SelectedMeals.Except(existingMeals))
+			{
+				_context.MealRepository.AddMealForCompany(new Meal() { Id = addedMealId }, result);
+			}
 
             return result;
 		}

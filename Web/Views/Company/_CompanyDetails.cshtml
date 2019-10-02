@@ -41,20 +41,32 @@
             <div class="col-4">
                 <div class="field">
                     @Html.LabelFor(m => m.MealList)
-                    @Html.DropDownListFor(m => m.MealList, Model.MealList, "Dodaj jelo")
+                    @Html.DropDownListFor(m => m.MealList, Model.MealList, "Dodaj jelo", new { data_company_meals_list = "" })
                 </div>
                 <div class="field">
-                    @Html.LabelFor(m => m.CompanyMeals)
-                    @Html.HiddenFor(m => m.CompanyMealsIds)
-                    <ul class="js-company-meals">
-                        @if (Model.CompanyMeals.HasValue())
+                    @Html.LabelFor(m => m.SelectedMeals)
+                    <ul data-company-meals class="portions__prices">
+                        @if (Model.Meals.HasValue())
                         {
-                            foreach (var meal in Model.CompanyMeals)
+                            foreach (var meal in Model.Meals)
                             {
-                                <li data-mealid="@meal.Value">@meal.Text</li>
+                                <li class="portion__price" data-company-meal="@meal.Name" data-company-meal-id="@meal.Id">
+                                    <input name="@($"{nameof(Model.SelectedMeals)}[]")" type="hidden" value="@meal.Id"/>
+                                    <span>@meal.Name</span>
+                                </li>
                             }
                         }
                     </ul>
+
+                    @*<ul class="js-company-meals">
+                            @if (Model.CompanyMeals.HasValue())
+                            {
+                                foreach (var meal in Model.CompanyMeals)
+                                {
+                                    <li data-mealid="@meal.Value">@meal.Text</li>
+                                }
+                            }
+                        </ul>*@
                 </div>
             </div>
         </div>

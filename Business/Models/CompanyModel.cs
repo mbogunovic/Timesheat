@@ -62,7 +62,7 @@ namespace TimeshEAT.Business.Models
 		public int DailyDiscount { get; set; }
 
         public IList<MealModel> Meals { get; set; }
-
+		public IEnumerable<int> SelectedMeals { get; set; }
 		#region [Implicit Operators]
 
 		public static implicit operator Company(CompanyModel companyModel)

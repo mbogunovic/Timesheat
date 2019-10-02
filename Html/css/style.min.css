@@ -4004,7 +4004,7 @@ select {
 }
 
 .board__month-navigation li.active {
-  border: unset !important;
+  outline: unset !important;
   background-color: unset;
   pointer-events: none;
 }
