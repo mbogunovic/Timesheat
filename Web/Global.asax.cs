@@ -1,4 +1,5 @@
-﻿using SimpleInjector;
+﻿using Newtonsoft.Json;
+using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
 using System.Configuration;
@@ -22,7 +23,12 @@ namespace TimeshEAT.Web
 		protected void Application_Start()
 		{
 			AreaRegistration.RegisterAllAreas();
-			//FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+			// prevents stack overflow while serializing object to json
+			JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+			{
+				ReferenceLoopHandling = ReferenceLoopHandling.Serialize,
+				PreserveReferencesHandling = PreserveReferencesHandling.Objects
+			};
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 

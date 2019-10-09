@@ -25,6 +25,7 @@ namespace TimeshEAT.Business.Helpers
                 MailMessage mailMessage = new MailMessage(senderAddress, receiverAddress);
                 mailMessage.Subject = subject;
                 mailMessage.Body = message;
+				mailMessage.IsBodyHtml = true;
                 if (attachments != null)
                 {
                     foreach (Attachment attachment in attachments)
