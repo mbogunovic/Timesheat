@@ -11,7 +11,7 @@
                 OnSuccess = "location.reload();",
                 OnFailure = "showValidationMessages"
             },
-            new { @class = "accordion__content", style = "display:none;" }))
+            new { @class = "accordion__content row", style = "display:none;" }))
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(x => x.Id)
@@ -25,19 +25,6 @@
                         @Html.TextBoxFor(x => x.Name, new { placeholder = Model.DisplayName(x => x.Name) })
                         @Html.ValidationMessageFor(x => x.Name)
                     </div>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="field">
-                    @Html.LabelFor(x => x.CategoryId)
-                    <div class="validation__wrapper">
-                        @Html.DropDownListFor(x => x.CategoryId, Model.CategoryList, "Izaberi kategoriju")
-                        @Html.ValidationMessageFor(x => x.CategoryId)
-                    </div>
-                </div>
-                <div class="accordion__buttons float-right">
-                    <button type="submit" class="save font-ico-save"></button>
-                    <button type="submit" class="delete font-ico-delete" formmethod="post" formaction="@Url.Action("Delete", "Meal")"></button>
                 </div>
             </div>
             <div class="col-4">
@@ -63,6 +50,19 @@
                             }
                         }
                     </ul>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="field">
+                    @Html.LabelFor(x => x.CategoryId)
+                    <div class="validation__wrapper">
+                        @Html.DropDownListFor(x => x.CategoryId, Model.CategoryList, "Izaberi kategoriju")
+                        @Html.ValidationMessageFor(x => x.CategoryId)
+                    </div>
+                </div>
+                <div class="accordion__buttons">
+                    <button type="submit" class="delete font-ico-delete" formmethod="post" formaction="@Url.Action("Delete", "Meal")"></button>
+                    <button type="submit" class="save font-ico-save"></button>
                 </div>
             </div>
         }

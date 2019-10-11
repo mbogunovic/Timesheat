@@ -1,0 +1,27 @@
+2019-10-01 19:52:12.634 +02:00 [Error] Unhandled exception occured for user timesheat@gmail.com
+ "System.UnauthorizedAccessException: Sesija vam je istekla, molim vas prijavite se opet.
+   at TimeshEAT.Web.Membership.MemberPrincipal.IsInRole(String role) in D:\Max\Projects\TimeshEAT\Web\Principal\MemberPrincipal.cs:line 79
+   at System.Linq.Enumerable.Any[TSource](IEnumerable`1 source, Func`2 predicate)
+   at System.Web.Mvc.AuthorizeAttribute.AuthorizeCore(HttpContextBase httpContext)
+   at TimeshEAT.Web.Attributes.RoleAuthorizeAttribute.AuthorizeCore(HttpContextBase httpContext) in D:\Max\Projects\TimeshEAT\Web\Attributes\AuthorizeAttribute.cs:line 15
+   at System.Web.Mvc.AuthorizeAttribute.OnAuthorization(AuthorizationContext filterContext)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeAuthorizationFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)"
+2019-10-01 20:21:21.646 +02:00 [Error] Unhandled exception occured for user timesheat@gmail.com
+ "System.UnauthorizedAccessException: Sesija vam je istekla, molim vas prijavite se opet.
+   at TimeshEAT.Web.Membership.MemberPrincipal.IsInRole(String role) in D:\Max\Projects\TimeshEAT\Web\Principal\MemberPrincipal.cs:line 79
+   at System.Linq.Enumerable.Any[TSource](IEnumerable`1 source, Func`2 predicate)
+   at System.Web.Mvc.AuthorizeAttribute.AuthorizeCore(HttpContextBase httpContext)
+   at TimeshEAT.Web.Attributes.RoleAuthorizeAttribute.AuthorizeCore(HttpContextBase httpContext) in D:\Max\Projects\TimeshEAT\Web\Attributes\AuthorizeAttribute.cs:line 15
+   at System.Web.Mvc.AuthorizeAttribute.OnAuthorization(AuthorizationContext filterContext)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeAuthorizationFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)"
+2019-10-01 20:50:01.553 +02:00 [Error] Unhandled exception occured for user timesheat@gmail.com
+ "System.UnauthorizedAccessException: Sesija vam je istekla, molim vas prijavite se opet.
+   at TimeshEAT.Web.Membership.MemberPrincipal.IsInRole(String role) in D:\Max\Projects\TimeshEAT\Web\Principal\MemberPrincipal.cs:line 79
+   at System.Linq.Enumerable.Any[TSource](IEnumerable`1 source, Func`2 predicate)
+   at System.Web.Mvc.AuthorizeAttribute.AuthorizeCore(HttpContextBase httpContext)
+   at TimeshEAT.Web.Attributes.RoleAuthorizeAttribute.AuthorizeCore(HttpContextBase httpContext) in D:\Max\Projects\TimeshEAT\Web\Attributes\AuthorizeAttribute.cs:line 15
+   at System.Web.Mvc.AuthorizeAttribute.OnAuthorization(AuthorizationContext filterContext)
+   at System.Web.Mvc.ControllerActionInvoker.InvokeAuthorizationFilters(ControllerContext controllerContext, IList`1 filters, ActionDescriptor actionDescriptor)
+   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass3_1.<BeginInvokeAction>b__0(AsyncCallback asyncCallback, Object asyncState)"

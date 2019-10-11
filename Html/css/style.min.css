@@ -3422,7 +3422,7 @@ select {
   font-size: 11px;
   position: absolute;
   z-index: 10;
-  margin-top: 6px;
+  margin-top: 46px;
   color: #ffffff;
   background: #ffaf46;
   -webkit-box-shadow: 0 6px 2px -2px rgba(207, 137, 44, 0.47);
@@ -3434,10 +3434,6 @@ select {
   line-height: 11px;
   -webkit-transition: opacity 0.5s linear;
   transition: opacity 0.5s linear;
-}
-
-.table .field-validation-error {
-  margin-top: 46px !important;
 }
 
 .field-validation-error:before {

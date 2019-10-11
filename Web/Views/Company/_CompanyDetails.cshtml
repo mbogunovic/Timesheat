@@ -2,13 +2,20 @@
 
 @if (Model.HasValue())
 {
-    using (Ajax.BeginForm("Save", "Company", null, new AjaxOptions { HttpMethod = "POST", OnComplete = "location.reload();" }, new { @class = "accordion__item" }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(x => x.Id)
-        @Html.HiddenFor(x => x.Version)
-        <div class="accordion" data-accordion><span>@(string.IsNullOrWhiteSpace(Model.Name) ? Model.DisplayName(m => m.Name) : Model.Name)</span></div>
-        <div class="accordion__content" style="display:none;">
+    <div class="accordion__item">
+        <div class="accordion" data-accordion><span>@(Model.Name.HasValue() ? Model.Name : Model.DisplayName(x => x.Name))</span></div>
+        @using (Ajax.BeginForm("Save", "Company", null,
+            new AjaxOptions
+            {
+                HttpMethod = "POST",
+                OnSuccess = "location.reload();",
+                OnFailure = "showValidationMessages"
+            },
+            new { @class = "accordion__content row", style = "display:none;" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.Id)
+            @Html.HiddenFor(x => x.Version)
             <div class="col-4">
                 <div class="field">
                     @Html.LabelFor(m => m.Name)
@@ -27,19 +34,6 @@
             </div>
             <div class="col-4">
                 <div class="field">
-                    @Html.LabelFor(m => m.Email)
-                    <div class="validation__wrapper">
-                        @Html.TextBoxFor(m => m.Email, new { placeholder = Model.DisplayName(m => m.Email), type = "email" })
-                        @Html.ValidationMessageFor(m => m.Email)
-                    </div>
-                </div>
-                <div class="accordion__buttons float-right">
-                    <button type="submit" class="save font-ico-save"></button>
-                    <button type="submit" class="delete font-ico-delete" formmethod="POST" formaction="@Url.Action("Delete", "Company")"></button>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="field">
                     @Html.LabelFor(m => m.MealList)
                     @Html.DropDownListFor(m => m.MealList, Model.MealList, "Dodaj jelo", new { data_company_meals_list = "" })
                 </div>
@@ -51,25 +45,27 @@
                             foreach (var meal in Model.Meals)
                             {
                                 <li class="portion__price" data-company-meal="@meal.Name" data-company-meal-id="@meal.Id">
-                                    <input name="@($"{nameof(Model.SelectedMeals)}[]")" type="hidden" value="@meal.Id"/>
+                                    <input name="@($"{nameof(Model.SelectedMeals)}[]")" type="hidden" value="@meal.Id" />
                                     <span>@meal.Name</span>
                                 </li>
                             }
                         }
                     </ul>
-
-                    @*<ul class="js-company-meals">
-                            @if (Model.CompanyMeals.HasValue())
-                            {
-                                foreach (var meal in Model.CompanyMeals)
-                                {
-                                    <li data-mealid="@meal.Value">@meal.Text</li>
-                                }
-                            }
-                        </ul>*@
                 </div>
             </div>
-        </div>
-
-    }
+            <div class="col-4">
+                <div class="field">
+                    @Html.LabelFor(m => m.Email)
+                    <div class="validation__wrapper">
+                        @Html.TextBoxFor(m => m.Email, new { placeholder = Model.DisplayName(m => m.Email), type = "email" })
+                        @Html.ValidationMessageFor(m => m.Email)
+                    </div>
+                </div>
+                <div class="accordion__buttons">
+                    <button type="submit" class="delete font-ico-delete" formmethod="POST" formaction="@Url.Action("Delete", "Company")"></button>
+                    <button type="submit" class="save font-ico-save"></button>
+                </div>
+            </div>
+        }
+    </div>
 }
