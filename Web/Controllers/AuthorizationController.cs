@@ -62,7 +62,7 @@ namespace TimeshEAT.Web.Controllers
 			}
 
 			_member.ForgotPassword(model.Email);
-			TempData[Constants.RESPONSE_MESSAGE] = "Ako email adresa postoji, link za kreaciju nove šifre je poslat na adresu.";
+			TempData[Constants.RESPONSE_MESSAGE] = "Ako email adresa postoji, link za resetovanje šifre je poslat na adresu.";
 
 			return View(model);
 		}
@@ -75,7 +75,7 @@ namespace TimeshEAT.Web.Controllers
 		{
 			if (WebCache.Get(token) == null)
 			{
-				TempData[Constants.ERROR_MODEL] = new ErrorViewModel("401", "Token nije više važeć");
+				TempData[Constants.ERROR_MODEL] = new ErrorViewModel("401", "Token je već iskorišćen ili je istekao.");
 
 				return RedirectToAction("Index", "Error");
 			}

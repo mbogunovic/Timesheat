@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Principal;
+using System.Text;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -29,9 +31,9 @@ namespace TimeshEAT.Web.Membership
 		public IIdentity Identity { get; private set; }
 		public int Id => _user.Id;
 		public CompanyModel Company => _user.Company;
-        public string FullName => _user.FullName;
+		public string FullName => _user.FullName;
 
-        public Tuple<bool, string> Login(string email, string password)
+		public Tuple<bool, string> Login(string email, string password)
 		{
 			int loginCount = (int?)HttpContext.Current.Session["login_counter"] ?? 0;
 
@@ -76,10 +78,10 @@ namespace TimeshEAT.Web.Membership
 			FormsAuthentication.SignOut();
 
 		public bool IsInRole(string role) =>
-			_user != null 
+			_user != null
 				? _user.Roles.Any(x => x.Name.Equals(role))
 				: throw new UnauthorizedAccessException("Sesija vam je istekla, molim vas prijavite se opet.");
-			
+
 
 
 		public bool ResetPassword(string newPassword, string token)
@@ -96,7 +98,7 @@ namespace TimeshEAT.Web.Membership
 			return true;
 		}
 
-		public void ForgotPassword(string email = null)
+		public void ForgotPassword(string email = null, string subject = "Link za resetovanje lozinke")
 		{
 			Business.API.Models.ApiResponseModel<UserModel> userResponse = _api.GetUserByEmail<UserModel>(email ?? _user.Email);
 			if (userResponse.Status.Equals(HttpStatusCode.OK) && userResponse.Data != null)
@@ -106,9 +108,44 @@ namespace TimeshEAT.Web.Membership
 
 				WebCache.Set(token, userResponse.Data.Id);
 				string resetPasswordLink = $"{HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)}/Authorization/ResetPassword?token={token}";
-				emailSender.Send(!string.IsNullOrWhiteSpace(email) ? email : _user.Email, AppSettings.DefaultEmail, "TimeshEAT - Link za resetovanje lozinke", resetPasswordLink);
+				emailSender.Send(!string.IsNullOrWhiteSpace(email) ? email : _user.Email, AppSettings.DefaultEmail, "TimeshEAT - " + subject, EmailBodyBuilder.Build(userResponse.Data, resetPasswordLink, subject));
 			}
 
+		}
+	}
+
+	public static class EmailBodyBuilder
+	{
+		public static string Build(UserModel user, string resetPasswordLink = null, string subject = null)
+		{
+			StringBuilder body = new StringBuilder(ReadEmailTemplate());
+
+			// BODY REPLACE LOGIC
+			body.Replace("$logoUrl$", $"{HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)}/assets/images/logo.png");
+			body.Replace("$backgroundUrl$", $"{HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)}/assets/images/bg_pattern.svg");
+			body.Replace("$subject$", subject);
+			body.Replace("$resetPasswordLink$", resetPasswordLink);
+			body.Replace("$recipientName$", user.FullName);
+
+			return body.ToString();
+		}
+
+		private static string ReadEmailTemplate()
+		{
+			using (StreamReader sr = new StreamReader("E:\\Projects\\Max\\Timesheat\\Web\\EmailTemplates\\ResetPassword.html"))
+			{
+				var templateText = sr.ReadToEnd();
+
+
+				if (string.IsNullOrEmpty(templateText))
+				{
+					DependencyResolver.Current.GetService<ILogger>().WriteErrorLog("An error occured while building EmailBody", new Exception("Email template is not found on path:"));
+
+					return string.Empty;
+				}
+
+				return templateText;
+			}
 		}
 	}
 }
