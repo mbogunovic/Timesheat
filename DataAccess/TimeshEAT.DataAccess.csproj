@@ -50,6 +50,7 @@
     <Compile Include="SQLAccess\MealProvider.cs" />
     <Compile Include="SQLAccess\OrderProvider.cs" />
     <Compile Include="SQLAccess\PortionProvider.cs" />
+    <Compile Include="SQLAccess\ReportsProvider.cs" />
     <Compile Include="SQLAccess\RoleProvider.cs" />
     <Compile Include="SQLAccess\UserProvider.cs" />
   </ItemGroup>

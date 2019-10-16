@@ -129,6 +129,7 @@
     <Content Include="js\forms.js" />
     <Content Include="js\meals.js" />
     <Content Include="js\orders.js" />
+    <Content Include="js\reports.js" />
     <Content Include="js\table-search.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -144,6 +145,7 @@
     <Compile Include="Controllers\ReportAProblemController.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\MealController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\IFormExtensions.cs" />
@@ -176,6 +178,8 @@
     <Compile Include="Models\View\DayOrderViewModel.cs" />
     <Compile Include="Models\View\MealViewModel.cs" />
     <Compile Include="Models\View\OrderDetailsRenderModel.cs" />
+    <Compile Include="Models\View\ReportListingViewModel.cs" />
+    <Compile Include="Models\View\ReportViewModel.cs" />
     <Compile Include="Navigation\INavigationViewModel.cs" />
     <Compile Include="Navigation\INavigationContext.cs" />
     <Compile Include="Navigation\NavigationItem.cs" />
@@ -246,6 +250,8 @@
     <Content Include="Views\Order\_OrderDetails.cshtml" />
     <Content Include="Views\ReportAProblem\_ReportAProblemForm.cshtml" />
     <Content Include="Views\Shared\_Message.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Report\_ReportListing.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -176,6 +176,7 @@
     <Compile Include="Controllers\MealController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PortionController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">

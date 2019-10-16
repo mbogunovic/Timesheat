@@ -45,6 +45,7 @@
     <Compile Include="OrderRepository.cs" />
     <Compile Include="MealRepository.cs" />
     <Compile Include="PortionRepository.cs" />
+    <Compile Include="ReportsRepository.cs" />
     <Compile Include="RoleRepository.cs" />
     <Compile Include="DbRepositoryContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

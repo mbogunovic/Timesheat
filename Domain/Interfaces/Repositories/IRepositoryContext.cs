@@ -11,5 +11,6 @@ namespace TimeshEAT.Domain.Interfaces.Repositories
 		IOrderRepository OrderRepository { get; }
 		IPortionRepository PortionRepository { get; }
 		IRoleRepository RoleRepository { get; }
+        IReportsRepository ReportsRepository { get; }
 	}
 }

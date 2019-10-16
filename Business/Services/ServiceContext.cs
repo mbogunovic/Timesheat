@@ -28,6 +28,9 @@ namespace TimeshEAT.Business.Services
 
 		private IOrderService orderService = null;
 		public IOrderService Orders => orderService ?? (orderService = new OrderService(_repositoryContext));
+        
+        private IReportsService reportsService = null;
+		public IReportsService Reports => reportsService ?? (reportsService = new ReportsService(_repositoryContext));
 
 		public void Dispose(){}
 	}

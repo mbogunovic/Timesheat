@@ -11,5 +11,6 @@ namespace TimeshEAT.Business.Interfaces
 		IMealService Meals { get; }
 		ICompanyService Companies { get; }
 		ICategoryService Categories { get; }
+        IReportsService Reports { get; }
 	}
 }

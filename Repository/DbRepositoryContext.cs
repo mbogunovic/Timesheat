@@ -25,8 +25,10 @@ namespace TimeshEAT.Repository
 		 
 		private IRoleRepository roleRepository = null;
 		public IRoleRepository RoleRepository => roleRepository ?? (roleRepository = new RoleRepository());
-
-		public void Dispose(){}
+        
+        private IReportsRepository reportsRepository = null;
+        public IReportsRepository ReportsRepository => reportsRepository ?? (reportsRepository = new ReportsRepository());
+        public void Dispose(){}
 	}
 
 }
