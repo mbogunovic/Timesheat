@@ -251,6 +251,7 @@
     <Content Include="Views\ReportAProblem\_ReportAProblemForm.cshtml" />
     <Content Include="Views\Shared\_Message.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="smtp.config" />
     <Content Include="Views\Report\_ReportListing.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
