@@ -48,3 +48,4 @@ appSettings.config
 connectionStrings.config
 /Web/connectionStrings.config
 /API/connectionStrings.config
+smtp.config
