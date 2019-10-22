@@ -48,4 +48,5 @@ appSettings.config
 connectionStrings.config
 /Web/connectionStrings.config
 /API/connectionStrings.config
+Logs
 smtp.config

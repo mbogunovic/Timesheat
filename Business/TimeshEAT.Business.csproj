@@ -70,6 +70,7 @@
     <Compile Include="API\Order.cs" />
     <Compile Include="API\Portion.cs" />
     <Compile Include="API\Deserializers\RestSharpJsonNetDeserializer.cs" />
+    <Compile Include="API\Reports.cs" />
     <Compile Include="API\Role.cs" />
     <Compile Include="API\User.cs" />
     <Compile Include="EqualityComparers\MealEqualityComparer.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Interfaces\IMealService.cs" />
     <Compile Include="Interfaces\IOrderService.cs" />
     <Compile Include="Interfaces\IPortionService.cs" />
+    <Compile Include="Interfaces\IReportsService.cs" />
     <Compile Include="Interfaces\IService.cs" />
     <Compile Include="Interfaces\IServiceContext.cs" />
     <Compile Include="Interfaces\IRoleService.cs" />
@@ -92,6 +94,7 @@
     <Compile Include="Models\MealPortionModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
     <Compile Include="Models\PortionModel.cs" />
+    <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CompanyModel.cs" />
@@ -103,6 +106,7 @@
     <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\MealService.cs" />
     <Compile Include="Services\PortionService.cs" />
+    <Compile Include="Services\ReportsService.cs" />
     <Compile Include="Services\ServiceContext.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\CompanyService.cs" />

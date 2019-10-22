@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\Repositories\IReportsRepository.cs" />
     <Compile Include="Interfaces\Repositories\IRoleRepository.cs" />
     <Compile Include="Interfaces\Repositories\IPortionRepository.cs" />
     <Compile Include="Interfaces\Repositories\IOrderRepository.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Models\MealPortion.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Portion.cs" />
+    <Compile Include="Models\Report.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

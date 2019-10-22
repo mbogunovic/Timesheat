@@ -52,5 +52,6 @@ namespace TimeshEAT.Business.API
         ApiResponseModel<T> AddCategory<T>(CategoryModel model) where T : new();
         ApiResponseModel<T> UpdateCategory<T>(CategoryModel model) where T : new();
         void DeleteCategory(CategoryModel model);
+        ApiResponseModel<List<T>> GetReports<T>(int? userId = null, int? categoryId = null, int? companyId = null, int? mealId = null, int? portionId = null, DateTime? startDate = null, DateTime? endDate = null);
     }
 }
