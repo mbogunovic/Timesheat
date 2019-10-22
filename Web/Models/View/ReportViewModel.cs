@@ -51,8 +51,8 @@ namespace TimeshEAT.Web.Models.View
         public int? MealId { get; set; }
         public int? CompanyId { get; set; }
         public int? UserId { get; set; }
-        public override string PageIcon => "home";
-        public override string PageTitle => "Izvestaji";
+        public override string PageIcon => "reports";
+        public override string PageTitle => "Izveštaji";
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
     }

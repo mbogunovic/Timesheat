@@ -1,36 +1,41 @@
 ﻿@model ReportListingViewModel
 
-<table>
-    <thead>
-        <tr>
-            <th>Korisnik</th>
-            <th>Kompanija</th>
-            <th>Obrok</th>
-            <th>Porcija</th>
-            <th>Količina</th>
-            <th>Cena</th>
-            <th>Cena sa popustom</th>
-            <th>Dnevni popust</th>
-            <th>Datum porudžbine</th>
-            <th>Vreme jela</th>
-        </tr>
-    </thead>
-    <tbody>
-
-        @foreach (var report in Model.Reports)
-        {
+    <table class="board__filter-table">
+        <thead>
             <tr>
-                <td>@report.UserName</td>
-                <td>@report.CompanyName</td>
-                <td>@report.MealName</td>
-                <td>@report.PortionName</td>
-                <td>@report.Quantity</td>
-                <td>@report.Price</td>
-                <td>@report.DiscountedPrice</td>
-                <td>@report.DailyDiscount</td>
-                <td>@($"{report.OrderDate:dd.MM.yyyy}")</td>
-                <td>@($"{report.LunchTime:hh\\.mm}")</td>
+                <th>Korisnik</th>
+                <th>Kompanija</th>
+                <th>Obrok</th>
+                <th>Porcija</th>
+                <th>Količina</th>
+                <th>Cena</th>
+                <th>Cena sa popustom</th>
+                <th>Dnevni popust</th>
+                <th>Datum porudžbine</th>
+                <th>Vreme jela</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+
+            @foreach (var report in Model.Reports)
+            {
+                <tr>
+                    <td>@report.UserName</td>
+                    <td>@report.CompanyName</td>
+                    <td>@report.MealName</td>
+                    <td>@report.PortionName</td>
+                    <td>@report.Quantity</td>
+                    <td>@report.Price</td>
+                    <td>@report.DiscountedPrice</td>
+                    <td>@report.DailyDiscount</td>
+                    <td>@($"{report.OrderDate:dd.MM.yyyy}")</td>
+                    <td>@($"{report.LunchTime:hh\\.mm}")</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Ukupno: @Model.Total | <b>@Model.TotalDiscounted</b> din.</td>
+            </tr>
+        </tfoot>
+    </table>
