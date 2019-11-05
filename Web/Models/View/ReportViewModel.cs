@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using TimeshEAT.Business.Models;
+using TimeshEAT.Web.Membership;
 using TimeshEAT.Web.Models.Render;
 using TimeshEAT.Web.Models.Render.Company;
 
@@ -12,32 +14,64 @@ namespace TimeshEAT.Web.Models.View
     {
         public ReportViewModel()
         {
-            // TODO: obtain available stuff via API and filter results properly
-            Categories = _api.GetAllCategories<CategoryModel>().Data.Select(x => new SelectListItem
-            {
-                Value =  x.Id.ToString(),
-                Text = x.Name
-            }).ToList();
-            Companies = _api.GetAllCompanies<CompanyModel>().Data.Select(x => new SelectListItem
-            {
-                Value = x.Id.ToString(),
-                Text = x.Name
-            }).ToList();
-            Meals = _api.GetAllMeals<MealModel>().Data.Select(x => new SelectListItem
-            {
-                Value = x.Id.ToString(),
-                Text = x.Name
-            }).ToList();
-            Portions = _api.GetAllPortions<PortionModel>().Data.Select(x => new SelectListItem
+            var user = HttpContext.Current.User as MemberPrincipal;
+            var isUserAdmin = user.IsInRole("Administrator");
+            var categories = _api.GetAllCategories<CategoryModel>().Data;
+            var companies = _api.GetAllCompanies<CompanyModel>().Data
+                .Where(x => isUserAdmin || x.Id == user.Company.Id)
+                .ToList();
+            var meals = _api.GetAllMeals<MealModel>().Data
+                .Where(x => isUserAdmin || (user.Company.Meals?.Any(m => m.Id == x.Id)?? false))
+                .ToList();
+            var portions = _api.GetAllPortions<PortionModel>().Data;
+
+            Companies = companies.Select(x => new SelectListItem
             {
                 Value = x.Id.ToString(),
                 Text = x.Name
             }).ToList();
-            Users = _api.GetAllUsers<UserModel>().Data.Select(x => new SelectListItem
+            Meals = meals.Select(x => new SelectListItem
             {
                 Value = x.Id.ToString(),
-                Text = x.FullName
+                Text = x.Name
             }).ToList();
+            Portions = isUserAdmin ?
+                meals.SelectMany(x => x.MealPortions.Select(c => new SelectListItem
+                {
+                    Text = c.Portion.Name,
+                    Value = c.Portion.Id.ToString()
+                })).ToList()
+                : portions
+                .Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.Name
+                }).ToList();
+            Users = isUserAdmin ?
+                _api.GetAllUsers<UserModel>().Data.Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.FullName
+                }).ToList()
+                : new List<SelectListItem>
+                {
+                    new SelectListItem
+                    {
+                        Text = user.FullName,
+                        Value = user.Id.ToString()
+                    }
+                };
+            Categories = isUserAdmin ?
+                categories.Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.Name
+                }).ToList()
+                : meals.Select(x => new SelectListItem
+                {
+                    Text = x.Category.Name,
+                    Value = x.Category.Id.ToString()
+                }).ToList();
         }
 
         public IList<SelectListItem> Categories { get; }

@@ -8,7 +8,7 @@ using TimeshEAT.Web.Models.View;
 
 namespace TimeshEAT.Web.Controllers
 {
-    [RoleAuthorize(Roles = "Administrator")]
+    [RoleAuthorize(Roles = "User,Administrator")]
     public class ReportController : BaseController, INavigationController
     {
         // GET: Report
