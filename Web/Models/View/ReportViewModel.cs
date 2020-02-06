@@ -80,14 +80,21 @@ namespace TimeshEAT.Web.Models.View
         public IList<SelectListItem> Portions { get; }
         public IList<SelectListItem> Users { get; }
 
+		[Display(Name = "Porcija:")]
         public int? PortionId { get; set; }
+		[Display(Name = "Kategorija:")]
         public int? CategoryId { get; set; }
+		[Display(Name = "Obrok:")]
         public int? MealId { get; set; }
+		[Display(Name = "Kompanija:")]
         public int? CompanyId { get; set; }
+		[Display(Name = "Korisnik:")]
         public int? UserId { get; set; }
         public override string PageIcon => "reports";
         public override string PageTitle => "Izveštaji";
+		[Display(Name = "Od:")]
         public DateTime? StartDate { get; set; }
+		[Display(Name = "Do:")]
         public DateTime? EndDate { get; set; }
     }
 }

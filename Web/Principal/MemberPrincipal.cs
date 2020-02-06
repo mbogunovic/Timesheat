@@ -132,7 +132,7 @@ namespace TimeshEAT.Web.Membership
 
 		private static string ReadEmailTemplate()
 		{
-			using (StreamReader sr = new StreamReader("E:\\Projects\\Max\\Timesheat\\Web\\EmailTemplates\\ResetPassword.html"))
+			using (StreamReader sr = new StreamReader("C:\\_Websites\\TimeshEAT\\EmailTemplates\\ResetPassword.html"))
 			{
 				var templateText = sr.ReadToEnd();
 
