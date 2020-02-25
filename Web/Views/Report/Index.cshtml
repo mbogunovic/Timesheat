@@ -1,40 +1,40 @@
 ﻿@model ReportViewModel
 
 <form>
-    <div class="filter">
+    <div class="filter row">
         <div class="col-3">
             <div class="filter__item">
-                <span class="filter__text">Kompanija: </span>
+                @Html.LabelFor(x => x.CompanyId, new { @class = "filter__text" })
                 @Html.DropDownListFor(m => m.CompanyId, Model.Companies, "Sve kompanije")
             </div>
             <div class="filter__item">
-                <span class="filter__text">Kategorija: </span>
+                @Html.LabelFor(x => x.CategoryId, new { @class = "filter__text" })
                 @Html.DropDownListFor(m => m.CategoryId, Model.Categories, "Sve kategorije")
             </div>
         </div>
         <div class="col-3">
             <div class="filter__item">
-                <span class="filter__text">Porcija: </span>
+                @Html.LabelFor(x => x.PortionId, new { @class = "filter__text" })
                 @Html.DropDownListFor(m => m.PortionId, Model.Portions, "Sve porcije")
             </div>
             <div class="filter__item">
-                <span class="filter__text">Obrok: </span>
+                @Html.LabelFor(x => x.MealId, new { @class = "filter__text" })
                 @Html.DropDownListFor(m => m.MealId, Model.Meals, "Svi obroci")
             </div>
         </div>
         <div class="col-3">
             <div class="filter__item">
-                <span class="filter__text">Od: </span>
+                @Html.LabelFor(x => x.StartDate, new { @class = "filter__text" })
                 @Html.TextBoxFor(m => m.StartDate, new { type = "date" })
             </div>
             <div class="filter__item">
-                <span class="filter__text">Do: </span>
+                @Html.LabelFor(x => x.EndDate, new { @class = "filter__text" })
                 @Html.TextBoxFor(m => m.EndDate, new { type = "date" })
             </div>
         </div>
         <div class="col-3">
             <div class="filter__item">
-                <span class="filter__text">Korisnik: </span>
+                @Html.LabelFor(x => x.UserId, new { @class = "filter__text" })
                 @Html.DropDownListFor(m => m.UserId, Model.Users, "Svi korisnici")
             </div>
             <div class="filter__item">
