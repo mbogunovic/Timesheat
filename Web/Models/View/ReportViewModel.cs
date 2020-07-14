@@ -6,8 +6,6 @@ using System.Web;
 using System.Web.Mvc;
 using TimeshEAT.Business.Models;
 using TimeshEAT.Web.Membership;
-using TimeshEAT.Web.Models.Render;
-using TimeshEAT.Web.Models.Render.Company;
 
 namespace TimeshEAT.Web.Models.View
 {

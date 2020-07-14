@@ -14,12 +14,15 @@ namespace TimeshEAT.Business.Models
             
         }
 
-		public CategoryModel(string name, int id = 0, long version = 0) : base(id, version)
+		public CategoryModel(string name, bool applicableDailyDiscount, int id = 0, long version = 0) : base(id, version)
 		{
 			Id = id;
 			Name = name;
+			ApplicableDailyDiscount = applicableDailyDiscount;
 			Version = version;
 		}
+
+		public bool ApplicableDailyDiscount { get; set; }
 
 		public string Name
 		{
@@ -50,7 +53,7 @@ namespace TimeshEAT.Business.Models
 				throw new NullReferenceException("Category cannot be null!");
 			}
 
-			return new Category(categoryModel.Id, categoryModel.Name, categoryModel.Version);
+			return new Category(categoryModel.Id, categoryModel.Name, categoryModel.ApplicableDailyDiscount, categoryModel.Version);
 		}
 
 		public static implicit operator CategoryModel(Category dbCategory)
@@ -60,7 +63,7 @@ namespace TimeshEAT.Business.Models
 				throw new NullReferenceException("Category cannot be null!");
 			}
 
-			return new CategoryModel(dbCategory.Name, dbCategory.Id, dbCategory.Version);
+			return new CategoryModel(dbCategory.Name, dbCategory.ApplicableDailyDiscount, dbCategory.Id, dbCategory.Version);
 		}
 
 		#endregion

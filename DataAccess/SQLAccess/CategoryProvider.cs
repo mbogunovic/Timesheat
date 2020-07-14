@@ -15,12 +15,14 @@ namespace TimeshEAT.DataAccess.SQLAccess.Providers
 		protected override void AddInsertParams(SqlCommand sqlCommand, Category category)
 		{
 			sqlCommand.Parameters.AddWithValue("@Name", category.Name);
+			sqlCommand.Parameters.AddWithValue("@ApplicableDailyDiscount", category.ApplicableDailyDiscount);
 		}
 
 		protected override void AddUpdateParams(SqlCommand sqlCommand, Category category)
 		{
 			sqlCommand.Parameters.AddWithValue("@Id", category.Id);
 			sqlCommand.Parameters.AddWithValue("@Name", category.Name);
+			sqlCommand.Parameters.AddWithValue("@ApplicableDailyDiscount", category.ApplicableDailyDiscount);
 		}
 	}
 }

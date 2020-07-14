@@ -51,7 +51,7 @@
                                         }
                                     </ul>
                                 </div>
-                                <div class="total"><span>Ukupno: </span><span>@day.Total Din.</span></div>
+                                <div class="total"><span>Ukupno: </span><span>@day.Total | <b>@day.TotalWithDiscount</b> Din.</span></div>
                             </a>
                         </td>
                     }
@@ -61,4 +61,4 @@
         </tbody>
     </table>
 </div>
-<div class="content__footer">Ukupno: @Model.Total @*| <b>120</b>*@Din.</div>
+<div class="content__footer">Ukupno: @Model.Total | <b>@Model.TotalWithDIscount</b> Din.</div>

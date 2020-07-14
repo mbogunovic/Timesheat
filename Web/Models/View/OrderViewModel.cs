@@ -25,6 +25,7 @@ namespace TimeshEAT.Web.Models.View
 
 		public DateTime Date { get; set; } = DateTime.Now;
 		public int Total { get; private set; }
+		public int TotalWithDIscount { get; private set; }
 
 		private IEnumerable<DayRenderModel> GetDays()
 		{
@@ -35,6 +36,7 @@ namespace TimeshEAT.Web.Models.View
 			{
 				var dateModel = new DayRenderModel(startDate, Date);
 				Total += dateModel.Total;
+				TotalWithDIscount += dateModel.TotalWithDiscount;
 				startDate = startDate.AddDays(1);
 
 				yield return dateModel;

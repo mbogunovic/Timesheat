@@ -17,7 +17,7 @@ namespace TimeshEAT.Web
 		public const string MEMBER_CACHE_FORMAT = "member_data_{0}";
 		public const string MEMBER_CACHE_TOKEN = "member_token_{0}";
 
-		public const int ITEMS_PER_AGE = 2;
+		public const int ITEMS_PER_AGE = 15;
 
 
 		#region [Months]

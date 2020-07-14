@@ -93,7 +93,7 @@ namespace TimeshEAT.Web.Models.View
             if (order == null) return null;
 
             return new OrderModel(order.Quantity, order.LunchTime, order.OrderDate, order.UserId, order.MealId,
-                order.PortionId, order.Comment, order.Id, order.Version);
+                order.PortionId, comment: order.Comment, id: order.Id, version: order.Version);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace TimeshEAT.Business.Models
 
 		}
 
-		public OrderModel(int quantity, TimeSpan lunchTime, DateTime orderDate, int userId, int mealId, int portionId, string comment = null, int id = 0, long version = 0) : base(id, version)
+		public OrderModel(int quantity, TimeSpan lunchTime, DateTime orderDate, int userId, int mealId, int portionId, int price = 0, bool applicableDailyDiscount = false, string comment = null, int id = 0, long version = 0) : base(id, version)
 		{
 			Id = id;
 			Quantity = quantity;
@@ -25,6 +25,8 @@ namespace TimeshEAT.Business.Models
 			UserId = userId;
 			MealId = mealId;
 			PortionId = portionId;
+			Price = price;
+			ApplicableDailyDiscount = applicableDailyDiscount;
 			Comment = comment;
 			Version = version;
 		}
@@ -107,6 +109,9 @@ namespace TimeshEAT.Business.Models
 				_portionId = value;
 			}
 		}
+
+		public int Price { get; set; }
+		public bool ApplicableDailyDiscount { get; set; }
 		public string Comment { get; set; }
 
 		#region [Implicit Operators]
@@ -118,7 +123,7 @@ namespace TimeshEAT.Business.Models
 				throw new NullReferenceException("Order cannot be null!");
 			}
 
-			return new Order(orderModel.Id, orderModel.Quantity, orderModel.LunchTime, orderModel.OrderDate, orderModel.UserId, orderModel.MealId, orderModel.PortionId, orderModel.Version, orderModel.Comment);
+			return new Order(orderModel.Id, orderModel.Quantity, orderModel.LunchTime, orderModel.OrderDate, orderModel.UserId, orderModel.MealId, orderModel.PortionId, orderModel.Version, comment: orderModel.Comment);
 		}
 
 		public static implicit operator OrderModel(Order dbOrder)
@@ -128,7 +133,7 @@ namespace TimeshEAT.Business.Models
 				throw new NullReferenceException("Portion cannot be null!");
 			}
 
-			return new OrderModel(dbOrder.Quantity, dbOrder.LunchTime, dbOrder.OrderDate, dbOrder.UserId, dbOrder.MealId, dbOrder.PortionId, dbOrder.Comment, dbOrder.Id, dbOrder.Version);
+			return new OrderModel(dbOrder.Quantity, dbOrder.LunchTime, dbOrder.OrderDate, dbOrder.UserId, dbOrder.MealId, dbOrder.PortionId, dbOrder.Price, dbOrder.ApplicableDailyDiscount, dbOrder.Comment, dbOrder.Id, dbOrder.Version);
 		}
 
 		#endregion

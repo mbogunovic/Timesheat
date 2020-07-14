@@ -7,19 +7,26 @@
         @Html.AntiForgeryToken()
         @Html.HiddenFor(x => x.Id)
         @Html.HiddenFor(x => x.Version)
-        <div class="tr">
-            <div class="td accordion" data-accordion>@(Model.Name.HasValue() ? Model.Name : Model.DisplayName(x => x.Name))</div>
-            <div class="td" style="flex-grow:3;justify-content: center;">
-                @Html.TextBoxFor(m => m.Name, new { placeholder = Model.DisplayName(x => x.Name) })
-                @Html.ValidationMessageFor(m => m.Name)
-            </div>
-            <div class="td"
-                 style="justify-content: center;">
-                <div class="order__table-operations">
-                    <button type="submit" name="Save" class="save font-ico-save"></button>
-                    <button type="submit" name="Delete" class="delete font-ico-delete" formmethod="post" formaction="@Url.Action("Delete", "Category")"></button>
-                </div>
+    <div class="tr">
+        <div class="td accordion" data-accordion>@(Model.Name.HasValue() ? Model.Name : Model.DisplayName(x => x.Name))</div>
+        <div class="td" style="flex-grow:3;justify-content: center;">
+            @Html.TextBoxFor(m => m.Name, new { placeholder = Model.DisplayName(x => x.Name) })
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div class="td"
+             style="justify-content: center;">
+            <label class="container">
+                @Html.CheckBoxFor(m => m.ApplicableDailyDiscount)
+                <span class="checkmark"></span>
+            </label>
+        </div>
+        <div class="td"
+             style="justify-content: center;">
+            <div class="order__table-operations">
+                <button type="submit" name="Save" class="save font-ico-save"></button>
+                <button type="submit" name="Delete" class="delete font-ico-delete" formmethod="post" formaction="@Url.Action("Delete", "Category")"></button>
             </div>
         </div>
+    </div>
     }
 }
